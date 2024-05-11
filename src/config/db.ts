@@ -9,7 +9,7 @@ export const connectDB = async (): Promise<void> => {
                   *************************************************
     `);
     });
-    await mongoose.connect(_config.MONGO_URI);
+    await mongoose.connect(_config.MONGO_URI || "");
   } catch (error: any) {
     console.log(`Error While connecting to the database::${error.message}`);
     process.exit(1);
