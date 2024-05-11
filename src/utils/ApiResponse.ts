@@ -1,15 +1,15 @@
-import type { Response } from "express";
 const ApiResponse = (
   status: number,
-  res: Response,
   message: string = "OK",
+  optMessage: string | null = null,
   data: any = null
 ) => {
-  return res.status(status).json({
+  return {
     success: status < 400,
     statusCode: status,
     message: message,
+    optMessage: optMessage,
     data: data,
-  });
+  };
 };
 export default ApiResponse;
