@@ -7,6 +7,6 @@ app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 
 app.get("/", (req, res) => {
-  return ApiResponse(res.statusCode, res, "Every thing is perfect");
+  return ApiResponse(res.statusCode, res, "Home Page is Working");
 });
 app.use("/api/v1/auth/", authRouter);
