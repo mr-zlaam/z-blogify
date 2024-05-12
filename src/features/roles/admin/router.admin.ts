@@ -1,9 +1,10 @@
-import ApiResponse from "../../../utils/ApiResponse";
 import { Router } from "express";
-import registerAdmin from "./controller.register.admin";
 import getAdmin from "./controller.getAdmin";
+import registerAdmin from "./controller.register.admin";
+import loginAdmin from "./controller.login.admin";
 
 export const authRouter = Router();
 
-authRouter.post("/admin", registerAdmin);
-authRouter.get("/admin", getAdmin);
+authRouter.post("/admin/register", registerAdmin);
+authRouter.post("/admin/login", loginAdmin);
+authRouter.get("/admin/all", getAdmin);

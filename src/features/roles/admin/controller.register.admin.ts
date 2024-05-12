@@ -32,7 +32,13 @@ export default asyncHandler(async function registerAdmin(
   if (isAdminRoleExist)
     return res
       .status(409)
-      .json(ApiResponse(409, "Only One admin is allowed at one time!"));
+      .json(
+        ApiResponse(
+          409,
+          "Only One admin is allowed at one time!",
+          "admin is already signed in"
+        )
+      );
   const isAdminExist = await AdminModel.findOne({
     $or: [{ username }, { email }],
   });
