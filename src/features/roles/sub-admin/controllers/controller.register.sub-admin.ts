@@ -1,11 +1,11 @@
 import type { NextFunction, Request, Response } from "express";
-import ApiResponse from "../../../utils/ApiResponse";
-import { SubAdminTypes } from "./types.sub-admin";
-import { isAuthenticated } from "../../../utils/isAuthenticated";
-import { asyncHandler } from "../../../utils/asynchandler";
-import { SubAdminModel } from "./model.sub-admin";
-import { passwordHasher } from "../../../utils/PasswordHasher";
-import { _config } from "../../../config/config";
+import ApiResponse from "../../../../utils/ApiResponse";
+import { SubAdminTypes } from "../types/types.sub-admin";
+import { isAuthenticated } from "../../../../utils/isAuthenticated";
+import { asyncHandler } from "../../../../utils/asynchandler";
+import { SubAdminModel } from "../models/model.sub-admin";
+import { passwordHasher } from "../../../../utils/PasswordHasher";
+import { _config } from "../../../../config/config";
 import { sign } from "jsonwebtoken";
 export default asyncHandler(async function registerSubAdmin(
   req: Request,
@@ -31,7 +31,7 @@ export default asyncHandler(async function registerSubAdmin(
   const isSubAdminRoleExist = await SubAdminModel.findOne({
     role: "sub-admin",
   });
-  if (isSubAdminRoleExist && isSubAdminRoleExist?.role.length >= 2)
+  if (isSubAdminRoleExist && isSubAdminRoleExist?.role.length > 2)
     return res
       .status(409)
       .json(
