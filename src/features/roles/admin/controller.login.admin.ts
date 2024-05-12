@@ -22,7 +22,7 @@ export default asyncHandler(async function loginAdmin(
       .status(404)
       .json(ApiResponse(404, "Admin is not existe with this email"));
   }
-  const isCredentialMatch = bcrypt.compare(
+  const isCredentialMatch = await bcrypt.compare(
     password,
     isAdminAlreadyExist?.password
   );
