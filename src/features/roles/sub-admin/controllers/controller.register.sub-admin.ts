@@ -28,10 +28,9 @@ export default asyncHandler(async function registerSubAdmin(
         )
       );
   }
-  const isSubAdminRoleExist = await SubAdminModel.findOne({
-    role: "sub-admin",
-  });
-  if (isSubAdminRoleExist && isSubAdminRoleExist?.role.length > 2)
+  const isSubAdminRoleExist = await SubAdminModel.find().select("-password");
+  console.log(isSubAdminRoleExist.length);
+  if (isSubAdminRoleExist.length >= 2)
     return res
       .status(409)
       .json(
