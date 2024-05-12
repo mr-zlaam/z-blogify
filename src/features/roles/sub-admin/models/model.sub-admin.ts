@@ -13,6 +13,16 @@ const subAdminSchema = new Schema<SubAdminTypes>(
       trim: true,
       minlength: [3, "Username must contain at least 3 characters"],
     },
+    fullName: {
+      type: String,
+      required: [true, "FullName is required!"],
+      unique: true,
+      default: "zlaam",
+      match: [/^[a-zA-Z ]{3,20}$/, "FullName is invalid"],
+      lowercase: true,
+      trim: true,
+      minlength: [3, "FullName must contain at least 3 characters"],
+    },
     email: {
       type: String,
       required: [true, "Email is required!"],
