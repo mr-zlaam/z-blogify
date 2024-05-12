@@ -18,7 +18,7 @@ export default asyncHandler(async function loginUser(
   }
   const isUserExist = await UserModel.findOne({ email });
   if (!isUserExist) {
-    return res.status(404).json(ApiResponse(404, "Please register first."));
+    return res.status(404).json(ApiResponse(404, "Please register first"));
   }
   const isCredentialMatch = await bcrypt.compare(
     password,
