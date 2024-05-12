@@ -3,8 +3,8 @@ import getAdmin from "./controller.getAdmin";
 import registerAdmin from "./controller.register.admin";
 import loginAdmin from "./controller.login.admin";
 
-export const authRouter = Router();
+export const adminRouter = Router();
 
-authRouter.post("/admin/register", registerAdmin);
-authRouter.post("/admin/login", loginAdmin);
-authRouter.get("/admin/all", getAdmin);
+adminRouter.post("/admin/register", registerAdmin);
+adminRouter.post("/admin/login", loginAdmin);
+adminRouter.get("/admin/all", getAdmin);
