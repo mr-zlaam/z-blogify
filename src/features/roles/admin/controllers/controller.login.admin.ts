@@ -38,7 +38,7 @@ export default asyncHandler(async function loginAdmin(
     .json(
       ApiResponse(
         200,
-        `${isAdminAlreadyExist.fullName || "User"} Signed in as admin successfully"`,
+        `${isAdminAlreadyExist.fullName || "User"} Signed in as admin successfully`,
         null,
         { accessToken }
       )
