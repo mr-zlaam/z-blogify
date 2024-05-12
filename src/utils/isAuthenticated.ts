@@ -7,7 +7,7 @@ export const isAuthenticated = (props: AdminTypes) => {
   ) {
     return {
       statusCode: 400,
-      message: "All Fields are required",
+      message: "All Fields are required!",
       data: null,
     };
   }
