@@ -4,6 +4,7 @@ import { AdminTypes } from "./types.admin";
 import { isAuthenticated } from "../../../utils/isAuthenticated";
 import { asyncHandler } from "../../../utils/asynchandler";
 import { AdminModel } from "./model.admin";
+import { passwordHasher } from "../../../utils/PasswordHasher";
 
 export const registerAdmin = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -37,6 +38,8 @@ export const registerAdmin = asyncHandler(
           ApiResponse(409, "user is already exist with same name or email!")
         );
     }
+    const hashedPassword = passwordHasher(password);
+    // Password hashing
 
     return res.json(ApiResponse(200, "Admin registered successfully"));
   }
