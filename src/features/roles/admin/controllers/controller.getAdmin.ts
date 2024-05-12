@@ -9,8 +9,10 @@ export default asyncHandler(async function GetAdmin(
   next: NextFunction
 ) {
   const admin = await AdminModel.find().select("-password");
-  if (!admin) {
-    return res.status(404).json(ApiResponse(404, "admin not found"));
+  if (admin.length === 0) {
+    return res
+      .status(404)
+      .json(ApiResponse(404, "Not a single admin has been created yet "));
   }
   return res.status(200).json(ApiResponse(200, "OK", null, admin));
 });

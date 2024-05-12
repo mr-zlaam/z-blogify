@@ -9,8 +9,10 @@ export default asyncHandler(async function GetSubAdmin(
   next: NextFunction
 ) {
   const getSubAdmin = await SubAdminModel.find().select("-password");
-  if (!getSubAdmin) {
-    return res.status(404).json(ApiResponse(404, "admin not found"));
+  if (getSubAdmin.length === 0) {
+    return res
+      .status(404)
+      .json(ApiResponse(404, "Not a single sub-admin has been created yet"));
   }
   return res.status(200).json(ApiResponse(200, "OK", null, getSubAdmin));
 });
