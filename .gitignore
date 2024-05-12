@@ -7,6 +7,7 @@ docker-compose.yml
 docker-compose.yaml
 db_data
 
+index.js
 # Logs
 *.log
 

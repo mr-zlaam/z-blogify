@@ -1,51 +1,62 @@
-import type { Response } from "express";
 import type { AdminTypes } from "../features/roles/admin/types.admin";
-import ApiResponse from "./ApiResponse";
 
-export const isAuthenticated = (props: AdminTypes, res: Response) => {
+export const isAuthenticated = (props: AdminTypes) => {
   const { username, fullName, email, password, role } = props;
   if (
     [fullName, email, username, password, role].some((field) => !field?.trim())
   ) {
-    return res.json(ApiResponse(400, "All fields are required"));
+    return {
+      statusCode: 400,
+      message: "All Fields are required",
+      data: null,
+    };
   }
-  const usernamePattern = /^[a-z0-9_.]/;
+  const usernamePattern = /^[a-z0-9_.]{1,10}$/;
   const fullNamePattern = /^[a-zA-Z ]{3,20}$/;
   const passwordPattern =
     /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/g;
   const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
   if (!usernamePattern.test(username)) {
-    return res.json(
-      ApiResponse(
-        401,
-        "username is invalid",
-        "correct username:john_doe,mr_23 "
-      )
-    );
+    return {
+      statusCode: 401,
+      message: "username is invalid",
+      optMessage: "e.g: john_doe ",
+      data: null,
+    };
   }
   if (!fullNamePattern.test(fullName)) {
-    return res.json(
-      ApiResponse(401, "FullName  is invalid", "correct FullName:John Doe ")
-    );
+    return {
+      statusCode: 401,
+      message: "FullName is invalid",
+      optMessage: "e.g: John Doe ",
+      data: null,
+    };
   }
   if (!emailPattern.test(email)) {
-    return res.json(
-      ApiResponse(
-        401,
-
-        "email is invalid",
-        "correct email:john_doe@example.com "
-      )
-    );
+    return {
+      statusCode: 401,
+      message: "email is invalid",
+      optMessage: "e.g:john_doe@example.com ",
+      data: null,
+    };
   }
   if (!passwordPattern.test(password)) {
-    return res.json(
-      ApiResponse(
-        401,
-        "Please choose Strong Password",
-        "correct :ThisIsA$trongP@ss"
-      )
-    );
+    return {
+      statusCode: 401,
+      message: "Please Choose Strong Password",
+      optMessage: "e.g :ThisIsA$trongP@ss",
+      data: null,
+    };
+  }
+  if (role === "admin" || role === "sub-admin" || role === "user") {
+    return true;
+  } else {
+    return {
+      statusCode: 401,
+      message: "role is invalid",
+      optMessage: "e.g: admin or sub-admin or user",
+      data: null,
+    };
   }
   return true;
 };
