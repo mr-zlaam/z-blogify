@@ -5,11 +5,14 @@ import { isAuthenticated } from "../../../utils/isAuthenticated";
 import { asyncHandler } from "../../../utils/asynchandler";
 import { AdminModel } from "./model.admin";
 import { passwordHasher } from "../../../utils/PasswordHasher";
+import { _config } from "../../../config/config";
+import { sign } from "jsonwebtoken";
 
 export const registerAdmin = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const props: AdminTypes = req.body;
     const { username, email, fullName, password, role } = props;
+    const { JWT_ACCESS_SECRET } = _config;
 
     const authResult = isAuthenticated(props);
     if (typeof authResult !== "boolean" && authResult.statusCode >= 400) {
@@ -38,9 +41,25 @@ export const registerAdmin = asyncHandler(
           ApiResponse(409, "user is already exist with same name or email!")
         );
     }
-    const hashedPassword = passwordHasher(password);
+    const hashedPassword = await passwordHasher(password);
     // Password hashing
-
-    return res.json(ApiResponse(200, "Admin registered successfully"));
+    const newAdmin = await AdminModel.create({
+      username: username.toLowerCase(),
+      email: email.toLowerCase(),
+      fullName,
+      password: hashedPassword,
+      role: role.toLowerCase(),
+    });
+    const token = sign({ sub: newAdmin._id }, JWT_ACCESS_SECRET, {
+      expiresIn: "7d",
+    });
+    return res.json(
+      ApiResponse(200, "Admin registered successfully", null, {
+        uid: newAdmin._id,
+        email: newAdmin.email,
+        name: newAdmin.fullName,
+        accessToken: token,
+      })
+    );
   }
 );
