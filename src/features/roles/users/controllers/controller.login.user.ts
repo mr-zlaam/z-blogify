@@ -34,7 +34,7 @@ export default asyncHandler(async function loginUser(
     .json(
       ApiResponse(
         200,
-        `${isUserExist?.fullName || "User"} is Signed in  successfully`,
+        `${isUserExist?.fullName || "User"}  Signed in  successfully`,
         null,
         { accessToken }
       )
