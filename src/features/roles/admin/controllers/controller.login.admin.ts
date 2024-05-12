@@ -20,7 +20,7 @@ export default asyncHandler(async function loginAdmin(
   if (!isAdminAlreadyExist) {
     return res
       .status(404)
-      .json(ApiResponse(404, "Admin is not existe with this email"));
+      .json(ApiResponse(404, "Admin is not exist with this email or username"));
   }
   const isCredentialMatch = await bcrypt.compare(
     password,
@@ -36,6 +36,11 @@ export default asyncHandler(async function loginAdmin(
   return res
     .status(200)
     .json(
-      ApiResponse(200, "Admin Signed in successfully", null, { accessToken })
+      ApiResponse(
+        200,
+        `${isAdminAlreadyExist.fullName || "User"} Signed in as admin successfully"`,
+        null,
+        { accessToken }
+      )
     );
 });
