@@ -11,7 +11,7 @@ export const isAuthenticated = (props: AdminTypes) => {
       data: null,
     };
   }
-  const usernamePattern = /^[a-z0-9_.]{1,10}$/;
+  const usernamePattern = /^[a-z0-9_.]{1,20}$/;
   const fullNamePattern = /^[a-zA-Z ]{3,20}$/;
   const passwordPattern =
     /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/g;
@@ -58,5 +58,4 @@ export const isAuthenticated = (props: AdminTypes) => {
       data: null,
     };
   }
-  return true;
 };
