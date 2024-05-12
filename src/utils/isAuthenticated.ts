@@ -10,7 +10,7 @@ export const isAuthenticated = (props: AdminTypes, res: Response) => {
     return res.json(ApiResponse(400, "All fields are required"));
   }
   const usernamePattern = /^[a-z0-9_.]/;
-  const fullNamePattern = /^[a-zA-Z]{3,20}$/;
+  const fullNamePattern = /^[a-zA-Z ]{3,20}$/;
   const passwordPattern =
     /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/g;
   const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
@@ -18,7 +18,6 @@ export const isAuthenticated = (props: AdminTypes, res: Response) => {
     return res.json(
       ApiResponse(
         401,
-
         "username is invalid",
         "correct username:john_doe,mr_23 "
       )

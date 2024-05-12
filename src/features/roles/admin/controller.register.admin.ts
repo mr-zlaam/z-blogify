@@ -9,10 +9,7 @@ import { asyncHandler } from "../../../utils/asynchandler";
 export const registerAdmin = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const props: AdminTypes = req.body;
-    let isAuthenticate = isAuthenticated(props, res);
-    if (!isAuthenticate) {
-      return res.send("Not allowed");
-    }
+    isAuthenticated(props, res);
     return res.json(ApiResponse(200, "OK"));
   }
 );
