@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-import { adminRouter } from "./features/roles/admin/router.admin";
+import { adminRouter } from "./features/roles/admin/routes/router.admin";
 import { subAdminRouter } from "./features/roles/sub-admin/router.sub-admin";
 
 export const app: Express = express();

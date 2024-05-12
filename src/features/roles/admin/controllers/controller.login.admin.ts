@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import ApiResponse from "../../../utils/ApiResponse";
-import { AdminModel } from "./model.admin";
-import { asyncHandler } from "../../../utils/asynchandler";
+import ApiResponse from "../../../../utils/ApiResponse";
+import { AdminModel } from "../models/model.admin";
+import { asyncHandler } from "../../../../utils/asynchandler";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
-import { _config } from "../../../config/config";
+import { _config } from "../../../../config/config";
 export default asyncHandler(async function loginAdmin(
   req: Request,
   res: Response,

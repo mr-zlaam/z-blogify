@@ -1,4 +1,4 @@
-import type { AdminTypes } from "../features/roles/admin/types.admin";
+import type { AdminTypes } from "../features/roles/admin/types/types.admin";
 
 export const isAuthenticated = (props: AdminTypes) => {
   const { username, fullName, email, password, role } = props;

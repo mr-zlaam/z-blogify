@@ -1,7 +1,7 @@
 import { Router } from "express";
-import getAdmin from "./controller.getAdmin";
-import registerAdmin from "./controller.register.admin";
-import loginAdmin from "./controller.login.admin";
+import getAdmin from "../controllers/controller.getAdmin";
+import registerAdmin from "../controllers/controller.register.admin";
+import loginAdmin from "../controllers/controller.login.admin";
 
 export const adminRouter = Router();
 

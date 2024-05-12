@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
-import { asyncHandler } from "../../../utils/asynchandler";
-import { AdminModel } from "./model.admin";
-import ApiResponse from "../../../utils/ApiResponse";
+import { asyncHandler } from "../../../../utils/asynchandler";
+import { AdminModel } from "../models/model.admin";
+import ApiResponse from "../../../../utils/ApiResponse";
 
 export default asyncHandler(async function GetAdmin(
   req: Request,

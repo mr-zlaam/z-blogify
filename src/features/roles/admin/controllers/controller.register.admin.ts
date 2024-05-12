@@ -1,11 +1,11 @@
 import type { NextFunction, Request, Response } from "express";
-import ApiResponse from "../../../utils/ApiResponse";
-import { AdminTypes } from "./types.admin";
-import { isAuthenticated } from "../../../utils/isAuthenticated";
-import { asyncHandler } from "../../../utils/asynchandler";
-import { AdminModel } from "./model.admin";
-import { passwordHasher } from "../../../utils/PasswordHasher";
-import { _config } from "../../../config/config";
+import ApiResponse from "../../../../utils/ApiResponse";
+import { AdminTypes } from "../types/types.admin";
+import { isAuthenticated } from "../../../../utils/isAuthenticated";
+import { asyncHandler } from "../../../../utils/asynchandler";
+import { AdminModel } from "../models/model.admin";
+import { passwordHasher } from "../../../../utils/PasswordHasher";
+import { _config } from "../../../../config/config";
 import { sign } from "jsonwebtoken";
 export default asyncHandler(async function registerAdmin(
   req: Request,
