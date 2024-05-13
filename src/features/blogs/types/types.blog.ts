@@ -7,7 +7,7 @@ export interface BlogTypes extends Document {
   blogTitle: string;
   createdByRef: string;
   blogDescription: string;
-  isPublic: boolean;
+  isPublic: boolean | string;
   createdAt: Date;
   updatedAt: Date;
 }

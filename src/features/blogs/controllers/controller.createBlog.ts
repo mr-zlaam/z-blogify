@@ -19,6 +19,7 @@ export default asyncHandler(async function createBlog(
         .json(ApiResponse(isblogAuth.statusCode, isblogAuth.message))
     );
   }
+
   return res.status(201).json(
     ApiResponse(201, "blog created successfully", null, {
       blogTitle,
