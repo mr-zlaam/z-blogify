@@ -5,8 +5,13 @@ const blogSchema = new Schema<BlogTypes>(
   {
     blogAuthor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "sub-admin",
+      refPath: "createByRef",
       required: [true, "Blog's Author name is required!"],
+    },
+    createdByRef: {
+      type: String,
+      required: [true, "createdByRef is required for polymorphic reference"],
+      enum: ["sub-admin", "admin"],
     },
     blogTitle: {
       type: String,

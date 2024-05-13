@@ -13,7 +13,7 @@ app.use("/api/v1/auth", adminRouter);
 app.use("/api/v1/auth", subAdminRouter);
 app.use("/api/v1/auth", userRouter);
 //Blogs Endpoints
-app.use("/api/v1/blogPosts", blogRouter);
+app.use("/api/v1/blogs", blogRouter);
 // Route handler for the root URL
 app.get("/", (_, res) => {
   return res.send("Home Page is Working");
