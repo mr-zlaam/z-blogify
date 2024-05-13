@@ -9,7 +9,7 @@ export interface AuthRequest extends Request {
   authorId: string;
 }
 
-export default asyncHandler(async function updateBlogAuthMiddleware(
+export default asyncHandler(async function updateAndDeleteAuthMiddleware(
   req: Request,
   res: Response,
   next: NextFunction
