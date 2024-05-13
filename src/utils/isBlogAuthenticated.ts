@@ -1,12 +1,8 @@
 import { BlogTypes } from "../features/blogs/types/types.blog";
 
 export const isBlogAuthenticated = (props: BlogTypes) => {
-  const { blogTitle, blogDescription, isPublic } = props;
-  if (
-    [blogTitle, blogDescription, isPublic].some(
-      (field) => !field?.toString().trim()
-    )
-  ) {
+  const { blogTitle, blogDescription } = props;
+  if ([blogTitle, blogDescription].some((field) => !field?.toString().trim())) {
     return {
       statusCode: 400,
       message: "All fields are required1",
@@ -27,11 +23,6 @@ export const isBlogAuthenticated = (props: BlogTypes) => {
       data: null,
     };
   }
-  if (isPublic !== "false" && isPublic !== "true") {
-    return {
-      statusCode: 403,
-      message: "isPublic must be true or false.",
-    };
-  }
+
   return true;
 };

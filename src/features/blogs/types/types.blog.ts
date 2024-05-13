@@ -1,9 +1,7 @@
-import mongoose, { Document } from "mongoose";
-import { AdminTypes } from "../../roles/admin/types/types.admin";
-import { SubAdminTypes } from "../../roles/sub-admin/types/types.sub-admin";
+import { Document } from "mongoose";
 
 export interface BlogTypes extends Document {
-  blogAuthor: AdminTypes | SubAdminTypes;
+  blogAuthor: String;
   blogTitle: string;
   createdByRef: string;
   blogDescription: string;
