@@ -13,7 +13,9 @@ export default asyncHandler(async function draftBlogs(
     if (draftBlogs.length === 0)
       return res.status(404).json(ApiResponse(404, "No draft blog found"));
     return res.status(200).json(ApiResponse(200, "OK", null, draftBlogs));
-  } catch (error) {
-    return res.status(500).json(ApiResponse(500, "Internal Server Error"));
+  } catch (error: any) {
+    return res
+      .status(500)
+      .json(ApiResponse(500, error.message || "Internal Server Error"));
   }
 });

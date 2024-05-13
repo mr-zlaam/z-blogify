@@ -18,7 +18,12 @@ export default asyncHandler(async function deleteBlog(
     return next(
       res
         .status(500)
-        .json(ApiResponse(500, "Unable to delete Blog for some Reason"))
+        .json(
+          ApiResponse(
+            500,
+            error.message || "Unable to delete Blog for some Reason"
+          )
+        )
     );
   }
   return res

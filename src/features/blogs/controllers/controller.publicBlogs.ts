@@ -41,7 +41,11 @@ export default asyncHandler(async function publicBlogs(
         publicBlogsList,
       })
     );
-  } catch (error) {
-    return res.status(500).json(ApiResponse(500, "Internal Server Error"));
+  } catch (error: any) {
+    return next(
+      res
+        .status(500)
+        .json(ApiResponse(500, error.message || "Internal Server Error"))
+    );
   }
 });

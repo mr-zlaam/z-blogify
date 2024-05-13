@@ -46,11 +46,16 @@ export default asyncHandler(async function updateBlog(
     return next(
       res
         .status(500)
-        .json(ApiResponse(500, "Something went wrong while updating blogpost"))
+        .json(
+          ApiResponse(
+            500,
+            error.message || "Something went wrong while updating blogpost"
+          )
+        )
     );
   }
 
   return res
     .status(201)
-    .json(ApiResponse(201, "Blog Update Successfully", null, updateThisBlog));
+    .json(ApiResponse(201, "Blog Updated Successfully", null, updateThisBlog));
 });

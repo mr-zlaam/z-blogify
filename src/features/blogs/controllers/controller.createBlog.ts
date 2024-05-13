@@ -33,7 +33,10 @@ export default asyncHandler(async function createBlog(
       res
         .status(500)
         .json(
-          ApiResponse(500, "internal server error while uploading the blog")
+          ApiResponse(
+            500,
+            error.message || "internal server error while uploading the blog"
+          )
         )
     );
   }
