@@ -8,11 +8,11 @@ export default asyncHandler(async function deleteBlog(
   res: Response,
   next: NextFunction
 ) {
-  const { blogID } = req.params;
-  const { userId } = req.body;
+  const { blogId } = req.params;
+
   let deleteThisBlog;
   try {
-    deleteThisBlog = await BlogModel.findOneAndDelete({ id: blogID });
+    deleteThisBlog = await BlogModel.findOneAndDelete({ _id: blogId });
   } catch (error: any) {
     console.log(error.message);
     return next(

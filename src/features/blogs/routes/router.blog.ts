@@ -16,7 +16,7 @@ blogRouter.put(
   updateAndDeleteAuthMiddleware,
   updateBlog
 );
-blogRouter.put(
+blogRouter.delete(
   "/deleteBlog/:blogId",
   updateAndDeleteAuthMiddleware,
   deleteBlog
