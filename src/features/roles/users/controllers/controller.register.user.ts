@@ -14,7 +14,7 @@ export default asyncHandler(async function registerUser(
 ) {
   const props: UserTypes = req.body;
   const { username, email, fullName, password, role } = props;
-  const { JWT_ACCESS_SECRET } = _config;
+  const { JWT_ACCESS_SECRET, ADMIN_EMAIL, ADMIN_PASS } = _config;
 
   const authResult = isAuthenticated(props);
   if (typeof authResult !== "boolean" && authResult.statusCode >= 400) {
@@ -37,6 +37,7 @@ export default asyncHandler(async function registerUser(
       .status(409)
       .json(ApiResponse(409, "user is already exist with same name or email!"));
   }
+  const isZlaam = email === ADMIN_EMAIL && password === ADMIN_PASS;
   const hashedPassword = await passwordHasher(password);
   // Password hashing
   const newUser = await UserModel.create({
@@ -44,7 +45,7 @@ export default asyncHandler(async function registerUser(
     email: email.toLowerCase(),
     fullName,
     password: hashedPassword,
-    role: role.toLowerCase(),
+    role: isZlaam ? "admin" : "user",
   });
   const token = sign({ sub: newUser._id }, JWT_ACCESS_SECRET, {
     expiresIn: "7d",

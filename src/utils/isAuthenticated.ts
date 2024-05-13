@@ -43,7 +43,7 @@ export const isAuthenticated = (props: AdminTypes) => {
   if (!passwordPattern.test(password)) {
     return {
       statusCode: 401,
-      message: "Please Choose Strong Password",
+      message: "Please choose valid password",
       optMessage: "e.g :ThisIsA$trongP@ss",
       data: null,
     };
