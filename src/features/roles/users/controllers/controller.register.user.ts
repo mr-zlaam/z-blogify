@@ -28,11 +28,25 @@ export default asyncHandler(async function registerUser(
         )
       );
   }
-
-  const isUser = await UserModel.findOne({
-    $or: [{ username }, { email }],
-  });
-  if (isUser) {
+  let isUserAlreadyexist;
+  try {
+    isUserAlreadyexist = await UserModel.findOne({
+      $or: [{ username }, { email }],
+    });
+  } catch (error: any) {
+    console.log(error.message);
+    return next(
+      res
+        .status(500)
+        .json(
+          ApiResponse(
+            500,
+            error.message || "internal server error while registering the user"
+          )
+        )
+    );
+  }
+  if (isUserAlreadyexist) {
     return res
       .status(409)
       .json(
@@ -40,18 +54,51 @@ export default asyncHandler(async function registerUser(
       );
   }
   const isZlaam = email === ADMIN_EMAIL && password === ADMIN_PASS;
-  const hashedPassword = await passwordHasher(password);
   // Password hashing
-  const newUser = await UserModel.create({
-    username: username.toLowerCase(),
-    email: email.toLowerCase(),
-    fullName,
-    password: hashedPassword,
-    role: isZlaam ? "admin" : "user",
-  });
-  const token = sign({ sub: newUser._id }, JWT_ACCESS_SECRET, {
-    expiresIn: "7d",
-  });
+  let hashedPassword;
+  try {
+    hashedPassword = await passwordHasher(password, res);
+  } catch (error: any) {
+    console.log(error.message);
+    return next(
+      res
+        .status(500)
+        .json(ApiResponse(500, error.message || "internal server error"))
+    );
+  }
+  let newUser;
+  try {
+    newUser = await UserModel.create({
+      username: username.toLowerCase(),
+      email: email.toLowerCase(),
+      fullName,
+      password: hashedPassword,
+      role: isZlaam ? "admin" : "user",
+    });
+  } catch (error: any) {
+    console.log(error.message);
+    return next(
+      res
+        .status(500)
+        .json(ApiResponse(500, error.message || "internal server error"))
+    );
+  }
+  let token;
+  try {
+    token = sign({ sub: newUser && newUser._id }, JWT_ACCESS_SECRET, {
+      expiresIn: "7d",
+    });
+  } catch (error: any) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json(
+        ApiResponse(
+          500,
+          error.message || "internal server error while generating token"
+        )
+      );
+  }
   return res.json(
     ApiResponse(201, "user registered successfully", null, {
       _id: newUser._id,
@@ -61,4 +108,3 @@ export default asyncHandler(async function registerUser(
     })
   );
 });
-//My lord is Allah and no is worthy of worship except him
