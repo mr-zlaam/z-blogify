@@ -17,6 +17,11 @@ const blogSchema = new Schema<BlogTypes>(
       type: String,
       required: [true, "Blog description is required!"],
     },
+    isPublic: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { timestamps: true }
 );
