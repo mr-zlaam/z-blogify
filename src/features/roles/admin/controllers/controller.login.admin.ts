@@ -14,7 +14,9 @@ export default asyncHandler(async function loginAdmin(
   const props = req.body;
   const { email, password } = props;
   if (!email || !password) {
-    return res.status(409).json(ApiResponse(409, "All fields are required."));
+    return next(
+      res.status(409).json(ApiResponse(409, "All fields are required."))
+    );
   }
   const isAdminAlreadyExist = await AdminModel.findOne({ email });
   if (!isAdminAlreadyExist) {
