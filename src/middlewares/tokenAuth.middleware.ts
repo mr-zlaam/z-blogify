@@ -15,9 +15,11 @@ export default asyncHandler(async function authTokenAuthenticator(
   const { JWT_ACCESS_SECRET } = _config;
   const token = req.header("Authorization");
   if (!token)
-    return res
-      .status(401)
-      .json(ApiResponse(401, "You are not authenticate to make changes"));
+    return next(
+      res
+        .status(401)
+        .json(ApiResponse(401, "You are not authenticate to make changes"))
+    );
   const parsedToken = token?.split(" ")[1] as string;
   const decoded = verify(parsedToken, JWT_ACCESS_SECRET);
   if (!decoded)
