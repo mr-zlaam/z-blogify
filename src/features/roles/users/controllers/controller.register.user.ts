@@ -13,7 +13,7 @@ export default asyncHandler(async function registerUser(
   next: NextFunction
 ) {
   const props: UserTypes = req.body;
-  const { username, email, fullName, password, role } = props;
+  const { username, email, fullName, password } = props;
   const { JWT_ACCESS_SECRET, ADMIN_EMAIL, ADMIN_PASS } = _config;
 
   const authResult = isAuthenticated(props);

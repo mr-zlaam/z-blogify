@@ -1,10 +1,8 @@
 import type { AdminTypes } from "../features/roles/admin/types/types.admin";
 
 export const isAuthenticated = (props: AdminTypes) => {
-  const { username, fullName, email, password, role } = props;
-  if (
-    [fullName, email, username, password, role].some((field) => !field?.trim())
-  ) {
+  const { username, fullName, email, password } = props;
+  if ([fullName, email, username, password].some((field) => !field?.trim())) {
     return {
       statusCode: 400,
       message: "All Fields are required!",
@@ -48,14 +46,15 @@ export const isAuthenticated = (props: AdminTypes) => {
       data: null,
     };
   }
-  if (role === "admin" || role === "sub-admin" || role === "user") {
-    return true;
-  } else {
-    return {
-      statusCode: 401,
-      message: "role is invalid",
-      optMessage: "e.g: admin or sub-admin or user",
-      data: null,
-    };
-  }
+  return true;
+  // if (role === "admin" || role === "sub-admin" || role === "user") {
+  //   return true;
+  // } else {
+  //   return {
+  //     statusCode: 401,
+  //     message: "role is invalid",
+  //     optMessage: "e.g: admin or sub-admin or user",
+  //     data: null,
+  //   };
+  // }
 };
