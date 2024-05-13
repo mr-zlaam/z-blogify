@@ -11,7 +11,10 @@ export const passwordHasher = async (password: string, res: Response) => {
     return res
       .status(500)
       .json(
-        ApiResponse(500, "internal server error while hashing the password")
+        ApiResponse(
+          500,
+          error.message || "internal server error while hashing the password"
+        )
       );
   }
 };

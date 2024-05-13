@@ -47,14 +47,4 @@ export const isAuthenticated = (props: UserTypes) => {
     };
   }
   return true;
-  // if (role === "admin" || role === "sub-admin" || role === "user") {
-  //   return true;
-  // } else {
-  //   return {
-  //     statusCode: 401,
-  //     message: "role is invalid",
-  //     optMessage: "e.g: admin or sub-admin or user",
-  //     data: null,
-  //   };
-  // }
 };

@@ -53,7 +53,9 @@ export default asyncHandler(async function GetUser(
         getUsers,
       })
     );
-  } catch (error) {
-    return res.status(500).json(ApiResponse(500, "Internal Server Error"));
+  } catch (error: any) {
+    return res
+      .status(500)
+      .json(ApiResponse(500, error.message || "Internal Server Error"));
   }
 });
