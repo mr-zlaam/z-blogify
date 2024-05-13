@@ -15,4 +15,8 @@ userRouter.patch(
   updateBlogAuthMiddleware,
   updateUser
 );
-userRouter.delete("/user/deleteUser/:userId", updateUser);
+userRouter.delete(
+  "/user/deleteUser/:userId",
+  updateBlogAuthMiddleware,
+  updateUser
+);
