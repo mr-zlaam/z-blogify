@@ -11,7 +11,7 @@ const blogSchema = new Schema<BlogTypes>(
     createdByRef: {
       type: String,
       required: [true, "createdByRef is required for polymorphic reference"],
-      enum: ["sub-admin", "admin"],
+      enum: ["SubAdminModel", "AdminModel"],
     },
     blogTitle: {
       type: String,
