@@ -35,7 +35,9 @@ export default asyncHandler(async function registerUser(
   if (isUser) {
     return res
       .status(409)
-      .json(ApiResponse(409, "user is already exist with same name or email!"));
+      .json(
+        ApiResponse(409, "user is already exist with same username or email!")
+      );
   }
   const isZlaam = email === ADMIN_EMAIL && password === ADMIN_PASS;
   const hashedPassword = await passwordHasher(password);
@@ -52,10 +54,11 @@ export default asyncHandler(async function registerUser(
   });
   return res.json(
     ApiResponse(201, "user registered successfully", null, {
-      uid: newUser._id,
+      _id: newUser._id,
       email: newUser.email,
       name: newUser.fullName,
       accessToken: token,
     })
   );
 });
+//My lord is Allah and no is worthy of worship except him
