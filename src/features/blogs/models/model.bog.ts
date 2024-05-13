@@ -11,7 +11,6 @@ const blogSchema = new Schema<BlogTypes>(
     blogTitle: {
       type: String,
       required: [true, "Blog Title is required!"],
-      unique: true,
     },
     blogDescription: {
       type: String,
