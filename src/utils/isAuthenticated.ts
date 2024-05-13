@@ -1,6 +1,6 @@
-import type { AdminTypes } from "../features/roles/admin/types/types.admin";
+import { UserTypes } from "../features/roles/users/types/types.user";
 
-export const isAuthenticated = (props: AdminTypes) => {
+export const isAuthenticated = (props: UserTypes) => {
   const { username, fullName, email, password } = props;
   if ([fullName, email, username, password].some((field) => !field?.trim())) {
     return {
