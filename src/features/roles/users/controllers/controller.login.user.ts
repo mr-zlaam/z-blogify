@@ -5,6 +5,7 @@ import { asyncHandler } from "../../../../utils/asynchandler";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { _config } from "../../../../config/config";
+import { GenerateJWTAccessToken } from "../../../../utils/jwtTokenGenerator";
 export default asyncHandler(async function loginUser(
   req: Request,
   res: Response,
@@ -48,9 +49,7 @@ export default asyncHandler(async function loginUser(
     return res.status(403).json(ApiResponse(403, "Invalid Credentials"));
   let accessToken;
   try {
-    accessToken = sign({ sub: isUserExist?._id }, JWT_ACCESS_SECRET, {
-      expiresIn: "7d",
-    });
+    accessToken = GenerateJWTAccessToken(isUserExist?._id || "");
   } catch (error: any) {
     return next(
       res
