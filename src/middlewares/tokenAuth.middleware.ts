@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from "express";
-import { verify } from "jsonwebtoken";
+import { JsonWebTokenError, verify } from "jsonwebtoken";
 import { asyncHandler } from "../utils/asynchandler";
 import { _config } from "../config/config";
 import ApiResponse from "../utils/ApiResponse";
@@ -22,9 +22,22 @@ export default asyncHandler(async function authTokenAuthenticator(
         .json(ApiResponse(401, "You are not authenticate to make changes"))
     );
   const parsedToken = token?.split(" ")[1] as string;
-  const decoded = verify(parsedToken, JWT_ACCESS_SECRET);
-  if (!decoded)
-    return next(res.status(401).json(ApiResponse(401, "Token is invalid")));
+  let decoded;
+  try {
+    decoded = verify(parsedToken, JWT_ACCESS_SECRET);
+  } catch (error: any) {
+    if (error instanceof JsonWebTokenError) {
+      // Handle token validation errors
+      return res
+        .status(401)
+        .json(
+          ApiResponse(401, "Token is invalid. Please get the correct token")
+        );
+    } else {
+      return next(error); // Forward other errors to the error handling middleware
+    }
+  }
+
   const _req = req as AuthRequest;
   _req.authorId = decoded.sub as string;
   const userId = _req.authorId;
