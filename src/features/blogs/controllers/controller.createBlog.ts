@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { asyncHandler } from "../../../utils/asynchandler";
 import ApiResponse from "../../../utils/ApiResponse";
-import { BlogTypes } from "../types/types.blog";
+import { asyncHandler } from "../../../utils/asynchandler";
 import { isBlogAuthenticated } from "../../../utils/isBlogAuthenticated";
-import { AuthRequest } from "../../../middlewares/tokenAuth.middleware";
 import { BlogModel } from "../models/model.bog";
+import { BlogTypes } from "../types/types.blog";
 
 export default asyncHandler(async function createBlog(
   req: Request,
