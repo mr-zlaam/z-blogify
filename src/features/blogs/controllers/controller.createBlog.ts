@@ -11,7 +11,7 @@ export default asyncHandler(async function createBlog(
   next: NextFunction
 ) {
   const props = req.body;
-  const { blogTitle, blogDescription, blogAuthor }: BlogTypes = props;
+  const { blogTitle, blogDescription }: BlogTypes = props;
   const isblogAuth = isBlogAuthenticated(props)!;
   if (typeof isblogAuth !== "boolean" && isblogAuth?.statusCode >= 400) {
     return next(
