@@ -9,17 +9,27 @@ export default asyncHandler(async function GetUser(
   next: NextFunction
 ) {
   const page = parseInt(req.query.page as string) || 1; // Default page is 1
-  const limit = parseInt(req.query.limit as string) || 10; // Default limit is 10
+  const limit = parseInt(req.query.limit as string) || 20; // Default limit is 20
 
   const skip = (page - 1) * limit;
 
   try {
     const totalUsers = await UserModel.countDocuments();
+    const totalPages = Math.ceil(totalUsers / limit);
+
+    if (page > totalPages) {
+      return res.status(404).json(
+        ApiResponse(404, "Page not found", null, {
+          totalPages,
+          requestedPage: page,
+        })
+      );
+    }
+
     const getUsers = await UserModel.find()
       .select("-password")
       .skip(skip)
       .limit(limit);
-    const totalPages = Math.ceil(totalUsers / limit);
 
     const pagination = {
       currentPage: page,
@@ -30,16 +40,16 @@ export default asyncHandler(async function GetUser(
     };
 
     if (getUsers.length === 0) {
-      return res
-        .status(404)
-        .json(
-          ApiResponse(404, "No user found", null, { pagination, totalUsers })
-        );
+      return res.status(404).json(
+        ApiResponse(404, "No users found on this page", null, {
+          pagination,
+        })
+      );
     }
+
     return res.status(200).json(
       ApiResponse(200, "OK", null, {
         pagination,
-        totalUsers,
         getUsers,
       })
     );
