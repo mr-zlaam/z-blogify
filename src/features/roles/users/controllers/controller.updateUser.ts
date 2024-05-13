@@ -12,7 +12,7 @@ export default asyncHandler(async function updateUser(
   const { userId } = req.params;
   console.log(userId);
   const { username, fullName, email, role }: UserTypes = req.body;
-  if (!username || !fullName || email) {
+  if (!username || !fullName || !email) {
     return res.status(403).json(ApiResponse(403, "Please provide all fields"));
   }
   if (role !== "admin" && role !== "user" && role !== "sub-admin")
