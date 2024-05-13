@@ -15,6 +15,7 @@ export default asyncHandler(async function updateBlogAuthMiddleware(
 ) {
   const { JWT_ACCESS_SECRET } = _config;
   const token = req.header("Authorization");
+  console.log("I am admin");
   if (!token)
     return next(
       res
