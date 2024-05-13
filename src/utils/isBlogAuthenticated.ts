@@ -16,7 +16,7 @@ export const isBlogAuthenticated = (props: BlogTypes) => {
       data: null,
     };
   }
-  if (blogDescription.length <= 60) {
+  if (blogDescription.length <= 100) {
     return {
       statusCode: 403,
       message: "Blog must be atleast 60 characters long!",
