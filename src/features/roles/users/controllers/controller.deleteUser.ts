@@ -24,5 +24,7 @@ export default asyncHandler(async function deleteUser(
   }
   return res
     .status(201)
-    .json(ApiResponse(201, "Deleted this user successfully."));
+    .json(
+      ApiResponse(201, "Deleted this user successfully.", null, deleteThisUser)
+    );
 });
