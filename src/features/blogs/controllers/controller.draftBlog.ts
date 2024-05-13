@@ -9,7 +9,7 @@ export default asyncHandler(async function draftBlogs(
   next: NextFunction
 ) {
   try {
-    const draftBlogs = await BlogModel.find({ isPublic: false }); // Query to find draft blogs
+    const draftBlogs = await BlogModel.find({ isPublic: false });
     if (draftBlogs.length === 0)
       return res.status(404).json(ApiResponse(404, "No draft blog found"));
     return res.status(200).json(ApiResponse(200, "OK", null, draftBlogs));
