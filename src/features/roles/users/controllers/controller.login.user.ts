@@ -16,19 +16,42 @@ export default asyncHandler(async function loginUser(
   if (!email || !password) {
     return res.status(409).json(ApiResponse(409, "All fields are required."));
   }
-  const isUserExist = await UserModel.findOne({ email });
+  let isUserExist;
+  try {
+    isUserExist = await UserModel.findOne({ email });
+  } catch (error: any) {
+    console.log(error.message);
+    return next(
+      res
+        .status(500)
+        .json(ApiResponse(500, "internal server error while login"))
+    );
+  }
+
   if (!isUserExist) {
     return res.status(404).json(ApiResponse(404, "Please register first"));
   }
-  const isCredentialMatch = await bcrypt.compare(
-    password,
-    isUserExist?.password
-  );
+  let isCredentialMatch;
+  try {
+    isCredentialMatch = await bcrypt.compare(password, isUserExist?.password);
+  } catch (error: any) {
+    console.log(error.message);
+    return next(
+      res.status(500).json(ApiResponse(500, "internal server error"))
+    );
+  }
   if (!isCredentialMatch)
     return res.status(403).json(ApiResponse(403, "Invalid Credentials"));
-  const accessToken = sign({ sub: isUserExist?._id }, JWT_ACCESS_SECRET, {
-    expiresIn: "7d",
-  });
+  let accessToken;
+  try {
+    accessToken = sign({ sub: isUserExist?._id }, JWT_ACCESS_SECRET, {
+      expiresIn: "7d",
+    });
+  } catch (error: any) {
+    return next(
+      res.status(500).json(ApiResponse(500, "internal server error"))
+    );
+  }
   return res
     .status(200)
     .json(
