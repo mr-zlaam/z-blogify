@@ -15,7 +15,7 @@ export default asyncHandler(async function registerUser(
 ) {
   const props: UserTypes = req.body;
   const { username, email, fullName, password } = props;
-  const { JWT_ACCESS_SECRET, ADMIN_EMAIL, ADMIN_PASS } = _config;
+  const { ADMIN_EMAIL, ADMIN_PASS } = _config;
 
   const authResult = isAuthenticated(props);
   if (typeof authResult !== "boolean" && authResult.statusCode >= 400) {
