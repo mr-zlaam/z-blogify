@@ -24,7 +24,9 @@ export default asyncHandler(async function loginUser(
     return next(
       res
         .status(500)
-        .json(ApiResponse(500, "internal server error while login"))
+        .json(
+          ApiResponse(500, error.message || "internal server error while login")
+        )
     );
   }
 
@@ -37,7 +39,9 @@ export default asyncHandler(async function loginUser(
   } catch (error: any) {
     console.log(error.message);
     return next(
-      res.status(500).json(ApiResponse(500, "internal server error"))
+      res
+        .status(500)
+        .json(ApiResponse(500, error.message || "internal server error"))
     );
   }
   if (!isCredentialMatch)
@@ -49,7 +53,9 @@ export default asyncHandler(async function loginUser(
     });
   } catch (error: any) {
     return next(
-      res.status(500).json(ApiResponse(500, "internal server error"))
+      res
+        .status(500)
+        .json(ApiResponse(500, error.message || "internal server error"))
     );
   }
   return res
