@@ -3,4 +3,4 @@ import authTokenAuthenticator from "../../../middlewares/tokenAuth.middleware";
 import createBlog from "../controllers/controller.createBlog";
 export const blogRouter = Router();
 
-blogRouter.post("/createBlog", createBlog);
+blogRouter.post("/createBlog", authTokenAuthenticator, createBlog);

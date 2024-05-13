@@ -4,7 +4,7 @@ import { asyncHandler } from "../utils/asynchandler";
 import { _config } from "../config/config";
 import ApiResponse from "../utils/ApiResponse";
 export interface AuthRequest extends Request {
-  userId: string;
+  authorId: string;
 }
 
 export default asyncHandler(async function authTokenAuthenticator(
@@ -25,6 +25,6 @@ export default asyncHandler(async function authTokenAuthenticator(
   if (!decoded)
     return next(res.status(401).json(ApiResponse(401, "Token is invalid")));
   const _req = req as AuthRequest;
-  _req.userId = decoded.sub as string;
+  _req.authorId = decoded.sub as string;
   return next();
 });
