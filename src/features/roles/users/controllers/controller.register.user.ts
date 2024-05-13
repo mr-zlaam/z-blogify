@@ -7,6 +7,7 @@ import { UserModel } from "../models/model.user";
 import { passwordHasher } from "../../../../utils/PasswordHasher";
 import { _config } from "../../../../config/config";
 import { sign } from "jsonwebtoken";
+import { GenerateJWTAccessToken } from "../../../../utils/jwtTokenGenerator";
 export default asyncHandler(async function registerUser(
   req: Request,
   res: Response,
@@ -83,11 +84,9 @@ export default asyncHandler(async function registerUser(
         .json(ApiResponse(500, error.message || "internal server error"))
     );
   }
-  let token;
+  let accessToken;
   try {
-    token = sign({ sub: newUser && newUser._id }, JWT_ACCESS_SECRET, {
-      expiresIn: "7d",
-    });
+    accessToken = GenerateJWTAccessToken(newUser && newUser._id);
   } catch (error: any) {
     console.log(error.message);
     return res
@@ -104,7 +103,7 @@ export default asyncHandler(async function registerUser(
       _id: newUser._id,
       email: newUser.email,
       name: newUser.fullName,
-      accessToken: token,
+      accessToken,
     })
   );
 });
