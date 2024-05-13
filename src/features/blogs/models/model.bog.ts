@@ -5,7 +5,6 @@ const blogSchema = new Schema<BlogTypes>(
   {
     blogAuthor: {
       type: mongoose.Schema.Types.ObjectId,
-      refPath: "createByRef",
       required: [true, "Blog's Author name is required!"],
     },
     createdByRef: {
