@@ -60,7 +60,7 @@ export default asyncHandler(async function registerSubAdmin(
     expiresIn: "7d",
   });
   return res.json(
-    ApiResponse(200, "SubAdmin registered successfully", null, {
+    ApiResponse(201, "SubAdmin registered successfully", null, {
       uid: newSubAdmin._id,
       email: newSubAdmin.email,
       name: newSubAdmin.fullName,

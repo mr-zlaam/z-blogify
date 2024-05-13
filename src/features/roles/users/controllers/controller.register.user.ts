@@ -50,7 +50,7 @@ export default asyncHandler(async function registerUser(
     expiresIn: "7d",
   });
   return res.json(
-    ApiResponse(200, "user registered successfully", null, {
+    ApiResponse(201, "user registered successfully", null, {
       uid: newUser._id,
       email: newUser.email,
       name: newUser.fullName,
