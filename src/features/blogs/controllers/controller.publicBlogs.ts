@@ -9,7 +9,7 @@ export default asyncHandler(async function publicBlogs(
   next: NextFunction
 ) {
   const page = parseInt(req.query.page as string) || 1; // Default page is 1
-  const limit = parseInt(req.query.limit as string) || 10; // Default limit is 10
+  const limit = parseInt(req.query.limit as string) || 20; // Default limit is 10
 
   const skip = (page - 1) * limit;
 
