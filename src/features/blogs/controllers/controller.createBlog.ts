@@ -21,21 +21,14 @@ export default asyncHandler(async function createBlog(
         .json(ApiResponse(isblogAuth.statusCode, isblogAuth.message))
     );
   }
-  const _req = req as AuthRequest;
-  const userId = _req.authorId;
-  console.log(userId);
+
   const newBlog = await BlogModel.create({
     blogTitle,
     blogDescription,
     blogAuthor: "Zlaam",
     isPublic: false,
   });
-  return res.status(201).json(
-    ApiResponse(201, "blog created successfully", null, {
-      blogTitle,
-      blogDescription,
-      blogAuthor,
-      // isPublic,
-    })
-  );
+  return res
+    .status(201)
+    .json(ApiResponse(201, "blog created successfully", null, newBlog));
 });
