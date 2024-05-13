@@ -20,13 +20,23 @@ export default asyncHandler(async function createBlog(
         .json(ApiResponse(isblogAuth.statusCode, isblogAuth.message))
     );
   }
-
-  const newBlog = await BlogModel.create({
-    blogTitle,
-    blogDescription,
-    blogAuthor: "Zlaam",
-    isPublic: false,
-  });
+  let newBlog;
+  try {
+    newBlog = await BlogModel.create({
+      blogTitle,
+      blogDescription,
+      blogAuthor: "Zlaam",
+      isPublic: false,
+    });
+  } catch (error: any) {
+    return next(
+      res
+        .status(500)
+        .json(
+          ApiResponse(500, "internal server error while uploading the blog")
+        )
+    );
+  }
   return res
     .status(201)
     .json(ApiResponse(201, "blog created successfully", null, newBlog));
