@@ -3,9 +3,6 @@ import { type UserTypes } from "../types/types.user";
 
 const userSchema = new Schema<UserTypes>(
   {
-    _id: {
-      type: mongoose.Schema.Types.ObjectId,
-    },
     username: {
       type: String,
       required: [true, "Username is required!"],
