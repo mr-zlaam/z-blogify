@@ -9,7 +9,7 @@ export const userRouter = Router();
 
 userRouter.post("/user/register", registerUser);
 userRouter.post("/user/login", loginUser);
-userRouter.get("/user/all", getUser);
+userRouter.get("/user/all", updateBlogAuthMiddleware, getUser);
 userRouter.patch(
   "/user/updateUser/:userId",
   updateBlogAuthMiddleware,
