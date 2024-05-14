@@ -16,7 +16,6 @@ export default asyncHandler(async function updateAndDeleteAuthMiddleware(
 ) {
   const { JWT_ACCESS_SECRET } = _config;
   const token = req.header("Authorization");
-  console.log("I am admin");
 
   if (!token)
     return res
@@ -37,7 +36,6 @@ export default asyncHandler(async function updateAndDeleteAuthMiddleware(
     }
   }
 
-  console.log(decoded);
   const _req = req as AuthRequest;
   _req.authorId = decoded.sub as string;
   const userId = _req.authorId;
