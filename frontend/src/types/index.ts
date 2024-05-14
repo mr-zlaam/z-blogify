@@ -1,11 +1,6 @@
-interface AuthorTypes {
-  _id: string;
-  displayName: string;
-}
-
 export interface UserRegisterTypes {
   username: string;
-  fullname: string;
+  fullName: string;
   email: string;
   password: string;
   confirmPassword: string;

@@ -30,7 +30,7 @@ function RegisterForm() {
     formState: { errors },
   } = useForm<UserRegisterTypes>({ resolver: zodResolver(registerSchema) });
   const handleRegisterSubmit = async (data: UserRegisterTypes) => {
-    const { username, fullname, email, password } = data;
+    const { username, fullName, email, password } = data;
     try {
       startLoading();
       const response = await axios.post(
@@ -38,7 +38,7 @@ function RegisterForm() {
         `http://localhost:9000/api/v1/auth/user/register`,
         {
           username,
-          displayName: fullname,
+          fullName,
           email,
           password,
         },
@@ -98,19 +98,19 @@ function RegisterForm() {
                   </p>
                 </div>
                 <div className="grid items-center w-full max-w-sm">
-                  <Label className="mb-1" htmlFor="fullname">
+                  <Label className="mb-1" htmlFor="fullName">
                     Full Name
                   </Label>
                   <Input
-                    {...register("fullname")}
+                    {...register("fullName")}
                     type="text"
                     placeholder="John Doe"
-                    id="fullname"
+                    id="fullName"
                   />
                   <p className="h-[15px]">
-                    {errors.fullname && (
+                    {errors.fullName && (
                       <span className="text-xs select-none text-red-500 h-[15px] text-balance ml-2">
-                        {errors.fullname.message}
+                        {errors.fullName.message}
                       </span>
                     )}
                   </p>
