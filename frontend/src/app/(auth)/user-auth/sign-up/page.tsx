@@ -9,17 +9,20 @@ import { cn } from "@/lib/utils";
 import type { UserRegisterTypes } from "@/types";
 import { registerSchema } from "@/validation/Schemas/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 // ********************  Register Form
 
 function RegisterForm() {
   const { errorMessage, successMessage } = useMessage();
   const { isLoading, startLoading, stopLoading } = useLoading();
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
   const {
     register,
     reset,
@@ -130,16 +133,24 @@ function RegisterForm() {
                     )}
                   </p>
                 </div>
-                <div className="grid items-center w-full max-w-sm">
+                <div className="relative grid items-center w-full max-w-sm">
                   <Label className="mb-1" htmlFor="password">
                     Password
                   </Label>
                   <Input
+                    className="pr-14"
                     {...register("password")}
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     id="password"
                   />
+                  <span className="absolute right-8 top-7">
+                    {showPassword ? (
+                      <EyeOpenIcon onClick={() => setShowPassword(false)} />
+                    ) : (
+                      <EyeClosedIcon onClick={() => setShowPassword(true)} />
+                    )}
+                  </span>
                   <p className="h-[15px]">
                     {errors.password && (
                       <span className="text-xs select-none text-red-500 h-[15px] text-balance ml-2">
@@ -148,16 +159,28 @@ function RegisterForm() {
                     )}
                   </p>
                 </div>
-                <div className="grid items-center w-full max-w-sm">
+                <div className="relative grid items-center w-full max-w-sm">
                   <Label className="mb-1" htmlFor="confirm">
                     Confirm Password
                   </Label>
                   <Input
+                    className="pr-14"
                     {...register("confirmPassword")}
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     placeholder="••••••••"
                     id="confirm"
                   />
+                  <span className="absolute right-8 top-7">
+                    {showConfirmPassword ? (
+                      <EyeOpenIcon
+                        onClick={() => setConfirmShowPassword(false)}
+                      />
+                    ) : (
+                      <EyeClosedIcon
+                        onClick={() => setConfirmShowPassword(true)}
+                      />
+                    )}
+                  </span>
                   <p className="h-[15px]">
                     {errors.confirmPassword && (
                       <span className="text-xs select-none text-red-500 h-[15px] text-balance ml-2">
