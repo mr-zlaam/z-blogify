@@ -18,7 +18,7 @@ const userSchema = new Schema<UserTypes>(
       required: [true, "FullName is required!"],
       unique: true,
       default: "zlaam",
-      match: [/^[a-zA-Z ]{3,20}$/, "FullName is invalid"],
+      match: [/^[a-zA-Z ]{3,30}$/, "FullName is invalid"],
       lowercase: true,
       trim: true,
       minlength: [3, "FullName must contain at least 3 characters"],
