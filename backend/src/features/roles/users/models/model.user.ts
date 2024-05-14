@@ -3,11 +3,14 @@ import { type UserTypes } from "../types/types.user";
 
 const userSchema = new Schema<UserTypes>(
   {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
     username: {
       type: String,
       required: [true, "Username is required!"],
       unique: true,
-      default: "zlaam",
+
       match: [/^[a-z0-9_.]{1,20}$/, "Username is invalid"],
       lowercase: true,
       trim: true,
@@ -16,8 +19,7 @@ const userSchema = new Schema<UserTypes>(
     fullName: {
       type: String,
       required: [true, "FullName is required!"],
-      unique: true,
-      default: "zlaam",
+
       match: [/^[a-zA-Z ]{3,30}$/, "FullName is invalid"],
       lowercase: true,
       trim: true,
@@ -27,7 +29,7 @@ const userSchema = new Schema<UserTypes>(
       type: String,
       required: [true, "Email is required!"],
       unique: true,
-      default: "zlaam.dev@gmail.com",
+
       lowercase: true,
       match: [/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, "Email is invalid!"],
       trim: true,

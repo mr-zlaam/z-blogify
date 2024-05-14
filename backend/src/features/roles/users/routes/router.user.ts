@@ -4,6 +4,7 @@ import registerUser from "../controllers/controller.register.user";
 import loginUser from "../controllers/controller.login.user";
 import updateUser from "../controllers/controller.updateUser";
 import updateBlogAuthMiddleware from "../../../../middlewares/updateBlogAuth.middleware";
+import deleteUser from "../controllers/controller.deleteUser";
 
 export const userRouter = Router();
 
@@ -18,5 +19,5 @@ userRouter.patch(
 userRouter.delete(
   "/user/deleteUser/:userId",
   updateBlogAuthMiddleware,
-  updateUser
+  deleteUser
 );
