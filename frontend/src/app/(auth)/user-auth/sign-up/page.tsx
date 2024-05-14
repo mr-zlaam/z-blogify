@@ -49,13 +49,16 @@ function RegisterForm() {
         }
       );
       stopLoading();
-      if (response.data.message === "OK") {
-        reset();
-        successMessage("User Registered successfully.");
+      console.log(response.data);
+      if (response.data.success) {
+        // reset();
+        successMessage(
+          response.data.message || "User Registered successfully."
+        );
 
-        setTimeout(() => {
-          return router.push("/user/login");
-        }, 3000);
+        // setTimeout(() => {
+        //   return router.push("/user/login");
+        // }, 3000);
       }
     } catch (error: any) {
       stopLoading();
