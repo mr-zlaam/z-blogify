@@ -1,17 +1,14 @@
+import bcrypt from "bcrypt";
 import { NextFunction, Request, Response } from "express";
 import ApiResponse from "../../../../utils/ApiResponse";
-import { UserModel } from "../models/model.user";
 import { asyncHandler } from "../../../../utils/asynchandler";
-import bcrypt from "bcrypt";
-import { sign } from "jsonwebtoken";
-import { _config } from "../../../../config/config";
 import { GenerateJWTAccessToken } from "../../../../utils/jwtTokenGenerator";
+import { UserModel } from "../models/model.user";
 export default asyncHandler(async function loginUser(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  const { JWT_ACCESS_SECRET } = _config;
   const props = req.body;
   const { email, password } = props;
   if (!email || !password) {
