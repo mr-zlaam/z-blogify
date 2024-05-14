@@ -32,7 +32,7 @@ function RegisterForm() {
       startLoading();
       const response = await axios.post(
         // `${process.env.BACKEND_URI}users/register`,
-        `http://localhost:5173/api/users/register`,
+        `http://localhost:9000/api/v1//auth/user/register`,
         {
           username,
           displayName: fullname,
@@ -69,13 +69,13 @@ function RegisterForm() {
     <>
       <section className="relative top-20">
         <form onSubmit={handleSubmit(handleRegisterSubmit)}>
-          <div className="flex flex-col items-center justify-center px-6 py-8  mx-auto lg:py-0">
-            <div className="sm:w-full bg-background rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
-              <div className="p-6  space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-foreground md:text-2xl">
+          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+            <div className="border rounded-lg shadow sm:w-full bg-background md:mt-0 sm:max-w-md xl:p-0">
+              <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1 className="text-xl font-bold leading-tight tracking-tight text-center text-foreground md:text-2xl">
                   Create an Account
                 </h1>
-                <div className="grid w-full max-w-sm items-center">
+                <div className="grid items-center w-full max-w-sm">
                   <Label className="mb-1" htmlFor="username">
                     Username
                   </Label>
@@ -94,7 +94,7 @@ function RegisterForm() {
                     )}
                   </p>
                 </div>
-                <div className="grid w-full max-w-sm items-center">
+                <div className="grid items-center w-full max-w-sm">
                   <Label className="mb-1" htmlFor="fullname">
                     Full Name
                   </Label>
@@ -112,7 +112,7 @@ function RegisterForm() {
                     )}
                   </p>
                 </div>
-                <div className="grid w-full max-w-sm items-center">
+                <div className="grid items-center w-full max-w-sm">
                   <Label className="mb-1" htmlFor="email">
                     Email
                   </Label>
@@ -130,7 +130,7 @@ function RegisterForm() {
                     )}
                   </p>
                 </div>
-                <div className="grid w-full max-w-sm items-center">
+                <div className="grid items-center w-full max-w-sm">
                   <Label className="mb-1" htmlFor="password">
                     Password
                   </Label>
@@ -148,7 +148,7 @@ function RegisterForm() {
                     )}
                   </p>
                 </div>
-                <div className="grid w-full max-w-sm items-center">
+                <div className="grid items-center w-full max-w-sm">
                   <Label className="mb-1" htmlFor="confirm">
                     Confirm Password
                   </Label>
@@ -167,7 +167,7 @@ function RegisterForm() {
                   </p>
                 </div>
 
-                <p className="text-center text-sm ">
+                <p className="text-sm text-center ">
                   Already have an Account ?
                   <Link
                     href="/user/login"
