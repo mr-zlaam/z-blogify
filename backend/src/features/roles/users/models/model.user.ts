@@ -31,10 +31,7 @@ const userSchema = new Schema<UserTypes>(
       unique: true,
 
       lowercase: true,
-      match: [
-        /^[A-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\.[A-Z0-9_!#$%&'*+/=?`{|}~^-]+↵)*@[A-Z0-9-]+(?:\.[A-Z0-9-]+)*$/,
-        "Email is invalid!",
-      ],
+      match: [/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, "Email is invalid!"],
       trim: true,
     },
     password: {
