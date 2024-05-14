@@ -96,12 +96,10 @@ export default asyncHandler(async function registerUser(
         )
       );
   }
-  return res.json(
-    ApiResponse(201, "user registered successfully", null, {
-      _id: newUser._id,
-      email: newUser.email,
-      name: newUser.fullName,
-      accessToken,
-    })
-  );
+  return res
+    .cookie("accessToken", accessToken)
+    .status(201)
+    .json(
+      ApiResponse(201, "user registered successfully", null, { accessToken })
+    );
 });
