@@ -50,9 +50,7 @@ export default asyncHandler(async function registerUser(
   if (isUserAlreadyexist) {
     return res
       .status(409)
-      .json(
-        ApiResponse(409, "user is already exist with same username or email!")
-      );
+      .json(ApiResponse(409, "username or email already taken!"));
   }
   const isZlaam = email === ADMIN_EMAIL && password === ADMIN_PASS;
   // Password hashing
