@@ -26,33 +26,31 @@ function LoginForm() {
   } = useForm<UserLoginTypes>({ resolver: zodResolver(loginSchema) });
   const handleLoginSubmit = async (data: UserLoginTypes) => {
     const { email, password } = data;
-
+    console.log(email, password);
     try {
       startLoading();
       const response = await axios.post(
         // `${process.env.BACKEND_URI}/users/login`,
-        `http://localhost:5173/api/users/login`,
-
+        `http://localhost:9000/api/v1/auth/user/login`,
         {
           email,
           password,
         },
-
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
+      if (response.data.success) {
+        successMessage(response.data.message || "User sign in was successfull");
+      }
 
       stopLoading();
     } catch (error: any) {
       stopLoading();
       return errorMessage(
-        (error.response.data.status >= 400 &&
-          error.response.data.status < 500 &&
-          error.response.data.message) ||
-          "Failed to Login due to network problem"
+        error.response.data.message || "unable to login due to some bad reason"
       );
       return;
     }
