@@ -63,7 +63,9 @@ function RegisterForm() {
     } catch (error: any) {
       stopLoading();
       console.log(error);
-      return errorMessage(error.response.data.message);
+      return errorMessage(
+        error.response.data.message || "some thing went wrong"
+      );
     }
   };
   return (
