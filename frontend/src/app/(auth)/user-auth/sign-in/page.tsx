@@ -91,7 +91,7 @@ function LoginForm() {
                     id="password"
                     placeholder="••••••••"
                   />
-                  <span className="absolute right-8 top-7">
+                  <span className="absolute right-8 top-8">
                     {showPassword ? (
                       <EyeOpenIcon onClick={() => setShowPassword(false)} />
                     ) : (
