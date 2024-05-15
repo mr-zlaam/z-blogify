@@ -59,6 +59,7 @@ export default asyncHandler(async function loginUser(
     .cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: _config.ENV_DEV,
+      sameSite: "lax",
     })
     .status(200)
     .json(

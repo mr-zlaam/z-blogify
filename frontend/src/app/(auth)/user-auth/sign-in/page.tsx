@@ -26,7 +26,7 @@ function LoginForm() {
   } = useForm<UserLoginTypes>({ resolver: zodResolver(loginSchema) });
   const handleLoginSubmit = async (data: UserLoginTypes) => {
     const { email, password } = data;
-    console.log(email, password);
+
     try {
       startLoading();
       const response = await axios.post(
@@ -50,7 +50,7 @@ function LoginForm() {
     } catch (error: any) {
       stopLoading();
       return errorMessage(
-        error.response.data.message || "unable to login due to some bad reason"
+        `unable to login due to some bad reason:${error.message}`
       );
       return;
     }
