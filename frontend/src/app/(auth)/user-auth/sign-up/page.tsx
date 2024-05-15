@@ -191,7 +191,7 @@ function RegisterForm() {
                 <p className="text-sm text-center ">
                   Already have an Account ?
                   <Link
-                    href="/user/login"
+                    href="/user-auth/sign-in"
                     className="text-blue-500 hover:underline"
                   >
                     <span>&nbsp; Login</span>
