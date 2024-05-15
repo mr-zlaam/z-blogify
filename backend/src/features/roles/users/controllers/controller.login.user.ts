@@ -60,6 +60,8 @@ export default asyncHandler(async function loginUser(
       httpOnly: true,
       secure: _config.ENV_DEV,
       sameSite: "lax",
+      domain: "http://localhost:3000",
+      path: "user-auth/sign-in",
     })
     .status(200)
     .json(

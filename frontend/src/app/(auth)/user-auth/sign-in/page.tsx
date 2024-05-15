@@ -29,30 +29,51 @@ function LoginForm() {
 
     try {
       startLoading();
-      const response = await axios.post(
-        // `${process.env.BACKEND_URI}/users/login`,
-        `http://localhost:9000/api/v1/auth/user/login`,
+      // const response = await axios.post(
+      //   // `${process.env.BACKEND_URI}/users/login`,
+      //   `http://localhost:9000/api/v1/auth/user/login`,
+      //   {
+      //     email,
+      //     password,
+      //   },
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/x-www-form-urlencoded",
+      //       Accept: "application/json",
+      //     },
+      //     withCredentials: true,
+      //   }
+      // );
+      var headers = new Headers();
+      headers.append("Content-Type", "application/json");
+      headers.append("Accept", "application/json");
+      const response = await fetch(
+        "http://localhost:9000/api/v1/auth/user/login",
         {
-          email,
-          password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+          method: "POST",
+          mode: "no-cors",
+          redirect: "follow",
+          credentials: "include", // Don't forget to specify this if you need cookies
+          headers: headers,
+          body: JSON.stringify({
+            email,
+            password,
+          }),
         }
       );
-      if (response.data.success) {
-        successMessage(response.data.message || "User sign in was successfull");
-      }
+      console.log(response);
+      // if (response.success) {
+      //   successMessage(response.message || "User sign in was successfull");
+      // }
 
       stopLoading();
     } catch (error: any) {
       stopLoading();
+      console.log(error);
       return errorMessage(
-        `unable to login due to some bad reason:${error.message}`
+        ""
+        // error.response.data.message || `unable to login due to some bad reason`
       );
-      return;
     }
   };
 
