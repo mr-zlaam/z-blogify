@@ -4,4 +4,5 @@ export const _config = {
   JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET as string,
   ADMIN_EMAIL: process.env.ADMIN_EMAIL as string,
   ADMIN_PASS: process.env.ADMIN_PASS as string,
+  ENV_DEV: false, //TODO: change this into true in production.
 };

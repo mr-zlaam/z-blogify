@@ -4,6 +4,7 @@ import ApiResponse from "../../../../utils/ApiResponse";
 import { asyncHandler } from "../../../../utils/asynchandler";
 import { GenerateJWTAccessToken } from "../../../../utils/jwtTokenGenerator";
 import { UserModel } from "../models/model.user";
+import { _config } from "../../../../config/config";
 export default asyncHandler(async function loginUser(
   req: Request,
   res: Response,
@@ -55,6 +56,10 @@ export default asyncHandler(async function loginUser(
     );
   }
   return res
+    .cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: _config.ENV_DEV,
+    })
     .status(200)
     .json(
       ApiResponse(
