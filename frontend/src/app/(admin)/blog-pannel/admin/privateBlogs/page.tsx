@@ -87,6 +87,7 @@ export default function PrivateBlogs() {
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
                           <DropdownMenuItem>Edit</DropdownMenuItem>
                           <DropdownMenuItem>Make this Public</DropdownMenuItem>
+                          <DropdownMenuItem>Read this Blog</DropdownMenuItem>
                           <DropdownMenuItem>Delete</DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
