@@ -1,13 +1,12 @@
 import type { NextFunction, Request, Response } from "express";
-import ApiResponse from "../../../../utils/ApiResponse";
-import { UserTypes } from "../types/types.user";
-import { isAuthenticated } from "../../../../utils/isAuthenticated";
-import { asyncHandler } from "../../../../utils/asynchandler";
-import { UserModel } from "../models/model.user";
-import { passwordHasher } from "../../../../utils/PasswordHasher";
 import { _config } from "../../../../config/config";
-import { sign } from "jsonwebtoken";
+import ApiResponse from "../../../../utils/ApiResponse";
+import { passwordHasher } from "../../../../utils/PasswordHasher";
+import { asyncHandler } from "../../../../utils/asynchandler";
+import { isAuthenticated } from "../../../../utils/isAuthenticated";
 import { GenerateJWTAccessToken } from "../../../../utils/jwtTokenGenerator";
+import { UserModel } from "../models/model.user";
+import { UserTypes } from "../types/types.user";
 export default asyncHandler(async function registerUser(
   req: Request,
   res: Response,
@@ -97,7 +96,6 @@ export default asyncHandler(async function registerUser(
       );
   }
   return res
-    .cookie("accessToken", accessToken)
     .status(201)
     .json(
       ApiResponse(201, "user registered successfully", null, { accessToken })
