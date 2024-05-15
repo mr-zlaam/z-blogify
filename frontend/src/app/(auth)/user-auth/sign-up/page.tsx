@@ -51,14 +51,14 @@ function RegisterForm() {
       stopLoading();
       console.log(response.data);
       if (response.data.success) {
-        // reset();
+        reset();
         successMessage(
           response.data.message || "User Registered successfully."
         );
 
-        // setTimeout(() => {
-        //   return router.push("/user/login");
-        // }, 3000);
+        setTimeout(() => {
+          return router.push("/user-auth/sign-in");
+        }, 3000);
       }
     } catch (error: any) {
       stopLoading();
