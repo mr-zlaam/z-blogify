@@ -26,7 +26,11 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import axios from "axios";
-import { Fragment } from "react";
+import { Fragment, Suspense } from "react";
+import ButtonLoader from "@/_subComponents/buttonLoader";
+import { UserDataTypes } from "@/types";
+//@types
+
 const fetchUsers = async () => {
   try {
     const res = await axios.get("http://localhost:9000/api/v1/auth/user/all", {
@@ -80,71 +84,85 @@ export default async function Dashboard() {
                     </TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody className="">
-                  {!users ? (
-                    <div>No Data found</div>
-                  ) : (
-                    users.data.getUsers.map((userData, index) => {
-                      return (
-                        <Fragment key={userData._id}>
-                          <TableRow className="">
-                            <TableCell className="hidden sm:table-cell">
-                              {index + 1}
-                            </TableCell>
-                            <TableCell className="font-medium">
-                              {userData.username}
-                            </TableCell>
-                            <TableCell>{userData.fullName}</TableCell>
-                            <TableCell>
-                              <Badge variant="outline">{userData.role}</Badge>
-                            </TableCell>
-                            <TableCell className="hidden md:table-cell">
-                              {userData.email}
-                            </TableCell>
-                            <TableCell className="hidden md:table-cell">
-                              {userData.createdAt}
-                            </TableCell>
-                            <TableCell className="hidden md:table-cell">
-                              {userData.updatedAt}
-                            </TableCell>
-                            <TableCell>
-                              {userData.username === "zlaam" ? (
-                                <span className="flex items-center gap-2 cursor-not-allowed text-red-500">
-                                  <Lock size={15} />
-                                  Not Allowed
-                                </span>
-                              ) : (
-                                <DropdownMenu>
-                                  <DropdownMenuTrigger asChild>
-                                    <Button
-                                      aria-haspopup="true"
-                                      size="icon"
-                                      variant="ghost"
-                                    >
-                                      <MoreHorizontal className="h-4 w-4" />
-                                      <span className="sr-only">
-                                        Toggle menu
-                                      </span>
-                                    </Button>
-                                  </DropdownMenuTrigger>
-                                  <DropdownMenuContent align="end">
-                                    <DropdownMenuLabel>
-                                      Actions
-                                    </DropdownMenuLabel>
-                                    <DropdownMenuItem>
-                                      Make this user sub-admin
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>Delete</DropdownMenuItem>
-                                  </DropdownMenuContent>
-                                </DropdownMenu>
-                              )}
-                            </TableCell>
-                          </TableRow>
-                        </Fragment>
-                      );
-                    })
-                  )}
-                </TableBody>
+                <Suspense
+                  fallback={
+                    <div>
+                      <ButtonLoader />
+                    </div>
+                  }
+                >
+                  <TableBody className="">
+                    {!users ? (
+                      <div>No Data found</div>
+                    ) : (
+                      users.data.getUsers.map(
+                        (userData: UserDataTypes, index: number) => {
+                          return (
+                            <Fragment key={userData._id}>
+                              <TableRow className="cursor-default ">
+                                <TableCell className="hidden sm:table-cell">
+                                  {index + 1}
+                                </TableCell>
+                                <TableCell className="font-medium">
+                                  {userData.username}
+                                </TableCell>
+                                <TableCell>{userData.fullName}</TableCell>
+                                <TableCell>
+                                  <Badge variant="outline">
+                                    {userData.role}
+                                  </Badge>
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">
+                                  {userData.email}
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">
+                                  {userData.createdAt}
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">
+                                  {userData.updatedAt}
+                                </TableCell>
+                                <TableCell>
+                                  {userData.username === "zlaam" ? (
+                                    <span className="flex items-center gap-2 cursor-not-allowed text-red-500 select-none">
+                                      <Lock size={15} />
+                                      Not Allowed
+                                    </span>
+                                  ) : (
+                                    <DropdownMenu>
+                                      <DropdownMenuTrigger asChild>
+                                        <Button
+                                          aria-haspopup="true"
+                                          size="icon"
+                                          variant="ghost"
+                                        >
+                                          <MoreHorizontal className="h-4 w-4" />
+                                          <span className="sr-only">
+                                            Toggle menu
+                                          </span>
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContent align="end">
+                                        <DropdownMenuLabel>
+                                          Actions
+                                        </DropdownMenuLabel>
+                                        <DropdownMenuItem>
+                                          Make this user sub-admin
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                          Delete
+                                        </DropdownMenuItem>
+                                      </DropdownMenuContent>
+                                    </DropdownMenu>
+                                  )}
+                                </TableCell>
+                              </TableRow>
+                            </Fragment>
+                          );
+                        }
+                      )
+                    )}
+                  </TableBody>
+                </Suspense>
               </Table>
             </CardContent>
           </Card>
