@@ -1,5 +1,6 @@
 import axios from "axios";
 import {} from "react";
+import UpdateForm from "./_components/updateForm";
 //@types
 interface ParamType {
   updateUser: string;
@@ -23,12 +24,11 @@ const fetchSingleUser = async (updateUser: string) => {
 async function UpdateUser({ params }: { params: ParamType }) {
   const { updateUser } = params;
   const user = await fetchSingleUser(updateUser);
-  console.log(user);
+  // console.log(user);
   return (
     <>
       <section>
-        UpdateUser:
-        {updateUser}
+        <UpdateForm user={user} />
       </section>
     </>
   );
