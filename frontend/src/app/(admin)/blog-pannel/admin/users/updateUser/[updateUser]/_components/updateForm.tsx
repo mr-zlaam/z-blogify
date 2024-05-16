@@ -35,10 +35,10 @@ function UpdateForm({
       const response = await axios.patch(
         `http://localhost:9000/api/v1/auth/user/updateUser/${userId}`,
         {
-          username,
-          fullName,
-          email,
-          role,
+          username: updateUsername,
+          fullName: updateFullName,
+          email: updateEmail,
+          role: updateRole,
         },
         {
           headers: {
