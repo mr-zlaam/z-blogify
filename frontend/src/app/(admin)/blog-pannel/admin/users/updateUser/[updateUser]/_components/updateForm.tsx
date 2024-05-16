@@ -47,8 +47,7 @@ function UpdateForm({
           },
         }
       );
-      console.log(response.data);
-      return response.data;
+      return successMessage(response.data.message);
     } catch (error: any) {
       console.log(error);
       return errorMessage(
@@ -60,10 +59,7 @@ function UpdateForm({
   return (
     <>
       <section className="">
-        <form
-          onSubmit={handleDataUpdateConfirm}
-          className=" max-w-sm border rounded-md mx-auto relative top-20 py-10 px-5"
-        >
+        <form className=" max-w-sm border rounded-md mx-auto relative top-20 py-10 px-5">
           <h1 className="font-sans text-2xl font-bold text-center mb-8">
             Update User Details
           </h1>
@@ -124,7 +120,9 @@ function UpdateForm({
             />
           </div>
           <div className="p-3">
-            <Button className="w-full">Update</Button>
+            <Button onClick={handleDataUpdateConfirm} className="w-full">
+              Update
+            </Button>
           </div>
         </form>
       </section>

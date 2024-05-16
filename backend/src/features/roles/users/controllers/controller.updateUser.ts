@@ -19,9 +19,9 @@ export default asyncHandler(async function updateUser(
     return res
       .status(404)
       .json(ApiResponse(403, "you can set only admin, sub-admin and user"));
-  let updateThisUser;
+  console.log(username, email, role, fullName);
   try {
-    updateThisUser = await UserModel.findOneAndUpdate(
+    await UserModel.findOneAndUpdate(
       { _id: userId },
       {
         username,
