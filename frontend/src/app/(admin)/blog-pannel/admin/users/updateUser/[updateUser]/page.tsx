@@ -5,7 +5,6 @@ interface ParamType {
   updateUser: string;
 }
 const fetchSingleUser = async (updateUser: string) => {
-  console.log("User Id:", updateUser);
   try {
     const response = await axios.get(
       `http://localhost:9000/api/v1/auth/user/getSingleUser/${updateUser}`,
@@ -16,7 +15,6 @@ const fetchSingleUser = async (updateUser: string) => {
         },
       }
     );
-    console.log(response);
     return response.data;
   } catch (error: any) {
     console.log(error.message);
