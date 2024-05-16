@@ -29,6 +29,7 @@ import axios from "axios";
 import { Fragment, Suspense } from "react";
 import ButtonLoader from "@/_subComponents/buttonLoader";
 import { UserDataTypes } from "@/types";
+import Link from "next/link";
 //@types
 
 const fetchUsers = async () => {
@@ -145,12 +146,16 @@ export default async function Dashboard() {
                                         <DropdownMenuLabel>
                                           Actions
                                         </DropdownMenuLabel>
-                                        <DropdownMenuItem>
-                                          Make this user sub-admin
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem>
-                                          Delete
-                                        </DropdownMenuItem>
+                                        <Link href={`/`}>
+                                          <DropdownMenuItem>
+                                            edit
+                                          </DropdownMenuItem>
+                                        </Link>
+                                        <Link href={`/`}>
+                                          <DropdownMenuItem>
+                                            Delete
+                                          </DropdownMenuItem>
+                                        </Link>
                                       </DropdownMenuContent>
                                     </DropdownMenu>
                                   )}
