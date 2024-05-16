@@ -1,4 +1,4 @@
-import { MoreHorizontal } from "lucide-react";
+import { Lock, MoreHorizontal } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,8 +25,26 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-
-export default function Dashboard() {
+import axios from "axios";
+import { Fragment } from "react";
+const fetchUsers = async () => {
+  try {
+    const res = await axios.get("http://localhost:9000/api/v1/auth/user/all", {
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjQyMzRmNTllOWZlNjY0MGFiZWE3MzEiLCJpYXQiOjE3MTU3MDUzMzcsImV4cCI6MTcxNjMxMDEzN30.JjKzzmJA6xfUbddHMAqx1b5okDWXUuTHvBM3s46SYVI",
+      },
+    });
+    if (res.data.success) return res.data;
+    else return null;
+  } catch (error: any) {
+    console.log(error.message);
+    return error;
+  }
+};
+export default async function Dashboard() {
+  const users = await fetchUsers();
+  // console.log(users.data.getUsers);
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <Tabs defaultValue="all">
@@ -54,47 +72,78 @@ export default function Dashboard() {
                     <TableHead className="hidden md:table-cell">
                       Created at
                     </TableHead>
+                    <TableHead className="hidden md:table-cell">
+                      Updated at
+                    </TableHead>
                     <TableHead>
                       <span className="font-medium">Actions</span>
                     </TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody className="b">
-                  <TableRow className="">
-                    <TableCell className="hidden sm:table-cell">1</TableCell>
-                    <TableCell className="font-medium">Zlaam</TableCell>
-                    <TableCell>zlaam</TableCell>
-                    <TableCell>
-                      <Badge variant="outline">Admin</Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      zlaam.dev@gmail.com
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      2023-07-12 10:42 AM
-                    </TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            aria-haspopup="true"
-                            size="icon"
-                            variant="ghost"
-                          >
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Toggle menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem>
-                            Make this user sub-admin
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
+                <TableBody className="">
+                  {!users ? (
+                    <div>No Data found</div>
+                  ) : (
+                    users.data.getUsers.map((userData, index) => {
+                      return (
+                        <Fragment key={userData._id}>
+                          <TableRow className="">
+                            <TableCell className="hidden sm:table-cell">
+                              {index + 1}
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              {userData.username}
+                            </TableCell>
+                            <TableCell>{userData.fullName}</TableCell>
+                            <TableCell>
+                              <Badge variant="outline">{userData.role}</Badge>
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {userData.email}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {userData.createdAt}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {userData.updatedAt}
+                            </TableCell>
+                            <TableCell>
+                              {userData.username === "zlaam" ? (
+                                <span className="flex items-center gap-2 cursor-not-allowed text-red-500">
+                                  <Lock size={15} />
+                                  Not Allowed
+                                </span>
+                              ) : (
+                                <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                    <Button
+                                      aria-haspopup="true"
+                                      size="icon"
+                                      variant="ghost"
+                                    >
+                                      <MoreHorizontal className="h-4 w-4" />
+                                      <span className="sr-only">
+                                        Toggle menu
+                                      </span>
+                                    </Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent align="end">
+                                    <DropdownMenuLabel>
+                                      Actions
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuItem>
+                                      Make this user sub-admin
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem>Delete</DropdownMenuItem>
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        </Fragment>
+                      );
+                    })
+                  )}
                 </TableBody>
               </Table>
             </CardContent>
