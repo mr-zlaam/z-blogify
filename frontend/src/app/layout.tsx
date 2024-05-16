@@ -16,10 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark ">
       <body className={inter.className}>
-        <Toaster />
-        {children}
+        <main className="font-sans">
+          <Toaster />
+          {children}
+        </main>
       </body>
     </html>
   );

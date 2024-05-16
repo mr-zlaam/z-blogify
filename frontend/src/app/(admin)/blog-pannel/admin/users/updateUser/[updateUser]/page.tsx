@@ -24,11 +24,10 @@ const fetchSingleUser = async (updateUser: string) => {
 async function UpdateUser({ params }: { params: ParamType }) {
   const { updateUser } = params;
   const user = await fetchSingleUser(updateUser);
-  // console.log(user);
   return (
     <>
       <section>
-        <UpdateForm user={user} />
+        <UpdateForm user={user} userId={updateUser} />
       </section>
     </>
   );
