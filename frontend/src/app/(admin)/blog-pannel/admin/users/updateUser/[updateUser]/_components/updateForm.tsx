@@ -24,12 +24,22 @@ function UpdateForm({
     e.preventDefault();
     //validation
     try {
-      if (!email || !fullName || !role || !username)
+      if (!updateEmail || !updateFullName || !updateRole || !updateUsername)
         return errorMessage("All fields are required.");
-      if (role !== "admin" && role !== "sub-admin" && role !== "user")
+      if (
+        updateRole !== "admin" &&
+        updateRole !== "sub-admin" &&
+        updateRole !== "user"
+      )
         return errorMessage("Role must be user|sub-admin|admin");
       const response = await axios.patch(
         `http://localhost:9000/api/v1/auth/user/updateUser/${userId}`,
+        {
+          username,
+          fullName,
+          email,
+          role,
+        },
         {
           headers: {
             Authorization:

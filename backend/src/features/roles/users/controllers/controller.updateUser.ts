@@ -29,7 +29,7 @@ export default asyncHandler(async function updateUser(
         email,
         role,
       }
-    );
+    ).select("-password");
   } catch (error: any) {
     console.log(error.message);
     return res
@@ -43,5 +43,5 @@ export default asyncHandler(async function updateUser(
   }
   return res
     .status(201)
-    .json(ApiResponse(201, "user update successfully", null, updateThisUser));
+    .json(ApiResponse(201, "user update successfully", null));
 });
