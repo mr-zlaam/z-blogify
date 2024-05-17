@@ -25,16 +25,17 @@ function Delete({ params }: { params: ParamType }) {
           },
         }
       );
-      console.log(response.data);
       if (response.status === 204) {
-        successMessage(response.data.message);
+        successMessage("user has been deleted successfully");
         setTimeout(() => {
           RedirectToPreviousPage();
         }, 3000);
-      }
+      } else return null;
     } catch (error: any) {
-      console.log(error);
-      errorMessage(error.response.data.message);
+      return errorMessage(
+        error.response.data.message ||
+          "something went wrong while deleting user."
+      );
     }
   };
   return (
