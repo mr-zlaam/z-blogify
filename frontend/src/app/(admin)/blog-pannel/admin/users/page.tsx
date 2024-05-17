@@ -30,6 +30,7 @@ import { Fragment, Suspense } from "react";
 import ButtonLoader from "@/_subComponents/buttonLoader";
 import { UserDataTypes } from "@/types";
 import Link from "next/link";
+import moment from "moment";
 //@types
 
 const fetchUsers = async () => {
@@ -49,7 +50,7 @@ const fetchUsers = async () => {
 };
 export default async function Dashboard() {
   const users = await fetchUsers();
-  // console.log(users.data.getUsers);
+
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <Tabs defaultValue="all">
@@ -117,10 +118,14 @@ export default async function Dashboard() {
                                   {userData.email}
                                 </TableCell>
                                 <TableCell className="hidden md:table-cell">
-                                  {userData.createdAt}
+                                  {moment(userData.createdAt).format(
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                  )}
                                 </TableCell>
                                 <TableCell className="hidden md:table-cell">
-                                  {userData.updatedAt}
+                                  {moment(userData.updatedAt).format(
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                  )}
                                 </TableCell>
                                 <TableCell>
                                   {userData.username === "zlaam" ? (
