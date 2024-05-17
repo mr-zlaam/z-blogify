@@ -19,7 +19,29 @@ export default asyncHandler(async function updateUser(
     return res
       .status(404)
       .json(ApiResponse(403, "you can set only admin, sub-admin and user"));
-  console.log(username, email, role, fullName);
+  let isUserAlreadyexist;
+  try {
+    isUserAlreadyexist = await UserModel.findOne({
+      $or: [{ username }, { email }],
+    });
+  } catch (error: any) {
+    console.log(error.message);
+    return next(
+      res
+        .status(500)
+        .json(
+          ApiResponse(
+            500,
+            error.message || "internal server error while registering the user"
+          )
+        )
+    );
+  }
+  if (isUserAlreadyexist) {
+    return res
+      .status(409)
+      .json(ApiResponse(409, "username or email is already taken!"));
+  }
   try {
     await UserModel.findOneAndUpdate(
       { _id: userId },
