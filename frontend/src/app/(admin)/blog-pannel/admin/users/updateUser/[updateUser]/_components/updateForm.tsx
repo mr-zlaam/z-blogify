@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useMessage } from "@/hooks/useMessage";
 import { UserDataTypes } from "@/types";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 function UpdateForm({
@@ -14,6 +15,7 @@ function UpdateForm({
   user: { data: UserDataTypes };
   userId: string;
 }) {
+  const router = useRouter();
   const { email, fullName, role, username } = user.data;
   const { errorMessage, successMessage } = useMessage();
   const [updateUsername, setUpdateUsername] = useState(username || "username");
@@ -47,11 +49,16 @@ function UpdateForm({
           },
         }
       );
+      router.push("blog-pannel/admin/users");
       return successMessage(response.data.message);
     } catch (error: any) {
       console.log(error);
+      console.log(error.response.data.message);
       return errorMessage(
-        error.response.data.message ||
+        (error.response.data.message.includes("username:") &&
+          "This username is already in use.") ||
+          (error.response.data.message.includes("email:") &&
+            "This email is already in use.") ||
           "some thing went wrong while updating user Details"
       );
     }
