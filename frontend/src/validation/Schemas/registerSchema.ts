@@ -23,10 +23,10 @@ export const registerSchema: ZodType<UserRegisterTypes> = object({
     .toLowerCase(),
   password: string()
     .min(6, { message: "This field requires at least 6 characters" })
-    .max(20, { message: "Password is too long" }),
+    .max(50, { message: "Password is too long" }),
   confirmPassword: string()
     .min(6, { message: "This field requires at least 6 characters" })
-    .max(20, { message: "Password is too long" }),
+    .max(50, { message: "Password is too long" }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Confirmpassword is not same as passwords",
   path: ["confirmPassword"],
