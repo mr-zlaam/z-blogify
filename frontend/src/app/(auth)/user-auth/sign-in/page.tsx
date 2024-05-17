@@ -7,7 +7,7 @@ import { useLoading } from "@/hooks/useLoading";
 import { useMessage } from "@/hooks/useMessage";
 import { cn } from "@/lib/utils";
 import type { UserLoginTypes } from "@/types";
-import { loginSchema } from "@/validation/Schemas/registerSchema";
+import { loginSchema } from "@/validation/Schemas/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Link from "next/link";

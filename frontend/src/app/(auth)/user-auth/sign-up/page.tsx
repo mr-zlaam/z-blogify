@@ -7,7 +7,7 @@ import { useLoading } from "@/hooks/useLoading";
 import { useMessage } from "@/hooks/useMessage";
 import { cn } from "@/lib/utils";
 import type { UserRegisterTypes } from "@/types";
-import { registerSchema } from "@/validation/Schemas/registerSchema";
+import { registerSchema } from "@/validation/Schemas/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import axios from "axios";

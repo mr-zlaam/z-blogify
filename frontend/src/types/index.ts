@@ -9,7 +9,12 @@ export interface UserLoginTypes {
   email: string;
   password: string;
 }
-
+export interface UserUpdateTypes {
+  username: string;
+  fullName: string;
+  email: string;
+  role: "admin" | "sub-admin" | "user";
+}
 export interface UserDataTypes {
   _id: string;
   username: string;

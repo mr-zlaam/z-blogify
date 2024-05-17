@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useMessage } from "@/hooks/useMessage";
 import { UserDataTypes } from "@/types";
+import { updateSchema } from "@/validation/Schemas/dataSchema";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -25,6 +26,23 @@ function UpdateForm({
   const handleDataUpdateConfirm = async (e: FormEvent) => {
     e.preventDefault();
     //validation
+    const formData = {
+      username: updateUsername,
+      fullName: updateFullName,
+      email: updateEmail,
+      role: updateRole,
+    };
+
+    // Validate the form data
+    const validationResult = updateSchema.safeParse(formData);
+
+    if (!validationResult.success) {
+      validationResult.error.errors.forEach((error) => {
+        errorMessage(error.message);
+      });
+      return;
+    }
+
     try {
       if (!updateEmail || !updateFullName || !updateRole || !updateUsername)
         return errorMessage("All fields are required.");
@@ -49,7 +67,7 @@ function UpdateForm({
           },
         }
       );
-      router.push("/blog-pannel/admin/users");
+      // router.push("/blog-pannel/admin/users");
       return successMessage(response.data.message);
     } catch (error: any) {
       console.log(error);
