@@ -190,15 +190,6 @@ function RegisterForm() {
                   </p>
                 </div>
 
-                <p className="text-sm text-center ">
-                  Already have an Account ?
-                  <Link
-                    href="/user-auth/sign-in"
-                    className="text-blue-500 hover:underline"
-                  >
-                    <span>&nbsp; Login</span>
-                  </Link>
-                </p>
                 <Button
                   disabled={isLoading}
                   className={cn(
@@ -209,6 +200,15 @@ function RegisterForm() {
                 >
                   {isLoading ? <ButtonLoader /> : <span>Register</span>}
                 </Button>
+                <p className="text-sm text-center ">
+                  Already have an Account ?
+                  <Link
+                    href="/user-auth/sign-in"
+                    className="text-blue-500 hover:underline"
+                  >
+                    <span>&nbsp; Login</span>
+                  </Link>
+                </p>
               </div>
             </div>
           </div>

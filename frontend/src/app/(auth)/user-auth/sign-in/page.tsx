@@ -124,16 +124,6 @@ function LoginForm() {
                   )}
                 </div>
 
-                <p className="text-center text-sm ">
-                  Don&apos;t have an Account ?
-                  <Link
-                    href="/user-auth/sign-up"
-                    className="text-blue-500 hover:underline"
-                  >
-                    &nbsp; Register
-                  </Link>
-                </p>
-
                 <Button
                   disabled={isLoading}
                   className={cn(
@@ -144,6 +134,15 @@ function LoginForm() {
                 >
                   {isLoading ? <ButtonLoader /> : <span>Sign in</span>}
                 </Button>
+                <p className="text-center text-sm ">
+                  Don&apos;t have an Account ?
+                  <Link
+                    href="/user-auth/sign-up"
+                    className="text-blue-500 hover:underline"
+                  >
+                    &nbsp; Register
+                  </Link>
+                </p>
               </div>
             </div>
           </div>
