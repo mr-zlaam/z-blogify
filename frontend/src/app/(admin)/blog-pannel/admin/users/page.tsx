@@ -154,7 +154,7 @@ export default async function Dashboard() {
                                           </DropdownMenuItem>
                                         </Link>
                                         <Link
-                                          href={`/blog-pannel/admin/users/updateUser/${userData._id}`}
+                                          href={`/blog-pannel/admin/users/deleteUser/${userData._id}`}
                                         >
                                           <DropdownMenuItem>
                                             Delete
