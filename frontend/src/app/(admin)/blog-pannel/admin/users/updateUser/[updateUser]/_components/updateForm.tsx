@@ -44,14 +44,6 @@ function UpdateForm({
     }
 
     try {
-      if (!updateEmail || !updateFullName || !updateRole || !updateUsername)
-        return errorMessage("All fields are required.");
-      if (
-        updateRole !== "admin" &&
-        updateRole !== "sub-admin" &&
-        updateRole !== "user"
-      )
-        return errorMessage("Role must be user|sub-admin|admin");
       const response = await axios.patch(
         `http://localhost:9000/api/v1/auth/user/updateUser/${userId}`,
         {
@@ -67,8 +59,12 @@ function UpdateForm({
           },
         }
       );
-      // router.push("/blog-pannel/admin/users");
-      return successMessage(response.data.message);
+      if (response.status === 201) {
+        successMessage(response.data.message);
+        setTimeout(() => {
+          return router.push("/blog-pannel/admin/users");
+        }, 3000);
+      }
     } catch (error: any) {
       console.log(error);
       console.log(error.response.data.message);
