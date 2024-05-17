@@ -26,10 +26,8 @@ function Delete({ params }: { params: ParamType }) {
         }
       );
       if (response.status === 204) {
-        successMessage("user has been deleted successfully");
-        setTimeout(() => {
-          RedirectToPreviousPage();
-        }, 3000);
+        RedirectToPreviousPage();
+        return successMessage("user has been deleted successfully");
       } else return null;
     } catch (error: any) {
       return errorMessage(
