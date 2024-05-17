@@ -60,7 +60,7 @@ function UpdateForm({
         }
       );
       if (response.status === 201) {
-        successMessage(response.data.message);
+        successMessage(response.data.message || "user update successfully");
         setTimeout(() => {
           return router.push("/blog-pannel/admin/users");
         }, 3000);
