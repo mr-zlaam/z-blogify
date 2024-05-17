@@ -49,7 +49,7 @@ function UpdateForm({
           },
         }
       );
-      router.push("blog-pannel/admin/users");
+      router.push("/blog-pannel/admin/users");
       return successMessage(response.data.message);
     } catch (error: any) {
       console.log(error);
