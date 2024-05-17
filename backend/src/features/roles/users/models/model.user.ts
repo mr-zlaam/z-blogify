@@ -16,11 +16,7 @@ const userSchema = new Schema<UserTypes>(
     fullName: {
       type: String,
       required: [true, "FullName is required!"],
-
       match: [/^[a-zA-Z ]{3,30}$/, "FullName is invalid"],
-      lowercase: true,
-      trim: true,
-      minlength: [3, "FullName must contain at least 3 characters"],
     },
     email: {
       type: String,
