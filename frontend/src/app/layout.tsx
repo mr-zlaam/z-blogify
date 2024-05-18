@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/sonner";
 import NextTopLoader from "nextjs-toploader";
 import { cn } from "@/lib/utils";
 import Header from "./components/header/Header";
+import { ThemeProvider } from "@/theme/ThemeProvider";
+import { ThemeToggler } from "@/theme/ThemeToggler";
 
 const inter = Inter({ subsets: ["latin"] });
 const arimo = Arimo({
@@ -27,8 +29,15 @@ export default function RootLayout({
         <main>
           <Toaster />
           <NextTopLoader showSpinner={false} color="#8d8dff" />
-          <Header />
-          {children}
+          <ThemeProvider
+            attribute="class"
+            disableTransitionOnChange
+            enableSystem
+          >
+            <ThemeToggler />
+            <Header />
+            {children}
+          </ThemeProvider>
         </main>
       </body>
     </html>
