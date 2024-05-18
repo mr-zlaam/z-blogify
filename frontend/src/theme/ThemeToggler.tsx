@@ -9,7 +9,7 @@ export function ThemeToggler() {
     return setTheme(theme === "dark" ? "light" : "dark");
   };
   return (
-    <div className="fixed left-3 lg:top-16 top-10 md:top-5 z-50">
+    <div className="fixed left-3 lg:top-9 top-[43px] md:top-5 z-50">
       {theme === "dark" ? (
         <WiMoonAltWaxingCrescent5
           onClick={darkModeToggle}
