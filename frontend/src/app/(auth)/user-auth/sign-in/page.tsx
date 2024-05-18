@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import type { UserLoginTypes } from "@/types";
 import { loginSchema } from "@/validation/Schemas/dataSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
@@ -29,51 +29,30 @@ function LoginForm() {
 
     try {
       startLoading();
-      // const response = await axios.post(
-      //   // `${process.env.BACKEND_URI}/users/login`,
-      //   `http://localhost:9000/api/v1/auth/user/login`,
-      //   {
-      //     email,
-      //     password,
-      //   },
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/x-www-form-urlencoded",
-      //       Accept: "application/json",
-      //     },
-      //     withCredentials: true,
-      //   }
-      // );
-      var headers = new Headers();
-      headers.append("Content-Type", "application/json");
-      headers.append("Accept", "application/json");
-      const response = await fetch(
-        "http://localhost:9000/api/v1/auth/user/login",
+      const response = await axios.post(
+        // `${process.env.BACKEND_URI}/users/login`,
+        `http://localhost:9000/api/v1/auth/user/login`,
         {
-          method: "POST",
-          mode: "no-cors",
-          redirect: "follow",
-          credentials: "include", // Don't forget to specify this if you need cookies
-          headers: headers,
-          body: JSON.stringify({
-            email,
-            password,
-          }),
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Accept: "application/json",
+          },
+          withCredentials: true,
         }
       );
-      console.log(response);
-      // if (response.success) {
-      //   successMessage(response.message || "User sign in was successfull");
-      // }
-
+      if (response.status === 200) {
+        successMessage(response.data.message || "Login Successful");
+      }
       stopLoading();
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as AxiosError;
       stopLoading();
       console.log(error);
-      return errorMessage(
-        ""
-        // error.response.data.message || `unable to login due to some bad reason`
-      );
+      return errorMessage("something went wrong while login");
     }
   };
 

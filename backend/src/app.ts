@@ -5,8 +5,13 @@ import { blogRouter } from "./features/blogs/routes/router.blog";
 import cookieParser from "cookie-parser";
 
 export const app: Express = express();
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 app.use(cookieParser());
-app.use(cors());
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 //Authentication
