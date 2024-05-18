@@ -1,5 +1,8 @@
-import { cookies } from "next/headers";
-export default function middleware() {
-  const cookieStore = cookies();
-  const token = cookieStore.get("accessToken");
+import { type NextRequest, NextResponse } from "next/server";
+
+export default function middleware(request: NextRequest) {
+  return NextResponse.redirect(new URL("/home", request.url));
 }
+export const config = {
+  matcher: ["/"],
+};

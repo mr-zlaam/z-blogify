@@ -13,7 +13,7 @@ function Header() {
         )}
       >
         <div className="ml-5 mt-2 md:-ml-5 ">
-          <Link href="/" className="select-none">
+          <Link href="/home" className="select-none">
             logo
           </Link>
         </div>
