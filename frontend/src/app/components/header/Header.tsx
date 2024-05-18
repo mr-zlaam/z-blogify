@@ -10,7 +10,7 @@ function Header() {
     <>
       <PageWrapper
         className={cn(
-          " h-[100px] flex justify-between items-center  lg:px-[70px] md:py-20"
+          " h-[100px] flex justify-between items-center  lg:px-[70px] md:py-20 sticky top-0"
         )}
       >
         <div className="ml-5 mt-2 md:-ml-5 ">
