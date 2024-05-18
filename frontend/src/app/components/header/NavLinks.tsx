@@ -1,11 +1,12 @@
 "use client";
+import { useActivePath } from "@/app/helper/checkActivePath/CheckActivePath";
 import { cn } from "@/lib/utils";
 import { Divide as Hamburger } from "hamburger-react";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 function NavLinks() {
   const [isOpen, setOpen] = useState(false);
-
+  const isActive = useActivePath();
   const navLinks = [
     { id: 1, name: "Home", path: "#", className: "select-none link_dark" },
     {
@@ -56,8 +57,8 @@ function NavLinks() {
               onClick={handleCloseMenu}
               href={data.path && data.path}
               className={cn(
-                // isActive(data.path) ? "hidden" : "",
-                // "tracking-wide text-[1.2rem] ",
+                // isActive(data.path) ? "text-white" : "",
+                "tracking-wide text-[1.2rem] ",
                 data.className
               )}
             >
