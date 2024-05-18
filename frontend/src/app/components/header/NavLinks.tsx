@@ -1,30 +1,29 @@
 "use client";
-import { useActivePath } from "@/app/helper/checkActivePath/CheckActivePath";
 import { cn } from "@/lib/utils";
 import { Divide as Hamburger } from "hamburger-react";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 function NavLinks() {
   const [isOpen, setOpen] = useState(false);
-  const isActive = useActivePath();
+
   const navLinks = [
-    { id: 1, name: "Home", path: "/home", className: "select-none link_dark" },
+    { id: 1, name: "Home", path: "#", className: "select-none link_dark" },
     {
       id: 2,
       name: "Expertise",
-      path: "/expertise",
+      path: "#",
       className: "select-none link_dark ",
     },
     {
       id: 3,
       name: "Projects",
-      path: "/projects",
+      path: "#",
       className: "select-none link_dark",
     },
     {
       id: 4,
       name: "Contact",
-      path: "/contact",
+      path: "#",
       className: "select-none link_dark",
     },
     {
@@ -43,7 +42,7 @@ function NavLinks() {
       <nav
         onClick={handleCloseMenu}
         className={cn(
-          `pattern_dark z-[998]  flex flex-col h-screen justify-center absolute top-0 right-0  w-full items-center gap-20 overflow-y-auto
+          `backdrop-blur-md pattern_dark z-[998]  flex flex-col h-screen justify-center absolute top-0 right-0  w-full items-center gap-20 overflow-y-auto
       md:flex-row  md:static md:gap-10 md:justify-end md:overflow-hidden md:w-fit md:h-fit`,
           !isOpen
             ? " translate-x-[-100%] duration-300 transition-all md:translate-x-0 md:duration-0 md:transition-none"
@@ -57,8 +56,8 @@ function NavLinks() {
               onClick={handleCloseMenu}
               href={data.path && data.path}
               className={cn(
-                isActive(data.path) ? "hidden" : "",
-                "tracking-wide text-[1.2rem] ",
+                // isActive(data.path) ? "hidden" : "",
+                // "tracking-wide text-[1.2rem] ",
                 data.className
               )}
             >
@@ -73,7 +72,7 @@ function NavLinks() {
       >
         <Hamburger
           distance="sm"
-          color="#fff"
+          color="#000000"
           toggled={isOpen}
           toggle={setOpen}
           size={25}

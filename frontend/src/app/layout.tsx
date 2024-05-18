@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import NextTopLoader from "nextjs-toploader";
 import { cn } from "@/lib/utils";
+import Header from "./components/header/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 const arimo = Arimo({
@@ -21,12 +22,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light ">
+    <html lang="en" className="">
       <body className={cn(arimo.className, "font-medium")}>
         <main>
           <Toaster />
           <NextTopLoader showSpinner={false} color="#8d8dff" />
-
+          <Header />
           {children}
         </main>
       </body>
