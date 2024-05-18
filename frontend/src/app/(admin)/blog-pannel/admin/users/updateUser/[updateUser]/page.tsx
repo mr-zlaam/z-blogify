@@ -38,7 +38,11 @@ async function UpdateUser({ params }: { params: ParamType }) {
   return (
     <>
       <section>
-        <UpdateForm user={user} userId={updateUser} />
+        <UpdateForm
+          user={user}
+          userId={updateUser}
+          token={token?.value || "string"}
+        />
       </section>
     </>
   );

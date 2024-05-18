@@ -12,9 +12,11 @@ import { ChangeEvent, FormEvent, useState } from "react";
 function UpdateForm({
   user,
   userId,
+  token,
 }: {
   user: { data: UserDataTypes };
   userId: string;
+  token: string;
 }) {
   const router = useRouter();
   const { email, fullName, role, username } = user.data;
@@ -23,6 +25,7 @@ function UpdateForm({
   const [updateFullName, setUpdateFullName] = useState(fullName || "fullName");
   const [updateEmail, setUpdateEmail] = useState(email || "email");
   const [updateRole, setUpdateRole] = useState(role || "role");
+
   const handleDataUpdateConfirm = async (e: FormEvent) => {
     e.preventDefault();
     //validation
@@ -54,8 +57,7 @@ function UpdateForm({
         },
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjQyMzRmNTllOWZlNjY0MGFiZWE3MzEiLCJpYXQiOjE3MTU2MTUzMjcsImV4cCI6MTcxNjIyMDEyN30.fUMq5ojniDZa3P7wh1CJ3uBOqA3b6W98TtQBGZmm9PQ",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
