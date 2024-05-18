@@ -73,7 +73,6 @@ function NavLinks() {
       >
         <Hamburger
           distance="sm"
-          color="#000000"
           toggled={isOpen}
           toggle={setOpen}
           size={25}
