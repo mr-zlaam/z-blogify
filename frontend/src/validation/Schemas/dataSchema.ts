@@ -9,7 +9,7 @@ export const registerSchema: ZodType<UserRegisterTypes> = object({
   username: string()
     .min(3, { message: "This field requires at least  3 characters" })
     .max(10, { message: "Username must not contain more than 10 characters" })
-    .regex(new RegExp(/^[a-z0-9]+(_[a-z0-9]+)?(-[a-z0-9]+)?$/), {
+    .regex(new RegExp(/^[a-z0-9_.]{1,20}$/), {
       message: "Username is invalid.",
     })
     .toLowerCase(),
