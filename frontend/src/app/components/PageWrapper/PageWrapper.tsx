@@ -3,14 +3,17 @@ import { cn } from "@/lib/utils";
 const PageWrapper = ({
   className,
   children,
+  id,
 }: {
   className?: string;
+  id?: string;
   children: React.ReactNode;
 }) => {
   return (
     <div
+      id={id}
       className={cn(
-        "mx-auto w-full md:max-w-screen-lg px-7 md:px-10 sm:px-10",
+        "mx-auto w-full md:max-w-screen-lg px-7 sm:px-10",
         className
       )}
     >

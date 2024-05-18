@@ -53,7 +53,7 @@ function NavLinks() {
       <nav
         onClick={handleCloseMenu}
         className={cn(
-          `backdrop-blur-md pattern_dark z-[998]  flex flex-col h-screen justify-center absolute top-0 right-0  w-full items-center gap-20 overflow-y-hidden
+          ` backdrop-blur-md pattern_dark z-[998]  flex flex-col h-[100dvh]  justify-center absolute top-0 right-0  w-full items-center gap-20 overflow-y-hidden
       md:flex-row  md:static md:gap-10 md:justify-end md:overflow-hidden md:w-fit md:h-fit`,
           !isOpen
             ? " translate-x-[-100%] duration-300 transition-all md:translate-x-0 md:duration-0 md:transition-none"
