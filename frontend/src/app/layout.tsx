@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
-import { Inter, Arimo } from "next/font/google";
-import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import NextTopLoader from "nextjs-toploader";
 import { cn } from "@/lib/utils";
-import Header from "./components/header/Header";
 import { ThemeProvider } from "@/theme/ThemeProvider";
-import { ThemeToggler } from "@/theme/ThemeToggler";
+import type { Metadata } from "next";
+import { Arimo, Inter } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 const arimo = Arimo({
@@ -30,8 +28,6 @@ export default function RootLayout({
           <Toaster />
           <NextTopLoader showSpinner={false} color="#8d8dff" />
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-            <ThemeToggler />
-            <Header />
             {children}
           </ThemeProvider>
         </main>
