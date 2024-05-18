@@ -16,7 +16,6 @@ export default asyncHandler(async function updateAndDeleteAuthMiddleware(
 ) {
   const { JWT_ACCESS_SECRET } = _config;
   const token = req.header("Authorization");
-
   if (!token)
     return res
       .status(401)

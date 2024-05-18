@@ -36,12 +36,13 @@ import moment from "moment";
 const fetchUsers = async () => {
   try {
     const res = await axios.get("http://localhost:9000/api/v1/auth/user/all", {
+      withCredentials: true,
       headers: {
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjQyMzRmNTllOWZlNjY0MGFiZWE3MzEiLCJpYXQiOjE3MTU3MDUzMzcsImV4cCI6MTcxNjMxMDEzN30.JjKzzmJA6xfUbddHMAqx1b5okDWXUuTHvBM3s46SYVI",
       },
     });
-    if (res.data.success) return res.data;
+    if (res?.data?.success) return res.data;
     else return null;
   } catch (error: any) {
     console.log(error.message);
@@ -94,10 +95,10 @@ export default async function Dashboard() {
                   }
                 >
                   <TableBody className="">
-                    {!users ? (
+                    {!users?.data || users.data === undefined ? (
                       <div>No Data found</div>
                     ) : (
-                      users.data.getUsers.map(
+                      users?.data?.getUsers.map(
                         (userData: UserDataTypes, index: number) => {
                           return (
                             <Fragment key={userData._id}>
