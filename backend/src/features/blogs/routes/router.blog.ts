@@ -4,7 +4,7 @@ import createBlog from "../controllers/controller.createBlog";
 import draftBlogs from "../controllers/controller.draftBlog";
 import publicBlogs from "../controllers/controller.publicBlogs";
 import updateBlog from "../controllers/controller.updateBlogs";
-import updateAndDeleteAuthMiddleware from "../../../middlewares/updateBlogAuth.middleware";
+import updateAndDeleteAuthMiddleware from "../../../middlewares/dashboardAuth.middleware";
 import deleteBlog from "../controllers/controller.deleteBlog";
 export const blogRouter = Router();
 

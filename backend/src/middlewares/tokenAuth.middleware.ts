@@ -15,6 +15,7 @@ export default asyncHandler(async function authTokenAuthenticator(
 ) {
   const { JWT_ACCESS_SECRET } = _config;
   const token = req.header("Authorization");
+
   if (!token)
     return next(
       res
