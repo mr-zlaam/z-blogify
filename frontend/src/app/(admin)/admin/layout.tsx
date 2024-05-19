@@ -7,7 +7,6 @@ import {
   Users2,
 } from "lucide-react";
 import Link from "next/link";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -18,12 +17,26 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ThemeToggler } from "@/theme/ThemeToggler";
+import useCookieGrabber from "@/hooks/useCookieGrabber";
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const token = useCookieGrabber();
+  if (!token) {
+    return (
+      <div className="min-h-[100dvh] flex justify-center items-center flex-col gap-5">
+        <h1 className="text-4xl font-bold italic">
+          You Can&apos;t Access this page
+        </h1>
+        <Link href={"/"} className=" text-blue-500 font-medium text-xl ">
+          Return To Home
+        </Link>
+      </div>
+    );
+  }
   return (
     <main className="flex min-h-screen w-full flex-col bg-muted/40 ">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">

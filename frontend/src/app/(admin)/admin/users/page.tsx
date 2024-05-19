@@ -27,7 +27,6 @@ import {
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { BACKEND_URI } from "@/config";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
-import { useMessage } from "@/hooks/useMessage";
 import { UserDataTypes } from "@/types";
 import axios, { AxiosError } from "axios";
 import moment from "moment";
@@ -35,62 +34,29 @@ import Link from "next/link";
 import { Fragment } from "react";
 //@types
 
-// const fetchUsers = async (token: string) => {
-//   try {
-//     const res = await axios.get(`${BACKEND_URI}/auth/user/all`, {
-//       withCredentials: true,
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     console.log(res);
-//     if (res?.data?.success) {
-//       return res.data;
-//     }
-//   } catch (err) {
-//     const error = err as AxiosError;
-//     return error;
-//   }
-// };
-export default async function Dashboard() {
-  const { errorMessage } = useMessage();
-  let users;
-  const token = useCookieGrabber();
-  if (!token) {
-    return (
-      <div
-        className="absolute top-[50%]  left-[50%] -translate-x-1/2 -translate-y-1/2
-
- "
-      >
-        <h1 className="text-2xl text-center font-bold text-red-600 tracking-wide">
-          <span className="text-gray-500 tracking-wider italic">
-            {" "}
-            {"<err>"}
-          </span>{" "}
-          You are not logged in{" "}
-          <span className="text-gray-500 tracking-wider italic">
-            {" "}
-            {"</err>"}
-          </span>
-        </h1>
-      </div>
-    );
-  }
-  let res;
+const fetchUsers = async (token: string) => {
   try {
-    res = await axios.get(`${BACKEND_URI}/auth/user/all`, {
+    const res = await axios.get(`${BACKEND_URI}/auth/user/all`, {
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     console.log(res);
-    users = res.data;
+    if (res?.data?.success) {
+      return res.data;
+    }
   } catch (err) {
     const error = err as AxiosError;
-    return errorMessage(error.message);
+    return error;
   }
+};
+export default async function UserDashBoard() {
+  const token = useCookieGrabber();
+  if (!token) {
+    return;
+  }
+  const users = await fetchUsers(token?.value || "");
 
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
