@@ -47,7 +47,7 @@ const fetchUsers = async (token: string) => {
     }
   } catch (err: any) {
     // const error = err as AxiosError;
-    return err.response.data.statusCode;
+    return err.response.data.statusCode || 403;
   }
 };
 
