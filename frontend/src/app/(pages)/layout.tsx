@@ -2,7 +2,9 @@ import {} from "react";
 
 import Header from "../components/header/Header";
 import { ThemeToggler } from "@/theme/ThemeToggler";
+import { BACKEND_URI } from "@/config";
 function Layout({ children }: { children: React.ReactNode }) {
+  console.log(BACKEND_URI);
   return (
     <>
       <main className="flex   flex-col  min-h-screen">

@@ -2,11 +2,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/theme/ThemeProvider";
 import type { Metadata } from "next";
-import { Arimo, Inter } from "next/font/google";
+import { Arimo } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 const arimo = Arimo({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
