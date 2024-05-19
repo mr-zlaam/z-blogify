@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { BACKEND_URI } from "@/config";
 import { useMessage } from "@/hooks/useMessage";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -17,7 +18,7 @@ function Delete({ id, token }: { id: string; token: string }) {
   const deleteThisUser = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:9000/api/v1/auth/user/deleteUser/${id}`,
+        `${BACKEND_URI}/auth/user/deleteUser/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

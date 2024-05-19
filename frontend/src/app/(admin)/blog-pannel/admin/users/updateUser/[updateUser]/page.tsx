@@ -3,6 +3,7 @@ import {} from "react";
 import UpdateForm from "./_components/updateForm";
 import { useMessage } from "@/hooks/useMessage";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
+import { BACKEND_URI } from "@/config";
 //@types
 interface ParamType {
   updateUser: string;
@@ -10,7 +11,7 @@ interface ParamType {
 const fetchSingleUser = async (updateUser: string, token: string) => {
   try {
     const response = await axios.get(
-      `http://localhost:9000/api/v1/auth/user/getSingleUser/${updateUser}`,
+      `${BACKEND_URI}/auth/user/getSingleUser/${updateUser}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { BACKEND_URI } from "@/config";
 import { useMessage } from "@/hooks/useMessage";
 import { UserDataTypes } from "@/types";
 import { updateSchema } from "@/validation/Schemas/dataSchema";
@@ -48,7 +49,7 @@ function UpdateForm({
 
     try {
       const response = await axios.patch(
-        `http://localhost:9000/api/v1/auth/user/updateUser/${userId}`,
+        `${BACKEND_URI}/auth/user/updateUser/${userId}`,
         {
           username: updateUsername,
           fullName: updateFullName,
