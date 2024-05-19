@@ -46,18 +46,21 @@ const fetchUsers = async (token: string) => {
     if (res?.data?.success) {
       return res.data;
     }
-  } catch (err) {
-    const error = err as AxiosError;
-    return error;
+  } catch (err: any) {
+    // const error = err as AxiosError;
+    return err.response.data.statusCode;
   }
 };
+
 export default async function UserDashBoard() {
   const token = useCookieGrabber();
   if (!token) {
     return;
   }
   const users = await fetchUsers(token?.value || "");
-
+  if (users === 403) {
+    return;
+  }
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <Tabs defaultValue="all">

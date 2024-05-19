@@ -62,7 +62,14 @@ export default asyncHandler(async function updateAndDeleteAuthMiddleware(
   if (!Admin) {
     return res
       .status(403)
-      .json(ApiResponse(403, "Only Admin can delete or update the data."));
+      .json(
+        ApiResponse(
+          403,
+          "Only Admin can delete or update the data.",
+          null,
+          null
+        )
+      );
   }
 
   return next();

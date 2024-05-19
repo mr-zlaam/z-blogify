@@ -17,6 +17,7 @@ userRouter.patch(
   dashboardAuthMiddleware,
   updateUser
 );
+userRouter.get("/user/getAdmin", dashboardAuthMiddleware);
 userRouter.get(
   "/user/getSingleUser/:userId",
   dashboardAuthMiddleware,
