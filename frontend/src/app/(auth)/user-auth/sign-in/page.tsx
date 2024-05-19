@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+import { BACKEND_URI } from "@/config";
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { errorMessage, successMessage } = useMessage();
@@ -29,9 +30,9 @@ function LoginForm() {
 
     try {
       startLoading();
+      console.log(BACKEND_URI);
       const response = await axios.post(
-        // `${process.env.BACKEND_URI}/users/login`,
-        `http://localhost:9000/api/v1/auth/user/login`,
+        `${BACKEND_URI}/auth/user/login`,
         {
           email,
           password,
@@ -49,10 +50,10 @@ function LoginForm() {
       }
       stopLoading();
     } catch (err) {
-      const error = err as AxiosError;
+      const error = err as any;
       stopLoading();
-      console.log(error);
-      return errorMessage("something went wrong while login");
+      const message = error.response?.data.message;
+      return errorMessage(message || "something went wrong while login");
     }
   };
 

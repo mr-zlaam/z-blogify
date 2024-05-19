@@ -12,7 +12,7 @@ export const isAuthenticated = (props: UserTypes) => {
   const usernamePattern = /^[a-z0-9_.]{1,20}$/;
   const fullNamePattern = /^[a-zA-Z ]{3,20}$/;
   const passwordPattern =
-    /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/g;
+    /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-])[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~`-]{6,}$/;
   const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
   if (!usernamePattern.test(username)) {
     return {

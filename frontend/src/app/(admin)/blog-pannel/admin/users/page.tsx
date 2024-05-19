@@ -33,11 +33,12 @@ import Link from "next/link";
 import moment from "moment";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { useMessage } from "@/hooks/useMessage";
+import { BACKEND_URI } from "@/config";
 //@types
 
 export const fetchUsers = async (token: string) => {
   try {
-    const res = await axios.get("http://localhost:9000/api/v1/auth/user/all", {
+    const res = await axios.get(`${BACKEND_URI}/auth/user/all`, {
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
