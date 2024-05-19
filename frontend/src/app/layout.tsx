@@ -25,7 +25,12 @@ export default function RootLayout({
         <main>
           <Toaster />
           <NextTopLoader showSpinner={false} color="#8d8dff" />
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <ThemeProvider
+            disableTransitionOnChange
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+          >
             {children}
           </ThemeProvider>
         </main>
