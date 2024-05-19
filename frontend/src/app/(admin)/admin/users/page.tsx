@@ -25,46 +25,73 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import axios, { AxiosError } from "axios";
-import { Fragment, Suspense } from "react";
-import ButtonLoader from "@/_subComponents/buttonLoader";
-import { UserDataTypes } from "@/types";
-import Link from "next/link";
-import moment from "moment";
+import { BACKEND_URI } from "@/config";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { useMessage } from "@/hooks/useMessage";
-import { BACKEND_URI } from "@/config";
+import { UserDataTypes } from "@/types";
+import axios, { AxiosError } from "axios";
+import moment from "moment";
+import Link from "next/link";
+import { Fragment } from "react";
 //@types
 
-export const fetchUsers = async (token: string) => {
+// const fetchUsers = async (token: string) => {
+//   try {
+//     const res = await axios.get(`${BACKEND_URI}/auth/user/all`, {
+//       withCredentials: true,
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     console.log(res);
+//     if (res?.data?.success) {
+//       return res.data;
+//     }
+//   } catch (err) {
+//     const error = err as AxiosError;
+//     return error;
+//   }
+// };
+export default async function Dashboard() {
+  const { errorMessage } = useMessage();
+  let users;
+  const token = useCookieGrabber();
+  if (!token) {
+    return (
+      <div
+        className="absolute top-[50%]  left-[50%] -translate-x-1/2 -translate-y-1/2
+
+ "
+      >
+        <h1 className="text-2xl text-center font-bold text-red-600 tracking-wide">
+          <span className="text-gray-500 tracking-wider italic">
+            {" "}
+            {"<err>"}
+          </span>{" "}
+          You are not logged in{" "}
+          <span className="text-gray-500 tracking-wider italic">
+            {" "}
+            {"</err>"}
+          </span>
+        </h1>
+      </div>
+    );
+  }
+  let res;
   try {
-    const res = await axios.get(`${BACKEND_URI}/auth/user/all`, {
+    res = await axios.get(`${BACKEND_URI}/auth/user/all`, {
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
-    if (res?.data?.success) {
-      return res.data;
-    }
+    console.log(res);
+    users = res.data;
   } catch (err) {
     const error = err as AxiosError;
-    return error;
-  }
-};
-export default async function Dashboard() {
-  const { errorMessage } = useMessage();
-  let users;
-  let error = null;
-  const token = useCookieGrabber();
-
-  try {
-    users = await fetchUsers(token?.value || "");
-  } catch (err) {
-    error = err as AxiosError;
     return errorMessage(error.message);
   }
+
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <Tabs defaultValue="all">
@@ -100,89 +127,88 @@ export default async function Dashboard() {
                     </TableHead>
                   </TableRow>
                 </TableHeader>
-                <Suspense fallback={<ButtonLoader />}>
-                  <TableBody className="">
-                    {!users?.data || users.data === undefined
-                      ? "No Data found"
-                      : users?.data?.getUsers.map(
-                          (userData: UserDataTypes, index: number) => {
-                            return (
-                              <Fragment key={userData._id}>
-                                <TableRow className="cursor-default ">
-                                  <TableCell className="hidden sm:table-cell">
-                                    {index + 1}
-                                  </TableCell>
-                                  <TableCell className="font-medium">
-                                    {userData.username}
-                                  </TableCell>
-                                  <TableCell>{userData.fullName}</TableCell>
-                                  <TableCell>
-                                    <Badge variant="outline">
-                                      {userData.role}
-                                    </Badge>
-                                  </TableCell>
-                                  <TableCell className="hidden md:table-cell">
-                                    {userData.email}
-                                  </TableCell>
-                                  <TableCell className="hidden md:table-cell">
-                                    {moment(userData.createdAt).format(
-                                      "MMMM Do YYYY, h:mm:ss a"
-                                    )}
-                                  </TableCell>
-                                  <TableCell className="hidden md:table-cell">
-                                    {moment(userData.updatedAt).format(
-                                      "MMMM Do YYYY, h:mm:ss a"
-                                    )}
-                                  </TableCell>
-                                  <TableCell>
-                                    {userData.username === "zlaam" ? (
-                                      <span className="flex items-center gap-2 cursor-not-allowed text-red-500 select-none">
-                                        <Lock size={15} />
-                                        Not Allowed
-                                      </span>
-                                    ) : (
-                                      <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                          <Button
-                                            aria-haspopup="true"
-                                            size="icon"
-                                            variant="ghost"
-                                          >
-                                            <MoreHorizontal className="h-4 w-4" />
-                                            <span className="sr-only">
-                                              Toggle menu
-                                            </span>
-                                          </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end">
-                                          <DropdownMenuLabel>
-                                            Actions
-                                          </DropdownMenuLabel>
-                                          <Link
-                                            href={`/blog-pannel/admin/users/updateUser/${userData._id}`}
-                                          >
-                                            <DropdownMenuItem>
-                                              edit
-                                            </DropdownMenuItem>
-                                          </Link>
-                                          <Link
-                                            href={`/blog-pannel/admin/users/deleteUser/${userData._id}`}
-                                          >
-                                            <DropdownMenuItem>
-                                              Delete
-                                            </DropdownMenuItem>
-                                          </Link>
-                                        </DropdownMenuContent>
-                                      </DropdownMenu>
-                                    )}
-                                  </TableCell>
-                                </TableRow>
-                              </Fragment>
-                            );
-                          }
-                        )}
-                  </TableBody>
-                </Suspense>
+
+                <TableBody className="">
+                  {!users?.data || users.data === undefined
+                    ? "No Data found"
+                    : users?.data?.getUsers.map(
+                        (userData: UserDataTypes, index: number) => {
+                          return (
+                            <Fragment key={userData._id}>
+                              <TableRow className="cursor-default ">
+                                <TableCell className="hidden sm:table-cell">
+                                  {index + 1}
+                                </TableCell>
+                                <TableCell className="font-medium">
+                                  {userData.username}
+                                </TableCell>
+                                <TableCell>{userData.fullName}</TableCell>
+                                <TableCell>
+                                  <Badge variant="outline">
+                                    {userData.role}
+                                  </Badge>
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">
+                                  {userData.email}
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">
+                                  {moment(userData.createdAt).format(
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                  )}
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">
+                                  {moment(userData.updatedAt).format(
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                  )}
+                                </TableCell>
+                                <TableCell>
+                                  {userData.username === "zlaam" ? (
+                                    <span className="flex items-center gap-2 cursor-not-allowed text-red-500 select-none">
+                                      <Lock size={15} />
+                                      Not Allowed
+                                    </span>
+                                  ) : (
+                                    <DropdownMenu>
+                                      <DropdownMenuTrigger asChild>
+                                        <Button
+                                          aria-haspopup="true"
+                                          size="icon"
+                                          variant="ghost"
+                                        >
+                                          <MoreHorizontal className="h-4 w-4" />
+                                          <span className="sr-only">
+                                            Toggle menu
+                                          </span>
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContent align="end">
+                                        <DropdownMenuLabel>
+                                          Actions
+                                        </DropdownMenuLabel>
+                                        <Link
+                                          href={`/blog-pannel/admin/users/updateUser/${userData._id}`}
+                                        >
+                                          <DropdownMenuItem>
+                                            edit
+                                          </DropdownMenuItem>
+                                        </Link>
+                                        <Link
+                                          href={`/blog-pannel/admin/users/deleteUser/${userData._id}`}
+                                        >
+                                          <DropdownMenuItem>
+                                            Delete
+                                          </DropdownMenuItem>
+                                        </Link>
+                                      </DropdownMenuContent>
+                                    </DropdownMenu>
+                                  )}
+                                </TableCell>
+                              </TableRow>
+                            </Fragment>
+                          );
+                        }
+                      )}
+                </TableBody>
               </Table>
             </CardContent>
           </Card>
