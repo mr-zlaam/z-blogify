@@ -152,14 +152,14 @@ export default async function UserDashBoard() {
                                           Actions
                                         </DropdownMenuLabel>
                                         <Link
-                                          href={`/blog-pannel/admin/users/updateUser/${userData._id}`}
+                                          href={`users/updateUser/${userData._id}`}
                                         >
                                           <DropdownMenuItem>
                                             edit
                                           </DropdownMenuItem>
                                         </Link>
                                         <Link
-                                          href={`/blog-pannel/admin/users/deleteUser/${userData._id}`}
+                                          href={`users/deleteUser/${userData._id}`}
                                         >
                                           <DropdownMenuItem>
                                             Delete

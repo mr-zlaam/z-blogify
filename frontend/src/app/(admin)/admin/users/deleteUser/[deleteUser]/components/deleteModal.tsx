@@ -13,7 +13,7 @@ function Delete({ id, token }: { id: string; token: string }) {
 
   const { errorMessage, successMessage } = useMessage();
   const RedirectToPreviousPage = () => {
-    router.push("/blog-pannel/admin/users");
+    router.push("/admin/users");
   };
   const deleteThisUser = async () => {
     try {

@@ -22,7 +22,7 @@ export const registerSchema: ZodType<UserRegisterTypes> = object({
   email: string()
     .email()
     .min(5, { message: "This field requires at least 5 characters" })
-    .max(30, { message: "Email is too long" })
+    .max(100, { message: "Email is too long" })
 
     .toLowerCase(),
   password: string()
@@ -52,7 +52,7 @@ export const loginSchema: ZodType<UserLoginTypes> = object({
   email: string()
     .email()
     .min(5, { message: "This field requires at least 5 characters" })
-    .max(20, { message: "Email is too long" })
+    .max(100, { message: "Email is too long" })
     .regex(new RegExp(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/), {
       message: "Please provide valid email",
     })
