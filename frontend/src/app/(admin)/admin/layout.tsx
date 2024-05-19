@@ -52,7 +52,7 @@ export default function AdminLayout({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="/blog-pannel/admin/users"
+                  href="/admin/users"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Users2 className="h-5 w-5" />
@@ -66,7 +66,7 @@ export default function AdminLayout({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="/blog-pannel/admin/privateBlogs"
+                  href="/admin/privateBlogs"
                   className="flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <BookLock className="h-5 w-5" />
@@ -80,7 +80,7 @@ export default function AdminLayout({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="/blog-pannel/admin/publicBlogs"
+                  href="/admin/publicBlogs"
                   className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <BookOpenCheck className="h-5 w-5" />
@@ -114,21 +114,21 @@ export default function AdminLayout({
                   <span className="sr-only">Zlaam</span>
                 </Link>
                 <Link
-                  href="/blog-pannel/admin/users"
+                  href="/admin/users"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Users2 className="h-5 w-5" />
                   Users
                 </Link>
                 <Link
-                  href="/blog-pannel/admin/privateBlogs"
+                  href="/admin/privateBlogs"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <BookLock className="h-5 w-5" />
                   Private Blogs
                 </Link>
                 <Link
-                  href="/blog-pannel/admin/publicBlogs"
+                  href="/admin/publicBlogs"
                   className="flex items-center gap-4 px-2.5 text-foreground"
                 >
                   <BookOpenCheck className="h-5 w-5" />
