@@ -28,11 +28,10 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { BACKEND_URI } from "@/config";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { UserDataTypes } from "@/types";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
 import { Fragment } from "react";
-//@types
 
 const fetchUsers = async (token: string) => {
   try {
