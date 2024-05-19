@@ -17,9 +17,11 @@ export default asyncHandler(async function updateAndDeleteAuthMiddleware(
   const { JWT_ACCESS_SECRET } = _config;
   const token = req.header("Authorization");
   if (!token)
-    return res
-      .status(401)
-      .json(ApiResponse(401, "You are not authenticated to make changes")); // Changed the response message
+    return next(
+      res
+        .status(401)
+        .json(ApiResponse(401, "You are not authenticated to make changes"))
+    ); // Changed the response message
 
   const parsedToken = token?.split(" ")[1] as string;
   let decoded;
