@@ -6,7 +6,9 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <main className="flex   flex-col  min-h-screen">
-        <ThemeToggler />
+        <div className="fixed left-3 lg:top-9 top-[43px] md:top-5 z-[999]">
+          <ThemeToggler />
+        </div>
         <header className="z-[998] sticky top-0 ">
           <Header />
         </header>

@@ -17,6 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ThemeToggler } from "@/theme/ThemeToggler";
 
 export default function AdminLayout({
   children,
@@ -76,6 +77,9 @@ export default function AdminLayout({
               <TooltipContent side="right">Public Blogs</TooltipContent>
             </Tooltip>
           </TooltipProvider>
+          <div className="">
+            <ThemeToggler />
+          </div>
         </nav>
       </aside>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -117,6 +121,9 @@ export default function AdminLayout({
                   <BookOpenCheck className="h-5 w-5" />
                   Public Blogs
                 </Link>
+                <div className="">
+                  <ThemeToggler />
+                </div>
               </nav>
             </SheetContent>
           </Sheet>
