@@ -3,6 +3,7 @@ import ButtonLoader from "@/_subComponents/buttonLoader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { BACKEND_URI } from "@/config";
 import { useLoading } from "@/hooks/useLoading";
 import { useMessage } from "@/hooks/useMessage";
 import { cn } from "@/lib/utils";
@@ -34,8 +35,7 @@ function RegisterForm() {
     try {
       startLoading();
       const response = await axios.post(
-        // `${process.env.BACKEND_URI}users/register`,
-        `http://localhost:9000/api/v1/auth/user/register`,
+        `${BACKEND_URI}/auth/user/register`,
         {
           username,
           fullName,
