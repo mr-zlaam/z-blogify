@@ -3,8 +3,11 @@ import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import NavLinks from "./NavLinks";
+import Image from "next/image";
+import { useTheme } from "next-themes";
 
 function Header() {
+  const { theme } = useTheme();
   return (
     <>
       <PageWrapper
@@ -14,7 +17,13 @@ function Header() {
       >
         <div className="ml-5 mt-2 md:-ml-5 ">
           <Link href="/home" className="select-none">
-            logo
+            <Image
+              src={"/logo/logo.png"}
+              alt="zlaam.dev"
+              height={80}
+              width={80}
+              className={cn(theme === "dark" ? "invert" : "")}
+            />
           </Link>
         </div>
         <NavLinks />
