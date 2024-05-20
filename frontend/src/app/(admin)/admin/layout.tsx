@@ -1,3 +1,4 @@
+"Hello world";
 import {
   BookLock,
   BookOpenCheck,
