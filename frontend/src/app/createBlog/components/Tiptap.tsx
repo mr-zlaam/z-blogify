@@ -14,6 +14,7 @@ import {
   FaListOl,
   FaListUl,
   FaParagraph,
+  FaSave,
   FaStrikethrough,
 } from "react-icons/fa";
 import { LuHeading1 } from "react-icons/lu";
@@ -21,6 +22,8 @@ import { GrBlockQuote } from "react-icons/gr";
 
 import { cn } from "@/lib/utils";
 import TextStyle from "@tiptap/extension-text-style";
+import { BACKEND_URI } from "@/config";
+import axios from "axios";
 //Types
 type VariantType =
   | "ghost"
@@ -77,6 +80,23 @@ const Tiptap = () => {
 
   if (!editor) return null;
 
+  /* Save the content now
+   * Save content function
+   */
+  const saveContent = async () => {
+    try {
+      const content = editor.getJSON();
+      console.log(content);
+      console.log(content.content);
+      const res = await axios.post(`${BACKEND_URI}/blogs/createBlog`, {
+        blogTitle: "hero is title",
+        blogDescription: content,
+      });
+      console.log("Response:", res.data);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
   const formatter = [
     {
       name: "bold",
@@ -264,6 +284,15 @@ const Tiptap = () => {
       Icon: null,
       IconText: "Blue",
       test_id: "setBlue",
+    },
+    {
+      name: "Save",
+      Iconsize,
+      handleFormatting: saveContent,
+      buttonSize: "icon",
+      variant: "ghost",
+      className: "",
+      Icon: FaSave,
     },
   ];
   return (

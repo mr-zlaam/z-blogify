@@ -13,7 +13,7 @@ const blogSchema = new Schema<BlogTypes>(
       required: [true, "Blog Title is required!"],
     },
     blogDescription: {
-      type: String,
+      type: mongoose.Schema.Types.Mixed,
       required: [true, "Blog description is required!"],
     },
     isPublic: {
