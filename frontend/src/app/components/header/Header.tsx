@@ -20,8 +20,8 @@ function Header() {
             <Image
               src={"/logo/logo.png"}
               alt="zlaam.dev"
-              height={80}
-              width={80}
+              height={70}
+              width={70}
               className={cn(theme === "dark" ? "invert" : "")}
             />
           </Link>
