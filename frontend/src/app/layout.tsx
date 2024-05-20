@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="">
-      <body className={cn(arimo.className, "font-medium")}>
+      <body className={cn(arimo.className, "font-medium bg-background")}>
         <main>
           <Toaster />
           <NextTopLoader showSpinner={false} color="#8d8dff" />
