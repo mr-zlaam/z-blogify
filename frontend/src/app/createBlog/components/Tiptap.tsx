@@ -11,8 +11,11 @@ import {
   FaCode,
   FaImage,
   FaItalic,
+  FaParagraph,
   FaStrikethrough,
 } from "react-icons/fa";
+import { LuHeading1, LuHeading2 } from "react-icons/lu";
+
 import { cn } from "@/lib/utils";
 //Types
 type VariantType =
@@ -31,6 +34,7 @@ const extensions = [
         class: "bg-black/70 text-white ",
       },
     },
+    heading: { levels: [1], HTMLAttributes: { class: "text-4xl font-bold" } },
   }),
   Image.configure({
     HTMLAttributes: {
@@ -107,6 +111,27 @@ const Tiptap = () => {
       className: "",
       disabled: false,
       Icon: FaImage,
+    },
+    {
+      name: "paragraph",
+      Iconsize,
+      handleFormatting: () => editor.chain().focus().setParagraph().run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("paragraph") ? "bg-gray-500" : "",
+      disabled: !editor.can().chain().focus().setParagraph().run(),
+      Icon: FaParagraph,
+    },
+    {
+      name: "heading-1",
+      Iconsize,
+      handleFormatting: () =>
+        editor.chain().focus().toggleHeading({ level: 1 }).run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("heading", { level: 1 }) ? "bg-gray-500" : "",
+      disabled: !editor.can().chain().focus().toggleHeading({ level: 1 }).run(),
+      Icon: LuHeading1,
     },
   ];
   return (
