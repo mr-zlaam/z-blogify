@@ -60,6 +60,7 @@ export default asyncHandler(async function loginUser(
       httpOnly: true,
       secure: _config.ENV_DEV,
       sameSite: "lax",
+      maxAge: 1000 * 60 * 1000,
     })
     .status(200)
     .json(

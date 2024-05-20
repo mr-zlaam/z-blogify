@@ -31,9 +31,7 @@ export default asyncHandler(async function authTokenAuthenticator(
       // Handle token validation errors
       return res
         .status(401)
-        .json(
-          ApiResponse(401, "Token is invalid. Please get the correct token")
-        );
+        .json(ApiResponse(401, "Token is invalid. Please get the valid token"));
     } else {
       return next(error); // Forward other errors to the error handling middleware
     }
