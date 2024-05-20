@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "@tiptap/extension-image";
 import { useCallback } from "react";
-
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import {
@@ -11,6 +10,7 @@ import {
   FaCode,
   FaImage,
   FaItalic,
+  FaListUl,
   FaParagraph,
   FaStrikethrough,
 } from "react-icons/fa";
@@ -34,7 +34,9 @@ const extensions = [
         class: "bg-black/70 text-white ",
       },
     },
-    heading: { levels: [1], HTMLAttributes: { class: "text-4xl font-bold" } },
+    heading: { levels: [1], HTMLAttributes: { class: "text-2xl font-bold" } },
+    // listItem: { HTMLAttributes: { class: "list-inside" } },
+    // bulletList: { HTMLAttributes: { class: "list-disc " } },
   }),
   Image.configure({
     HTMLAttributes: {
@@ -132,6 +134,16 @@ const Tiptap = () => {
       className: editor.isActive("heading", { level: 1 }) ? "bg-gray-500" : "",
       disabled: !editor.can().chain().focus().toggleHeading({ level: 1 }).run(),
       Icon: LuHeading1,
+    },
+    {
+      name: "bulletList",
+      Iconsize,
+      handleFormatting: () => editor.chain().focus().toggleBulletList().run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("bulletList") ? "bg-gray-500" : "",
+      disabled: !editor.can().chain().focus().toggleBulletList().run(),
+      Icon: FaListUl,
     },
   ];
   return (
