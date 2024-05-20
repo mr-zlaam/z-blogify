@@ -1,18 +1,19 @@
 "use client";
 
-import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import { Button } from "@/components/ui/button";
-import CodeBlock from "@tiptap/extension-code-block";
+import Image from "@tiptap/extension-image";
+import { useCallback } from "react";
 
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import {
   FaBold,
   FaCode,
-  FaCodepen,
+  FaImage,
   FaItalic,
   FaStrikethrough,
 } from "react-icons/fa";
+import { cn } from "@/lib/utils";
 //Types
 type VariantType =
   | "ghost"
@@ -24,21 +25,35 @@ type VariantType =
   | null;
 type ButtonSize = "default" | "icon" | "sm" | "lg" | null | undefined;
 const extensions = [
-  StarterKit,
-  CodeBlock.configure({
+  StarterKit.configure({
+    codeBlock: {
+      HTMLAttributes: {
+        class: "bg-black/70 text-white ",
+      },
+    },
+  }),
+  Image.configure({
     HTMLAttributes: {
-      class: "bg-black/70 text-white ",
+      class: " h-auto mx-3 object-fit w-[500px]",
     },
   }),
 ];
 const Iconsize = 25;
 const content = `Hello world`;
-
+//Main component
 const Tiptap = () => {
   const editor = useEditor({
     extensions,
     content,
   });
+  const addImage = useCallback(() => {
+    const url = window.prompt("URL");
+
+    if (url) {
+      editor?.chain().focus().setImage({ src: url }).run();
+    }
+  }, [editor]);
+
   if (!editor) return null;
 
   const formatter = [
@@ -48,7 +63,7 @@ const Tiptap = () => {
       handleFormatting: () => editor.chain().focus().toggleBold().run(),
       buttonSize: "icon",
       variant: "ghost",
-      className: editor.isActive("bold") ? "bg-gray-300" : "",
+      className: editor.isActive("bold") ? "bg-gray-500" : "",
       disabled: !editor.can().chain().focus().toggleBold().run(),
       Icon: FaBold,
     },
@@ -58,7 +73,7 @@ const Tiptap = () => {
       handleFormatting: () => editor.chain().focus().toggleItalic().run(),
       buttonSize: "icon",
       variant: "ghost",
-      className: editor.isActive("italic") ? "bg-gray-300" : "",
+      className: editor.isActive("italic") ? "bg-gray-500" : "",
       disabled: !editor.can().chain().focus().toggleItalic().run(),
       Icon: FaItalic,
     },
@@ -68,34 +83,35 @@ const Tiptap = () => {
       handleFormatting: () => editor.chain().focus().toggleStrike().run(),
       buttonSize: "icon",
       variant: "ghost",
-      className: editor.isActive("strike") ? "bg-gray-300" : "",
+      className: editor.isActive("strike") ? "bg-gray-500" : "",
       disabled: !editor.can().chain().focus().toggleStrike().run(),
       Icon: FaStrikethrough,
     },
+
     {
-      name: "toggleCode",
-      Iconsize,
-      handleFormatting: () => editor.chain().focus().toggleCode().run(),
-      buttonSize: "icon",
-      variant: "ghost",
-      className: editor.isActive("code") ? "bg-gray-300" : "",
-      disabled: !editor.can().chain().focus().toggleCode().run(),
-      Icon: FaCode,
-    },
-    {
-      name: "codeBlock",
+      name: "codes",
       Iconsize,
       handleFormatting: () => editor.chain().focus().toggleCodeBlock().run(),
       buttonSize: "icon",
       variant: "ghost",
-      className: editor.isActive("codeBlock") ? "bg-gray-300" : "",
+      className: editor.isActive("codeBlock") ? "bg-gray-500" : "",
       disabled: !editor.can().chain().focus().toggleCodeBlock().run(),
-      Icon: FaCodepen,
+      Icon: FaCode,
+    },
+    {
+      name: "image",
+      Iconsize,
+      handleFormatting: addImage,
+      buttonSize: "icon",
+      variant: "ghost",
+      className: "",
+      disabled: false,
+      Icon: FaImage,
     },
   ];
   return (
-    <PageWrapper>
-      <div className="flex items-center gap-5 py-5">
+    <section className="">
+      <div className="flex items-center gap-5 py-5 bg-[#28282b] px-4">
         {formatter.map((option) => {
           return (
             <Button
@@ -103,10 +119,13 @@ const Tiptap = () => {
               key={option.name}
               onClick={option.handleFormatting}
               variant={option.variant as VariantType}
-              className={option.className}
+              className={cn(
+                option.className,
+                "hover:bg-yellow-700 hover:text-black"
+              )}
               size={option.buttonSize as ButtonSize}
             >
-              <option.Icon size={option.Iconsize} />
+              <option.Icon size={option.Iconsize} color="#ffffff" />
             </Button>
           );
         })}
@@ -114,7 +133,7 @@ const Tiptap = () => {
       <div className="border border-foreground rounded-md h-[90dvh] overflow-auto">
         <EditorContent editor={editor} />
       </div>
-    </PageWrapper>
+    </section>
   );
 };
 
