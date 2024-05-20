@@ -5,7 +5,7 @@ function CreatBlogPage() {
   return (
     <>
       <section>
-        <li className="list-disc list-inside">Hello world</li>
+        <li className="list-decimal list-inside">Hello world</li>
         <NewPost />
       </section>
     </>

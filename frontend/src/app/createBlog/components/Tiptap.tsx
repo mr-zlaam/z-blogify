@@ -1,22 +1,26 @@
 "use client";
+import { Color } from "@tiptap/extension-color";
 
 import { Button } from "@/components/ui/button";
 import Image from "@tiptap/extension-image";
-import { useCallback } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { useCallback } from "react";
 import {
   FaBold,
   FaCode,
   FaImage,
   FaItalic,
+  FaListOl,
   FaListUl,
   FaParagraph,
   FaStrikethrough,
 } from "react-icons/fa";
-import { LuHeading1, LuHeading2 } from "react-icons/lu";
+import { LuHeading1 } from "react-icons/lu";
+import { GrBlockQuote } from "react-icons/gr";
 
 import { cn } from "@/lib/utils";
+import TextStyle from "@tiptap/extension-text-style";
 //Types
 type VariantType =
   | "ghost"
@@ -31,13 +35,24 @@ const extensions = [
   StarterKit.configure({
     codeBlock: {
       HTMLAttributes: {
-        class: "bg-black/70 text-white ",
+        class: "bg-black/80 text-white max-w-[1020px] mx-auto rounded-md pt-10",
       },
     },
     heading: { levels: [1], HTMLAttributes: { class: "text-2xl font-bold" } },
-    // listItem: { HTMLAttributes: { class: "list-inside" } },
-    // bulletList: { HTMLAttributes: { class: "list-disc " } },
+    listItem: { HTMLAttributes: { class: "list-inside" } },
+    bulletList: {
+      keepMarks: true,
+      keepAttributes: false,
+      HTMLAttributes: { class: "list-disc " },
+    },
+    orderedList: {
+      keepMarks: true,
+      keepAttributes: false,
+      HTMLAttributes: { class: "list-decimal " },
+    },
   }),
+  TextStyle,
+  Color,
   Image.configure({
     HTMLAttributes: {
       class: " h-auto mx-3 object-fit w-[500px]",
@@ -45,7 +60,7 @@ const extensions = [
   }),
 ];
 const Iconsize = 25;
-const content = `Hello world`;
+const content = ``;
 //Main component
 const Tiptap = () => {
   const editor = useEditor({
@@ -145,6 +160,111 @@ const Tiptap = () => {
       disabled: !editor.can().chain().focus().toggleBulletList().run(),
       Icon: FaListUl,
     },
+    {
+      name: "orderList",
+      Iconsize,
+      handleFormatting: () => editor.chain().focus().toggleOrderedList().run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("orderList") ? "bg-gray-500" : "",
+      disabled: !editor.can().chain().focus().toggleOrderedList().run(),
+      Icon: FaListOl,
+    },
+    {
+      name: "blockQuote",
+      Iconsize,
+      handleFormatting: () => editor.chain().focus().toggleBlockquote().run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("blockquote") ? "bg-gray-500" : "",
+      disabled: !editor.can().chain().focus().toggleBlockquote().run(),
+      Icon: GrBlockQuote,
+    },
+
+    {
+      name: "white",
+      Iconsize,
+      handleFormatting: () => editor.chain().focus().setColor("#ffffff").run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("textStyle", { color: "#ffffff" })
+        ? "bg-gray-500"
+        : "",
+      disabled: false,
+      Icon: null,
+      IconText: "white",
+      test_id: "setWhite",
+    },
+    {
+      name: "Black",
+      Iconsize,
+      handleFormatting: () => editor.chain().focus().setColor("#000000").run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("textStyle", { color: "#000000" })
+        ? "bg-gray-500"
+        : "",
+      disabled: false,
+      Icon: null,
+      IconText: "Black",
+      test_id: "setBlack",
+    },
+    {
+      name: "Green",
+      Iconsize,
+      handleFormatting: () => editor.chain().focus().setColor("#00ff00").run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("textStyle", { color: "#00ff00" })
+        ? "bg-gray-500"
+        : "",
+      disabled: false,
+      Icon: null,
+      IconText: "Green",
+      test_id: "setGreen",
+    },
+    {
+      name: "Yellow",
+      Iconsize,
+      handleFormatting: () => editor.chain().focus().setColor("#ffff00").run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("textStyle", { color: "#ffff00" })
+        ? "bg-gray-500"
+        : "",
+      disabled: false,
+      Icon: null,
+      IconText: "Yellow",
+      test_id: "setYellow",
+    },
+    {
+      name: "Red",
+      Iconsize,
+      handleFormatting: () => editor.chain().focus().setColor("#ff0000").run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("textStyle", { color: "#ff0000" })
+        ? "bg-gray-500"
+        : "",
+      disabled: false,
+      Icon: null,
+      IconText: "Red",
+      test_id: "setRed",
+    },
+    {
+      name: "Blue",
+      Iconsize,
+      handleFormatting: () => editor.chain().focus().setColor("#0000ff").run(),
+      buttonSize: "icon",
+      variant: "ghost",
+      className: editor.isActive("textStyle", { color: "#0000ff" })
+        ? "bg-gray-500"
+        : "",
+      disabled: false,
+      Icon: null,
+      IconText: "Blue",
+      test_id: "setBlue",
+    },
   ];
   return (
     <section className="">
@@ -152,6 +272,7 @@ const Tiptap = () => {
         {formatter.map((option) => {
           return (
             <Button
+              data-testid={option?.test_id || ""}
               disabled={option.disabled}
               key={option.name}
               onClick={option.handleFormatting}
@@ -162,7 +283,11 @@ const Tiptap = () => {
               )}
               size={option.buttonSize as ButtonSize}
             >
-              <option.Icon size={option.Iconsize} color="#ffffff" />
+              {!option.Icon ? (
+                <span className="text-white">{option.IconText}</span>
+              ) : (
+                <option.Icon size={option.Iconsize} color="#ffffff" />
+              )}
             </Button>
           );
         })}
