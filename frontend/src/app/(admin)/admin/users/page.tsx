@@ -33,7 +33,6 @@ import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
 import { Fragment } from "react";
-import Redirector from "@/app/helper/Redirector/Redirector";
 
 const fetchUsers = async (token: string) => {
   try {
@@ -142,9 +141,9 @@ export default async function UserDashBoard() {
                                         <Button
                                           aria-haspopup="true"
                                           size="icon"
-                                          variant="ghost"
+                                          className="bg-transparent hover:bg-transparent"
                                         >
-                                          <MoreHorizontal className="h-4 w-4" />
+                                          <MoreHorizontal className="h-4 w-4 text-foreground" />
                                           <span className="sr-only">
                                             Toggle menu
                                           </span>
