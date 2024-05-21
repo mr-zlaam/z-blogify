@@ -22,6 +22,7 @@ function Header() {
               alt="zlaam.dev"
               height={70}
               width={70}
+              style={{ width: "auto" }}
               className={cn(theme === "dark" ? "invert" : "")}
             />
           </Link>

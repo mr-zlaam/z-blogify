@@ -1,6 +1,7 @@
 import { BACKEND_URI } from "@/config";
 import axios from "axios";
 import {} from "react";
+import Posts from "./components/Posts";
 const loadContent = async () => {
   console.log("backend_uri", BACKEND_URI);
   try {
@@ -15,7 +16,9 @@ async function HomePage() {
   console.log(data);
   return (
     <>
-      <section>HomePage</section>
+      <section>
+        <Posts data={data} />
+      </section>
     </>
   );
 }
