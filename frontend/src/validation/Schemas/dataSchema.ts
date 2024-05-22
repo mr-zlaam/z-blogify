@@ -1,4 +1,5 @@
 import type {
+  BlogTypes,
   UserLoginTypes,
   UserRegisterTypes,
   UserUpdateTypes,
@@ -81,5 +82,15 @@ export const updateSchema: ZodType<UserUpdateTypes> = object({
     .toLowerCase(),
   role: enum_(["admin", "user", "sub-admin"], {
     errorMap: () => ({ message: "Role must be user|sub-admin|admin" }),
+  }),
+});
+
+export const blogSchema: ZodType<BlogTypes> = object({
+  title: string().min(4, {
+    message: "title must contain atleast 4 characters",
+  }),
+  slug: string(),
+  description: string().min(100, {
+    message: "description must contain atleast 100 characters.",
   }),
 });

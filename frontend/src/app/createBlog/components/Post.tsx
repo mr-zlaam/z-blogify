@@ -1,12 +1,11 @@
-"use client";
 import {} from "react";
 
-function Post() {
+function CreatBlog() {
   return (
     <>
-      <section>Post</section>
+      <section>CreatBlog</section>
     </>
   );
 }
 
-export default Post;
+export default CreatBlog;

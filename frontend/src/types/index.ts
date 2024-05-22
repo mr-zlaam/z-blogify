@@ -24,3 +24,8 @@ export interface UserDataTypes {
   createdAt: string;
   updatedAt: string;
 }
+export interface BlogTypes {
+  title: string;
+  slug: string;
+  description: string;
+}
