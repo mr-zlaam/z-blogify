@@ -16,9 +16,9 @@ import "froala-editor/js/plugins/font_size.min.js";
 import "froala-editor/js/plugins/image.min.js";
 import "froala-editor/js/plugins/link.min.js";
 import "froala-editor/js/plugins/save.min.js";
+import parser from "html-react-parser";
 import { useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
-import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 function CreatePosts() {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
@@ -79,33 +79,33 @@ function CreatePosts() {
               readOnly
             />
           </div>
-          <div>
-            <label htmlFor="">Blog Description</label>
-            <div className="relative h-fit overflow-hidden  ">
-              <FroalaEditor
-                model={desc}
-                onModelChange={(e: string) => setDesc(e)}
-                config={{
-                  placeholderText: "Start from the here ",
-                  saveInterval: 1000,
-                  charCounterCount: true,
+          <div />
+          <label htmlFor="">Blog Description</label>
+          <div className="relative h-fit overflow-hidden my-4">
+            <FroalaEditor
+              model={desc}
+              onModelChange={(e: string) => setDesc(e)}
+              config={{
+                placeholderText: "Start from the here ",
+                saveInterval: 1000,
+                charCounterCount: true,
 
-                  events: {
-                    "save.before": function (html: string) {
-                      localStorage.setItem("savedHtml", html);
-                    },
+                events: {
+                  "save.before": function (html: string) {
+                    localStorage.setItem("savedHtml", html);
                   },
-                }}
-              />
-              <div className=" bg-white absolute bottom-4 h-[20px] w-full max-w-4xl"></div>
-            </div>
-            <div className="flex justify-end w-full px-5">
-              <Button className="">Post</Button>
-            </div>
+                },
+              }}
+            />
+            <div className=" bg-white absolute bottom-4 h-[20px] w-full max-w-4xl" />
+          </div>
+          <div className="flex justify-end w-full px-5">
+            <Button className="">Upload Blog</Button>
           </div>
         </form>
         <div className="my-5 p-4">
-          <FroalaEditorView model={desc} />
+          {/* <FroalaEditorView model={desc} /> */}
+          {parser(desc)}
         </div>
       </section>
     </>
