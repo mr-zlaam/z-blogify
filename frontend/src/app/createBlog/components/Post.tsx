@@ -1,11 +1,12 @@
+"use client";
 import {} from "react";
 
-function CreatBlog() {
+function CreatePosts() {
   return (
     <>
-      <section>CreatBlog</section>
+      <section>CreatePosts</section>
     </>
   );
 }
 
-export default CreatBlog;
+export default CreatePosts;
