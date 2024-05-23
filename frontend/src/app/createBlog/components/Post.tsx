@@ -1,10 +1,14 @@
 "use client";
-import { useState } from "react";
-import FroalaEditor from "react-froala-wysiwyg";
+import { API as axios } from "@/axios";
+import { Button } from "@/components/ui/button";
+import { useMessage } from "@/hooks/useMessage";
+import { useSlugGenerator as UseSlugGenerator } from "@/hooks/useSlugGenerator";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/plugins/code_view.min.css";
+import "froala-editor/js/plugins/align.min.js";
 import "froala-editor/js/plugins/char_counter.min.js";
+import "froala-editor/js/plugins/code_beautifier.min.js";
 import "froala-editor/js/plugins/code_view.min.js";
 import "froala-editor/js/plugins/colors.min.js";
 import "froala-editor/js/plugins/font_family.min.js";
@@ -12,16 +16,14 @@ import "froala-editor/js/plugins/font_size.min.js";
 import "froala-editor/js/plugins/image.min.js";
 import "froala-editor/js/plugins/link.min.js";
 import "froala-editor/js/plugins/save.min.js";
-import "froala-editor/js/plugins/align.min.js";
-import "froala-editor/js/plugins/code_beautifier.min.js";
+import { useState } from "react";
+import FroalaEditor from "react-froala-wysiwyg";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
-import { useSlugGenerator as UseSlugGenerator } from "@/hooks/useSlugGenerator";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 function CreatePosts() {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
   });
+  const { errorMessage, successMessage } = useMessage();
   const [title, setTitle] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
   const handleOnchange = (
@@ -33,7 +35,25 @@ function CreatePosts() {
     setTitle(newTitle);
     setSlug(UseSlugGenerator(newTitle));
   };
-  const handleCreateBlog = async () => {};
+  const handleCreateBlog = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title || !slug || !desc) {
+      return errorMessage("Please Provide all fields");
+    }
+    try {
+      const response = await axios.post("/blogs/createBlog", {
+        blogTitle: title,
+        blogSlug: slug,
+        blogDescription: desc,
+      });
+      if (response.status === 201) {
+        //remove local storage first
+        return successMessage("Blog created successfully");
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <section className="px-5 py-2">
@@ -44,24 +64,24 @@ function CreatePosts() {
               type="text"
               name="title"
               value={title}
-              className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-black"
+              className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleOnchange}
             />
           </div>
           <div className="my-4">
             <label htmlFor="slug">Slug</label>
-            <Input
+            <input
               type="text"
               name="slug"
               value={slug}
-              className="max-w-5xl mx-4 border border-black "
+              className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleOnchange}
               readOnly
             />
           </div>
           <div>
-            <div className="relative ">
-              <label htmlFor="">Blog Description</label>
+            <label htmlFor="">Blog Description</label>
+            <div className="relative h-fit overflow-hidden  ">
               <FroalaEditor
                 model={desc}
                 onModelChange={(e: string) => setDesc(e)}
@@ -77,10 +97,11 @@ function CreatePosts() {
                   },
                 }}
               />
-              <div className=" bg-white/10 absolute bottom-0 h-[100px] w-full"></div>
-              <div className="w-full flex justify-end px-5 py-2"></div>
+              <div className=" bg-white absolute bottom-4 h-[20px] w-full max-w-4xl"></div>
             </div>
-            <Button>Post</Button>
+            <div className="flex justify-end w-full px-5">
+              <Button className="">Post</Button>
+            </div>
           </div>
         </form>
         <div className="my-5 p-4">
