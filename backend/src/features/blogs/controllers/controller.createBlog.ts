@@ -11,7 +11,7 @@ export default asyncHandler(async function createBlog(
   next: NextFunction
 ) {
   const props = req.body;
-  const { blogTitle, blogDescription }: BlogTypes = props;
+  const { blogTitle, blogDescription, blogSlug }: BlogTypes = props;
   console.log(blogDescription);
   const isblogAuth = isBlogAuthenticated(props)!;
   if (typeof isblogAuth !== "boolean" && isblogAuth?.statusCode >= 400) {
@@ -26,6 +26,7 @@ export default asyncHandler(async function createBlog(
     newBlog = await BlogModel.create({
       blogTitle,
       blogDescription,
+      blogSlug,
       blogAuthor: "Zlaam",
       isPublic: false,
     });
