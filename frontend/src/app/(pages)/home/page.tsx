@@ -24,7 +24,7 @@ async function Home() {
                 <h1 className="text-3xl font-bold" suppressHydrationWarning>
                   {posts.blogTitle}
                 </h1>
-                <p suppressHydrationWarning>{posts.blogDescription}</p>
+                <div>{posts.blogDescription}</div>
               </Fragment>
             );
           })}

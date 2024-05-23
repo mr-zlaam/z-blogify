@@ -23,7 +23,7 @@ function Header() {
               height={70}
               width={70}
               style={{ width: "auto" }}
-              className={cn(theme === "dark" ? "invert" : "")}
+              className={cn("invert", theme === "light" && "invert-0")}
             />
           </Link>
         </div>

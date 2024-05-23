@@ -21,7 +21,6 @@ import { useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import Froalaeditor from "froala-editor";
 import { AlloweTags } from "../helper/toolbar";
-
 function CreatePosts() {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
