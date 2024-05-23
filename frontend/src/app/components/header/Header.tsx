@@ -18,12 +18,11 @@ function Header() {
         <div className="ml-5 mt-2 md:-ml-5 ">
           <Link href="/home" className="select-none">
             <Image
-              src={"/logo/logo.png"}
+              src={"/logo/image.png"}
               alt="zlaam.dev"
               height={70}
               width={70}
               style={{ width: "auto" }}
-              className={cn("invert", theme === "light" && "invert-0")}
             />
           </Link>
         </div>

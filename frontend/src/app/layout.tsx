@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="" suppressHydrationWarning>
+    <html lang="en" className="">
       <body className={cn(arimo.className, "font-medium bg-background")}>
         <main>
           <Toaster />

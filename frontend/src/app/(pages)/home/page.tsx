@@ -15,16 +15,14 @@ async function Home() {
   const data = await fetchBlogs();
   console.log(data);
   return (
-    <section suppressHydrationWarning>
+    <section>
       <PageWrapper>
         {data &&
           data.data.map((posts: any) => {
             return (
               <Fragment key={posts._id}>
-                <h1 className="text-3xl font-bold" suppressHydrationWarning>
-                  {posts.blogTitle}
-                </h1>
-                <div>{posts.blogDescription}</div>
+                <h1 className="text-3xl font-bold">{posts.blogTitle}</h1>
+                <div>{parser(posts.blogDescription)}</div>
               </Fragment>
             );
           })}
