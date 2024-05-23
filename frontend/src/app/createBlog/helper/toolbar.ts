@@ -4,11 +4,7 @@ export const toolbarOptions = [
   ["link", "image"],
   [{ list: "ordered" }, { list: "bullet" }],
   [{ indent: "-1" }, { indent: "+1" }],
-  [{ direction: "rtl" }],
   [{ color: [] }, { background: [] }],
-  [{ font: [] }],
-  [{ align: [] }],
-  ["clean"],
 ];
 export const formats = [
   "header",
