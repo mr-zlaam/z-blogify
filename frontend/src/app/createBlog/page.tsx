@@ -8,6 +8,7 @@ import "tailwindcss/tailwind.css"; // Ensure Tailwind CSS is imported
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { formats, toolbarOptions } from "./helper/toolbar";
+import { API as axios } from "@/axios";
 
 const Form: React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -24,7 +25,6 @@ const Form: React.FC = () => {
     setTitle(newTitle);
     setSlug(SlugGenerator(newTitle));
   };
-
   const imageHandler = useCallback(() => {
     const url = prompt("Enter the image URL");
     if (url && quillRef.current) {
@@ -68,17 +68,26 @@ const Form: React.FC = () => {
       },
     });
   };
-  const formSubmit = async (e: React.FormEvent) => {
+  const handleCreateBlog = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!desc || !title || !slug) {
       return alert("Please Provide all fields");
+    }
+    try {
+      const response = await axios.post("/blogs/createBlog", {
+        blogTitle: title,
+        blogDescription: desc,
+      });
+      console.log(response.data);
+    } catch (error: any) {
+      console.log(error);
     }
   };
 
   return (
     <section className="px-5 py-2">
       <div className=" h-[100dvh] overflow-auto">
-        <form onSubmit={formSubmit} className="w-full">
+        <form onSubmit={handleCreateBlog} className="w-full">
           <div className="">
             <label htmlFor="title">Title</label>
             <input
