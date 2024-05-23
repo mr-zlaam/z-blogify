@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { API as axios } from "@/axios";
-import parser from "html-react-parser";
+import parse from "html-react-parser";
 import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 const fetchBlogs = async () => {
   try {
@@ -22,7 +22,7 @@ async function Home() {
             return (
               <Fragment key={posts._id}>
                 <h1 className="text-3xl font-bold">{posts.blogTitle}</h1>
-                <div>{parser(posts.blogDescription)}</div>
+                <div>{parse(posts.blogDescription)}</div>
               </Fragment>
             );
           })}
