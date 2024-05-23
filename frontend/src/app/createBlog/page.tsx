@@ -9,13 +9,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { formats, toolbarOptions } from "./helper/toolbar";
 import { API as axios } from "@/axios";
+import { useMessage } from "@/hooks/useMessage";
 
 const Form: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
   const [desc, setDesc] = useState<string>("");
   const quillRef = useRef<ReactQuill>(null);
-
+  const { errorMessage, successMessage } = useMessage();
   const handleOnchange = (
     event:
       | React.ChangeEvent<HTMLInputElement>
@@ -70,13 +71,15 @@ const Form: React.FC = () => {
   };
   const handleCreateBlog = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(slug);
     if (!desc || !title || !slug) {
-      return alert("Please Provide all fields");
+      return errorMessage("Please Provide all fields");
     }
     try {
       const response = await axios.post("/blogs/createBlog", {
         blogTitle: title,
         blogDescription: desc,
+        blogSlug: slug,
       });
       console.log(response.data);
     } catch (error: any) {
