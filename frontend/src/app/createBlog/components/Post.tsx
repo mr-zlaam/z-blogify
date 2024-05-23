@@ -19,6 +19,9 @@ import "froala-editor/js/plugins/save.min.js";
 import parser from "html-react-parser";
 import { useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
+import Froalaeditor from "froala-editor";
+import { AlloweTags } from "../helper/toolbar";
+
 function CreatePosts() {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
@@ -87,9 +90,11 @@ function CreatePosts() {
               onModelChange={(e: string) => setDesc(e)}
               config={{
                 placeholderText: "Start from the here ",
-                saveInterval: 1000,
+                saveInterval: 2000,
                 charCounterCount: true,
-
+                enter: Froalaeditor.ENTER_BR,
+                htmlAllowedTags: AlloweTags,
+                htmlUntouched: true,
                 events: {
                   "save.before": function (html: string) {
                     localStorage.setItem("savedHtml", html);
@@ -103,10 +108,7 @@ function CreatePosts() {
             <Button className="">Upload Blog</Button>
           </div>
         </form>
-        <div className="my-5 p-4">
-          {/* <FroalaEditorView model={desc} /> */}
-          {parser(desc)}
-        </div>
+        <div className="my-5 p-4">{parser(desc)}</div>
       </section>
     </>
   );
