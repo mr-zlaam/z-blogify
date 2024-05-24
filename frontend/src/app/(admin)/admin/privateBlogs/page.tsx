@@ -32,6 +32,7 @@ import { BlogTypes } from "@/types";
 import { redirect } from "next/navigation";
 import { Fragment } from "react";
 import htmlParser from "html-react-parser";
+import Link from "next/link";
 const fetchPrivateBlogs = async () => {
   try {
     const response = await axios.get("/blogs/draftBlogs");
@@ -123,8 +124,16 @@ export default async function PrivateBlogs() {
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
                                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                  <DropdownMenuItem>Edit</DropdownMenuItem>
-                                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                                  <Link
+                                    href={`blog/updateBlog/${privateBlog.blogSlug}`}
+                                  >
+                                    <DropdownMenuItem>edit</DropdownMenuItem>
+                                  </Link>
+                                  <Link
+                                    href={`blog/deleteBlog/${privateBlog.blogSlug}`}
+                                  >
+                                    <DropdownMenuItem>Delete</DropdownMenuItem>
+                                  </Link>
                                 </DropdownMenuContent>
                               </DropdownMenu>
                             </TableCell>
