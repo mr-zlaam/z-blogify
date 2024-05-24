@@ -46,17 +46,18 @@ export default asyncHandler(async function updateBlog(
       .status(400)
       .json(ApiResponse(400, "ispublic must be true or false."));
   let updateThisBlog;
+  console.log(blogId);
   try {
     updateThisBlog = await BlogModel.findOneAndUpdate(
-      { blogSlug: blogId },
+      { _id: blogId },
       {
-        blogTitle,
-        blogDescription,
-        isPublic,
         blogAuthor,
-        blogSlug,
         blogThumbnail,
         blogThumbnailAuthor,
+        blogTitle,
+        blogSlug,
+        blogDescription,
+        isPublic,
       }
     );
   } catch (error: any) {

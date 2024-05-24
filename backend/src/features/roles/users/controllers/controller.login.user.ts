@@ -10,10 +10,10 @@ export default asyncHandler(async function loginUser(
   res: Response,
   next: NextFunction
 ) {
-  const props = req.body;
-  const { email, password } = props;
+  const { email, password } = req.body;
+  console.log(email, password);
   if (!email || !password) {
-    return res.status(409).json(ApiResponse(409, "All fields are required."));
+    return res.status(409).json(ApiResponse(409, "All fields are requireds."));
   }
   let isUserExist;
   try {
