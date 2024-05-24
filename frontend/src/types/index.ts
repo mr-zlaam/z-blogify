@@ -24,8 +24,21 @@ export interface UserDataTypes {
   createdAt: string;
   updatedAt: string;
 }
+interface BlogDataTypes {
+  _id: string;
+  blogTitle: string;
+  blogSlug: string;
+  blogDescription: string;
+  blogThumbnail: string;
+  blogAuthor: string;
+  blogThumbnailAuthor: string;
+  createdAt: string;
+  updatedAt: string;
+}
 export interface BlogTypes {
-  title: string;
-  slug: string;
-  description: string;
+  success: boolean;
+  statusCode: number;
+  message: string;
+  optMessage: string | null;
+  data: BlogDataTypes[];
 }
