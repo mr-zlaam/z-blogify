@@ -23,7 +23,7 @@ blogRouter.put(
   updateBlog
 );
 blogRouter.delete(
-  "/deleteBlog/:blogSlug",
+  "/deleteBlog/:blogId",
   // updateAndDeleteAuthMiddleware,
   deleteBlog
 );
