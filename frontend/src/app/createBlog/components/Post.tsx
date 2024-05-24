@@ -21,6 +21,8 @@ import { useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import Froalaeditor from "froala-editor";
 import { AlloweTags } from "../helper/toolbar";
+import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
+import Image from "next/image";
 function CreatePosts() {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
@@ -40,6 +42,12 @@ function CreatePosts() {
   ) => {
     setData((prev) => ({ ...prev, [event.target.name]: event.target.value }));
     console.log(data);
+  };
+  const handleChangeTitleAndSlug = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const newTitle = event.target.value;
     setTitle(newTitle);
     setSlug(UseSlugGenerator(newTitle));
@@ -85,7 +93,7 @@ function CreatePosts() {
               name="title"
               value={title}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
-              onChange={handleOnchange}
+              onChange={handleChangeTitleAndSlug}
             />
           </div>
           <div className="my-2">
@@ -95,7 +103,7 @@ function CreatePosts() {
               name="slug"
               value={slug}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
-              onChange={handleOnchange}
+              onChange={handleChangeTitleAndSlug}
               readOnly
             />
           </div>
@@ -159,7 +167,20 @@ function CreatePosts() {
             <Button className="">Upload Blog</Button>
           </div>
         </form>
-        <div className="my-5 p-4">{parser(desc)}</div>
+        <PageWrapper className="my-5 p-4 md:max-w-[920px]">
+          <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
+            {title}
+          </h1>
+          <div className="w-fit mx-auto my-4">
+            <Image
+              src={data.blogImage}
+              alt={data.blogImageAuthor}
+              width={920}
+              height={920}
+            />
+          </div>
+          <div className="text-balance text-lg">{parser(desc)}</div>
+        </PageWrapper>
       </section>
     </>
   );
