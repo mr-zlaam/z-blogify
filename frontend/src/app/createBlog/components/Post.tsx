@@ -23,6 +23,7 @@ import Froalaeditor from "froala-editor";
 import { AlloweTags } from "../helper/toolbar";
 import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import Image from "next/image";
+import { randomStringGen } from "@/app/helper/randomStringGen/randomStringGen";
 function CreatePosts() {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
@@ -64,11 +65,11 @@ function CreatePosts() {
     ) {
       return errorMessage("Please Provide all fields");
     }
-
+    const randomString = randomStringGen(20);
     try {
       const response = await axios.post("/blogs/createBlog", {
         blogTitle: title,
-        blogSlug: slug,
+        blogSlug: `${slug}-${randomString}`,
         blogDescription: desc,
         blogThumbnail: data.blogImage,
         blogThumbnailAuthor: data.blogImageAuthor,
@@ -173,14 +174,14 @@ function CreatePosts() {
             {title}
           </h1>
           <div className="w-fit mx-auto my-4">
-            {/* <Image
+            <Image
               src={data.blogImage}
               alt={data.blogImageAuthor}
               width={920}
               height={920}
-            /> */}
+            />
           </div>
-          <div className="text-balance text-lg">{parser(desc)}</div>
+          <div className="text-left w-full text-lg">{parser(desc)}</div>
         </PageWrapper>
       </section>
     </>

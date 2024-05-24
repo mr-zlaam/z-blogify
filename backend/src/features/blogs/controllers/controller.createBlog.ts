@@ -29,7 +29,7 @@ export default asyncHandler(async function createBlog(
   }
   let isSlugAlreadyExist;
   try {
-    isSlugAlreadyExist = await BlogModel.findOne({ blogSlug });
+    isSlugAlreadyExist = await BlogModel.findOne({ blogTitle });
   } catch (error: any) {
     console.log(error.message);
     return next(
@@ -43,11 +43,13 @@ export default asyncHandler(async function createBlog(
         )
     );
   }
-  // if (isSlugAlreadyExist?.blogSlug === blogSlug) {
-  //   return next(
-  //     res.status(400).json(ApiResponse(400, "blog slug already exist"))
-  //   );
-  // }
+  if (isSlugAlreadyExist) {
+    return next(
+      res
+        .status(400)
+        .json(ApiResponse(400, "blog  already exist on same topic"))
+    );
+  }
   let newBlog;
   try {
     newBlog = await BlogModel.create({
