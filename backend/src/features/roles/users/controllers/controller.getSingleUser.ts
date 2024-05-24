@@ -14,13 +14,15 @@ export default asyncHandler(async function GetSingleUser(
     return res.status(200).json(ApiResponse(200, "OK", null, getUser));
   } catch (error: any) {
     console.log(error.message);
-    return res
-      .status(error.status || 500)
-      .json(
-        ApiResponse(
-          error.status || 500,
-          "internal server error while getting one user"
+    return next(
+      res
+        .status(error.status || 500)
+        .json(
+          ApiResponse(
+            error.status || 500,
+            error.message || "internal server error while getting one user"
+          )
         )
-      );
+    );
   }
 });

@@ -6,6 +6,7 @@ import publicBlogs from "../controllers/controller.publicBlogs";
 import updateBlog from "../controllers/controller.updateBlogs";
 // import updateAndDeleteAuthMiddleware from "../../../middlewares/dashboardAuth.middleware";
 import deleteBlog from "../controllers/controller.deleteBlog";
+import getSingleBlog from "../controllers/controller.getSingleBlog";
 export const blogRouter = Router();
 
 blogRouter.post(
@@ -15,8 +16,9 @@ blogRouter.post(
 );
 blogRouter.get("/draftBlogs", draftBlogs);
 blogRouter.get("/publicBlogs", publicBlogs);
+blogRouter.get("/getSingleBlog/:blogSlug", getSingleBlog);
 blogRouter.put(
-  "/updateBlog/:blogSlug",
+  "/updateBlog/:blogId",
   // updateAndDeleteAuthMiddleware,
   updateBlog
 );

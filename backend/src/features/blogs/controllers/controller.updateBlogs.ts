@@ -9,7 +9,7 @@ export default asyncHandler(async function updateBlog(
   res: Response,
   next: NextFunction
 ) {
-  const { blogSlug: blogId } = req.params;
+  const { blogId } = req.params;
   const {
     blogTitle,
     blogDescription,
