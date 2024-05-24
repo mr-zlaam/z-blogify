@@ -12,7 +12,10 @@ const PageWrapper = ({
   return (
     <div
       id={id}
-      className={cn("mx-auto w-full md:max-w-scree px-7 sm:px-10", className)}
+      className={cn(
+        "mx-auto w-full md:max-w-screen-lg px-7 sm:px-10",
+        className
+      )}
     >
       {children}
     </div>

@@ -80,6 +80,7 @@ function CreatePosts() {
       }
     } catch (error: any) {
       console.log(error);
+      return errorMessage(error.response.data.message || error.message);
     }
   };
   return (
@@ -172,12 +173,12 @@ function CreatePosts() {
             {title}
           </h1>
           <div className="w-fit mx-auto my-4">
-            <Image
+            {/* <Image
               src={data.blogImage}
               alt={data.blogImageAuthor}
               width={920}
               height={920}
-            />
+            /> */}
           </div>
           <div className="text-balance text-lg">{parser(desc)}</div>
         </PageWrapper>

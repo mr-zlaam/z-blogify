@@ -27,6 +27,27 @@ export default asyncHandler(async function createBlog(
         .json(ApiResponse(isblogAuth.statusCode, isblogAuth.message))
     );
   }
+  let isSlugAlreadyExist;
+  try {
+    isSlugAlreadyExist = await BlogModel.findOne({ blogSlug });
+  } catch (error: any) {
+    console.log(error.message);
+    return next(
+      res
+        .status(500)
+        .json(
+          ApiResponse(
+            500,
+            error.message || "internal server error on createBlog"
+          )
+        )
+    );
+  }
+  // if (isSlugAlreadyExist?.blogSlug === blogSlug) {
+  //   return next(
+  //     res.status(400).json(ApiResponse(400, "blog slug already exist"))
+  //   );
+  // }
   let newBlog;
   try {
     newBlog = await BlogModel.create({

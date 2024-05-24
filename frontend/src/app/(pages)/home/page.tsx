@@ -14,21 +14,7 @@ const fetchBlogs = async () => {
 async function Home() {
   const data = await fetchBlogs();
   console.log(data);
-  return (
-    <section>
-      <PageWrapper>
-        {data &&
-          data.data.map((posts: any) => {
-            return (
-              <Fragment key={posts._id}>
-                <h1 className="text-3xl font-bold">{posts.blogTitle}</h1>
-                <div>{parse(posts.blogDescription)}</div>
-              </Fragment>
-            );
-          })}
-      </PageWrapper>
-    </section>
-  );
+  return <section></section>;
 }
 
 export default Home;
