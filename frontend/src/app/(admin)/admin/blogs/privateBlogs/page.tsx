@@ -124,7 +124,9 @@ export default async function PrivateBlogs() {
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
                                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                  <Link href={`updateBlog/${privateBlog._id}`}>
+                                  <Link
+                                    href={`updateBlog/${privateBlog.blogSlug}`}
+                                  >
                                     <DropdownMenuItem>edit</DropdownMenuItem>
                                   </Link>
                                   <Link href={`deleteBlog/${privateBlog._id}`}>

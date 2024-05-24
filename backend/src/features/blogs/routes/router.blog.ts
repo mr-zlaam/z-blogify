@@ -18,7 +18,7 @@ blogRouter.get("/draftBlogs", draftBlogs);
 blogRouter.get("/publicBlogs", publicBlogs);
 blogRouter.get("/getSingleBlog/:blogSlug", getSingleBlog);
 blogRouter.patch(
-  "/updateBlog/:blogId",
+  "/updateBlog/:slug",
   // updateAndDeleteAuthMiddleware,
   updateBlog
 );

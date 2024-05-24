@@ -1,6 +1,6 @@
 import {} from "react";
 
-function UpdateBlogById({ blogId }: { blogId: string }) {
+function UpdateBlogById({ slug }: { slug: string }) {
   return (
     <>
       <section>UpdateBlogById</section>

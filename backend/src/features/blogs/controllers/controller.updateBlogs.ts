@@ -9,7 +9,7 @@ export default asyncHandler(async function updateBlog(
   res: Response,
   next: NextFunction
 ) {
-  const { blogId } = req.params;
+  const { slug } = req.params;
   const {
     blogTitle,
     blogDescription,
@@ -46,10 +46,9 @@ export default asyncHandler(async function updateBlog(
       .status(400)
       .json(ApiResponse(400, "ispublic must be true or false."));
   let updateThisBlog;
-  console.log(blogId);
   try {
     updateThisBlog = await BlogModel.findOneAndUpdate(
-      { _id: blogId },
+      { blogSlug: slug },
       {
         blogAuthor,
         blogThumbnail,

@@ -1,14 +1,15 @@
 import {} from "react";
 import UpdateBlogById from "./components/UpdateBlog";
 interface ParamBlogType {
-  blogId: string;
+  slug: string;
 }
 function UpdateBlog({ params }: { params: ParamBlogType }) {
-  const { blogId } = params;
+  const { slug } = params;
   return (
     <>
       <section>
-        <UpdateBlogById blogId={blogId} />
+        {slug}
+        <UpdateBlogById slug={slug} />
       </section>
     </>
   );
