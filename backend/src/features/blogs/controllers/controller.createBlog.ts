@@ -12,6 +12,7 @@ export default asyncHandler(async function createBlog(
 ) {
   const props = req.body;
   const {
+    blogAuthor,
     blogTitle,
     blogDescription,
     blogSlug,
@@ -33,7 +34,8 @@ export default asyncHandler(async function createBlog(
       blogDescription,
       blogSlug,
       blogThumbnail,
-      blogAuthor: "Zlaam",
+      blogThumbnailAuthor,
+      blogAuthor: blogAuthor || "Zlaam",
       isPublic: false,
     });
   } catch (error: any) {

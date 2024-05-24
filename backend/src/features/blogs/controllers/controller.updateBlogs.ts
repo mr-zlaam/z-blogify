@@ -9,10 +9,24 @@ export default asyncHandler(async function updateBlog(
   res: Response,
   next: NextFunction
 ) {
-  const { blogId } = req.params;
-  const { blogTitle, blogDescription, isPublic, blogAuthor }: BlogTypes =
-    req.body;
-  if (!blogTitle || !blogDescription || !isPublic) {
+  const { blogSlug: blogId } = req.params;
+  const {
+    blogTitle,
+    blogDescription,
+    isPublic,
+    blogAuthor,
+    blogSlug,
+    blogThumbnail,
+    blogThumbnailAuthor,
+  }: BlogTypes = req.body;
+  if (
+    !blogTitle ||
+    !blogDescription ||
+    !isPublic ||
+    !blogSlug ||
+    !blogThumbnail ||
+    !blogThumbnailAuthor
+  ) {
     return next(
       res.status(403).json(ApiResponse(403, "All fields are required"))
     );
@@ -34,12 +48,15 @@ export default asyncHandler(async function updateBlog(
   let updateThisBlog;
   try {
     updateThisBlog = await BlogModel.findOneAndUpdate(
-      { _id: blogId },
+      { blogSlug: blogId },
       {
         blogTitle,
         blogDescription,
         isPublic,
         blogAuthor,
+        blogSlug,
+        blogThumbnail,
+        blogThumbnailAuthor,
       }
     );
   } catch (error: any) {

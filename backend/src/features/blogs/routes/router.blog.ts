@@ -16,12 +16,12 @@ blogRouter.post(
 blogRouter.get("/draftBlogs", draftBlogs);
 blogRouter.get("/publicBlogs", publicBlogs);
 blogRouter.put(
-  "/updateBlog/:blogId",
+  "/updateBlog/:blogSlug",
   // updateAndDeleteAuthMiddleware,
   updateBlog
 );
 blogRouter.delete(
-  "/deleteBlog/:blogId",
+  "/deleteBlog/:blogSlug",
   // updateAndDeleteAuthMiddleware,
   deleteBlog
 );
