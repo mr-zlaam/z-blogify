@@ -24,9 +24,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsContent } from "@/components/ui/tabs";
+import moment from "moment";
 
-export default function PrivateBlogs() {
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { API as axios } from "@/axios";
+import { BlogTypes } from "@/types";
+import { redirect } from "next/navigation";
+import { Fragment } from "react";
+import htmlParser from "html-react-parser";
+const fetchPrivateBlogs = async () => {
+  try {
+    const response = await axios.get("/blogs/draftBlogs");
+    return response.data;
+  } catch (error: any) {
+    console.log(error.message);
+    return error.response.data.statusCode || 403;
+  }
+};
+
+export default async function PrivateBlogs() {
+  const draftPrivateBlogs: BlogTypes | 403 = await fetchPrivateBlogs();
+  if (draftPrivateBlogs === 403) return redirect("/home");
+  const { data } = draftPrivateBlogs!;
+
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <Tabs defaultValue="all">
@@ -51,48 +71,68 @@ export default function PrivateBlogs() {
                     <TableHead className="hidden md:table-cell">
                       Created At
                     </TableHead>
+                    <TableHead className="hidden md:table-cell">
+                      Updated At
+                    </TableHead>
                     <TableHead>
                       <span className="font-medium">Actions</span>
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody className="b">
-                  <TableRow className="">
-                    <TableCell className="hidden sm:table-cell">1</TableCell>
-                    <TableCell className="font-medium">
-                      How to train Your Dragon
-                    </TableCell>
-                    <TableCell className=" max-w-[300px] text-clip line-clamp-2">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Odio error at deserunt eveniet quia cupiditate atque
-                      quibusdam odit. Ea, illo?
-                    </TableCell>
-                    <TableCell>Zlaam</TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      2023-07-12 10:42 AM
-                    </TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            aria-haspopup="true"
-                            size="icon"
-                            variant="ghost"
-                          >
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Toggle menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem>Edit</DropdownMenuItem>
-                          <DropdownMenuItem>Make this Public</DropdownMenuItem>
-                          <DropdownMenuItem>Read this Blog</DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
+                  {data.length === 0 ? (
+                    <div>No Data Found</div>
+                  ) : (
+                    data?.map((privateBlog, index: number) => {
+                      return (
+                        <Fragment key={privateBlog._id}>
+                          <TableRow className="">
+                            <TableCell className="hidden sm:table-cell">
+                              <span className="font-medium">{index + 1}</span>
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              {privateBlog.blogTitle}
+                            </TableCell>
+                            <TableCell className=" max-w-[300px] text-clip line-clamp-2">
+                              <div className="block h-[50px] w-[300px] text-clip line-clamp-2 overflow-hidden">
+                                {htmlParser(privateBlog.blogDescription)}
+                              </div>
+                            </TableCell>
+                            <TableCell>{privateBlog.blogAuthor}</TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {moment(privateBlog.createdAt).format(
+                                "MMMM Do YYYY, h:mm:ss a"
+                              )}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {moment(privateBlog.updatedAt).format(
+                                "MMMM Do YYYY, h:mm:ss a"
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button
+                                    aria-haspopup="true"
+                                    size="icon"
+                                    variant="ghost"
+                                  >
+                                    <MoreHorizontal className="h-4 w-4" />
+                                    <span className="sr-only">Toggle menu</span>
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                        </Fragment>
+                      );
+                    })
+                  )}
                 </TableBody>
               </Table>
             </CardContent>
