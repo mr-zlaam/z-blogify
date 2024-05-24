@@ -125,12 +125,12 @@ export default async function PrivateBlogs() {
                                 <DropdownMenuContent align="end">
                                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                   <Link
-                                    href={`blog/updateBlog/${privateBlog._id}`}
+                                    href={`blogs/updateBlog/${privateBlog._id}`}
                                   >
                                     <DropdownMenuItem>edit</DropdownMenuItem>
                                   </Link>
                                   <Link
-                                    href={`blog/deleteBlog/${privateBlog._id}`}
+                                    href={`blogs/deleteBlog/${privateBlog._id}`}
                                   >
                                     <DropdownMenuItem>Delete</DropdownMenuItem>
                                   </Link>

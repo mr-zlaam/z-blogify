@@ -66,7 +66,7 @@ export default function AdminLayout({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="/admin/privateBlogs"
+                  href="/admin/blogs/privateBlogs"
                   className="flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <BookLock className="h-5 w-5" />
@@ -80,7 +80,7 @@ export default function AdminLayout({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="/admin/publicBlogs"
+                  href="/admin/blogs/publicBlogs"
                   className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <BookOpenCheck className="h-5 w-5" />
@@ -107,7 +107,7 @@ export default function AdminLayout({
             <SheetContent side="left" className="sm:max-w-xs">
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
-                  href="/"
+                  href="/home"
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
                   <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
@@ -121,14 +121,14 @@ export default function AdminLayout({
                   Users
                 </Link>
                 <Link
-                  href="/admin/privateBlogs"
+                  href="/admin/blogs/privateBlogs"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <BookLock className="h-5 w-5" />
                   Private Blogs
                 </Link>
                 <Link
-                  href="/admin/publicBlogs"
+                  href="/admin/blogs/publicBlogs"
                   className="flex items-center gap-4 px-2.5 text-foreground"
                 >
                   <BookOpenCheck className="h-5 w-5" />
