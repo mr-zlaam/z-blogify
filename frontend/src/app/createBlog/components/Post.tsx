@@ -28,28 +28,46 @@ function CreatePosts() {
   const { errorMessage, successMessage } = useMessage();
   const [title, setTitle] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
+  const [data, setData] = useState({
+    blogAuthor: "",
+    blogImage: "",
+    blogImageAuthor: "",
+  });
   const handleOnchange = (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
+    setData((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+    console.log(data);
     const newTitle = event.target.value;
     setTitle(newTitle);
     setSlug(UseSlugGenerator(newTitle));
   };
   const handleCreateBlog = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !slug || !desc) {
+    if (
+      !title ||
+      !slug ||
+      !desc ||
+      !data.blogAuthor ||
+      !data.blogImageAuthor ||
+      !data.blogImage
+    ) {
       return errorMessage("Please Provide all fields");
     }
+
     try {
       const response = await axios.post("/blogs/createBlog", {
         blogTitle: title,
         blogSlug: slug,
         blogDescription: desc,
+        blogThumbnail: data.blogImage,
+        blogThumbnailAuthor: data.blogImageAuthor,
+        blogAuthor: data.blogAuthor,
       });
       if (response.status === 201) {
-        //remove local storage first
+        //TODO:remove local storage first before production
         return successMessage("Blog created successfully");
       }
     } catch (error: any) {
@@ -60,7 +78,7 @@ function CreatePosts() {
     <>
       <section className="px-5 py-2">
         <form onSubmit={handleCreateBlog} className="w-full">
-          <div>
+          <div className="my-2">
             <label htmlFor="title">Title</label>
             <input
               type="text"
@@ -70,7 +88,7 @@ function CreatePosts() {
               onChange={handleOnchange}
             />
           </div>
-          <div className="my-4">
+          <div className="my-2">
             <label htmlFor="slug">Slug</label>
             <input
               type="text"
@@ -81,6 +99,40 @@ function CreatePosts() {
               readOnly
             />
           </div>
+          <div className="my-2">
+            <label htmlFor="blogImage">BlogImage</label>
+            <input
+              id="blogImage"
+              type="url"
+              name="blogImage"
+              value={data.blogImage}
+              className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
+              onChange={handleOnchange}
+            />
+          </div>
+          <div className="my-2">
+            <label htmlFor="BlogImageAuthor">BlogImageAuthor</label>
+            <input
+              id="BlogImageAuthor"
+              type="text"
+              name="blogImageAuthor"
+              value={data.blogImageAuthor}
+              className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
+              onChange={handleOnchange}
+            />
+          </div>
+          <div className="my-2">
+            <label htmlFor="BlogAuthorName">BlogAuthorName</label>
+            <input
+              id="BlogAuthorName"
+              type="text"
+              name="blogAuthor"
+              value={data.blogAuthor}
+              className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
+              onChange={handleOnchange}
+            />
+          </div>
+
           <div />
           <label htmlFor="">Blog Description</label>
           <div className="relative h-fit overflow-hidden my-4">
