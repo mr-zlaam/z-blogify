@@ -1,8 +1,22 @@
 import { BlogTypes } from "../features/blogs/types/types.blog";
 
 export const isBlogAuthenticated = (props: BlogTypes) => {
-  const { blogTitle, blogDescription } = props;
-  if ([blogTitle, blogDescription].some((field) => !field?.toString().trim())) {
+  const {
+    blogTitle,
+    blogDescription,
+    blogThumbnail,
+    blogSlug,
+    blogThumbnailAuthor,
+  } = props;
+  if (
+    [
+      blogTitle,
+      blogDescription,
+      blogThumbnail,
+      blogThumbnailAuthor,
+      blogSlug,
+    ].some((field) => !field?.toString().trim())
+  ) {
     return {
       statusCode: 400,
       message: "All fields are required1",

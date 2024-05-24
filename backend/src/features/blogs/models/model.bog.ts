@@ -7,6 +7,16 @@ const blogSchema = new Schema<BlogTypes>(
       type: String,
       required: [true, "Blog's Author name is required!"],
     },
+    blogThumbnail: {
+      type: String,
+      required: [true, "Blog thumbnail is required!"],
+      default: "",
+    },
+    blogThumbnailAuthor: {
+      type: String,
+      required: [true, "Blog thumbnail is required!"],
+      default: "",
+    },
 
     blogTitle: {
       type: String,

@@ -1,9 +1,10 @@
 import { Document } from "mongoose";
 
 export interface BlogTypes extends Document {
-  blogAuthor: String;
+  blogAuthor: string;
+  blogThumbnail: string;
+  blogThumbnailAuthor: string;
   blogTitle: string;
-  createdByRef: string;
   blogSlug: string;
   blogDescription: string;
   isPublic: boolean | string;
