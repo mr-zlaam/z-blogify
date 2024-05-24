@@ -24,7 +24,7 @@ export interface UserDataTypes {
   createdAt: string;
   updatedAt: string;
 }
-interface BlogDataTypes {
+export interface BlogDataTypes {
   _id: string;
   blogTitle: string;
   blogSlug: string;
