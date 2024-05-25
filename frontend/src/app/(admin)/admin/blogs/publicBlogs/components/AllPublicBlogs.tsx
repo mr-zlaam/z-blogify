@@ -42,7 +42,7 @@ export default async function AllPublicBlogs() {
   const publicBlogs: PublicBLogTypes = await fetchPublicBlogs();
   return (
     <>
-      {publicBlogs.success && (
+      {publicBlogs.success ? (
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Tabs defaultValue="all">
             <TabsContent value="all">
@@ -151,6 +151,12 @@ export default async function AllPublicBlogs() {
             </TabsContent>
           </Tabs>
         </main>
+      ) : (
+        <div className="min-h-[70vh] flex justify-center items-center">
+          <h1 className="text-3xl font-bold text-center">
+            No Public Post Found !
+          </h1>
+        </div>
       )}
     </>
   );
