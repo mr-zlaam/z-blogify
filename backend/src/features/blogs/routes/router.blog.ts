@@ -23,6 +23,15 @@ blogRouter.get(
       .json(ApiResponse(200, "You are authenticated to make changes"));
   }
 );
+blogRouter.get(
+  "/checkIfuserIsAdmin",
+  updateAndDeleteAuthMiddleware,
+  (req, res, next) => {
+    return res
+      .status(200)
+      .json(ApiResponse(200, "As you are admin you can do anything."));
+  }
+);
 blogRouter.get("/checkUserIsAdmin", updateAndDeleteAuthMiddleware);
 blogRouter.patch(
   "/updateBlog/:slug",
