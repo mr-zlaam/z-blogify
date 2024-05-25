@@ -19,11 +19,27 @@ export default asyncHandler(async function updateBlog(
     blogThumbnail,
     blogThumbnailAuthor,
   }: BlogTypes = req.body;
+  console.log(
+    "Title",
+    blogTitle,
+    // blogDescription,
+    "ISPUBLIC:\n",
+    isPublic,
+    "BLogAuthor:\n",
+    blogAuthor,
+    "BlogSlug:\n",
+    blogSlug,
+    "blogthumbnail:\n",
+    blogThumbnail,
+    "blogthumbnailAuthor:\n",
+    blogThumbnailAuthor
+  );
   if (
     !blogTitle ||
     !blogDescription ||
     !isPublic ||
     !blogSlug ||
+    !blogAuthor ||
     !blogThumbnail ||
     !blogThumbnailAuthor
   ) {

@@ -41,16 +41,15 @@ function UpdateBlogBySlug({
     blogThumbnailAuthor,
     blogTitle,
   } = getObjectOfFetchedData!;
-  const [desc, setDesc] = useState(() => {
+  const [newDesc, setNewDesc] = useState(() => {
     return blogDescription || localStorage.getItem("savedHtml") || "";
   });
 
   const { errorMessage, successMessage } = useMessage();
-  const [title, setTitle] = useState<string>(blogTitle || "");
-  const [slug, setSlug] = useState<string>(blogSlug || "");
+  const [newTitle, setNewTitle] = useState<string>(blogTitle || "");
+  const [newSlug, setNewSlug] = useState<string>(blogSlug || "");
   const [isPublic, setIsPublic] = useState<true | false>(false);
-  console.log(isPublic);
-  const [data, setData] = useState({
+  const [newData, setNewData] = useState({
     blogAuthor: blogAuthor || "",
     blogImage: blogThumbnail || "",
     blogImageAuthor: blogThumbnailAuthor || "",
@@ -60,39 +59,51 @@ function UpdateBlogBySlug({
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    setData((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-    console.log(data);
+    setNewData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
   };
   const handleChangeTitleAndSlug = (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    const newTitle = event.target.value;
-    setTitle(newTitle);
-    setSlug(UseSlugGenerator(newTitle));
+    const mynewtitle = event.target.value;
+    setNewTitle(mynewtitle);
+    setNewSlug(UseSlugGenerator(mynewtitle));
   };
   const handleCreateBlog = async (e: React.FormEvent) => {
     e.preventDefault();
     if (
-      !title ||
-      !slug ||
-      !desc ||
-      !data.blogAuthor ||
-      !data.blogImageAuthor ||
-      !data.blogImage
+      !newTitle ||
+      !newSlug ||
+      !newDesc ||
+      !newData.blogAuthor ||
+      !newData.blogImageAuthor ||
+      !newData.blogImage
     ) {
       return errorMessage("Please Provide all fields");
     }
+    const { blogAuthor, blogImage, blogImageAuthor } = newData!;
     const randomString = randomStringGen(20);
+    console.log(
+      blogAuthor,
+      blogImage,
+      blogImageAuthor,
+      newTitle,
+      newDesc,
+      isPublic,
+      newSlug
+    );
     try {
       const response = await axios.patch(`/blogs/updateBlog/${slugForUpdate}`, {
-        blogTitle: title,
-        blogSlug: `${slug}-${randomString}`,
-        blogDescription: desc,
-        blogThumbnail: data.blogImage,
-        blogThumbnailAuthor: data.blogImageAuthor,
-        blogAuthor: data.blogAuthor,
+        blogTitle: newTitle,
+        blogSlug: `${newSlug}-${randomString}`,
+        blogDescription: newDesc,
+        blogThumbnail: blogImage,
+        blogThumbnailAuthor: blogImageAuthor,
+        blogAuthor: blogAuthor,
         isPublic,
       });
       if (response.status === 201) {
@@ -113,7 +124,7 @@ function UpdateBlogBySlug({
             <input
               type="text"
               name="title"
-              value={title}
+              value={newTitle}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleChangeTitleAndSlug}
             />
@@ -123,7 +134,7 @@ function UpdateBlogBySlug({
             <input
               type="text"
               name="slug"
-              value={slug}
+              value={newSlug}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleChangeTitleAndSlug}
               readOnly
@@ -135,7 +146,7 @@ function UpdateBlogBySlug({
               id="blogImage"
               type="url"
               name="blogImage"
-              value={data.blogImage}
+              value={newData.blogImage}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleOnchange}
             />
@@ -146,7 +157,7 @@ function UpdateBlogBySlug({
               id="BlogImageAuthor"
               type="text"
               name="blogImageAuthor"
-              value={data.blogImageAuthor}
+              value={newData.blogImageAuthor}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleOnchange}
             />
@@ -157,7 +168,7 @@ function UpdateBlogBySlug({
               id="BlogAuthorName"
               type="text"
               name="blogAuthor"
-              value={data.blogAuthor}
+              value={newData.blogAuthor}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleOnchange}
             />
@@ -182,8 +193,8 @@ function UpdateBlogBySlug({
           <label htmlFor="">Blog Description</label>
           <div className="relative h-fit overflow-hidden my-4">
             <FroalaEditor
-              model={desc}
-              onModelChange={(e: string) => setDesc(e)}
+              model={newDesc}
+              onModelChange={(e: string) => setNewDesc(e)}
               config={{
                 placeholderText: "Start from the here ",
                 saveInterval: 2000,
@@ -206,17 +217,17 @@ function UpdateBlogBySlug({
         </form>
         <PageWrapper className="my-5 p-4 md:max-w-[920px]">
           <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
-            {title}
+            {newTitle}
           </h1>
           <div className="w-fit mx-auto my-4">
             <Image
-              src={data.blogImage}
-              alt={data.blogImageAuthor}
+              src={newData.blogImage}
+              alt={newData.blogImageAuthor}
               width={920}
               height={920}
             />
           </div>
-          <div className="text-left w-full text-lg">{parser(desc)}</div>
+          <div className="text-left w-full text-lg">{parser(newDesc)}</div>
         </PageWrapper>
       </section>
     </>
