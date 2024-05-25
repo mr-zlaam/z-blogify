@@ -165,7 +165,7 @@ function UpdateBlogBySlug({
     {
       label: "IsPublic",
       type: "checkbox",
-      checked: isPublic || "",
+      checked: isPublic,
       className: "font-bold text-2xl mx-4",
       onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
         setIsPublic(e.target.checked),
@@ -187,6 +187,7 @@ function UpdateBlogBySlug({
                   className={field.className}
                   onChange={field.onChange}
                   readOnly={field.readOnly}
+                  checked={isPublic}
                 />
               </div>
             </Fragment>
