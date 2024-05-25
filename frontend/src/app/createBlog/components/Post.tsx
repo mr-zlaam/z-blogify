@@ -17,13 +17,14 @@ import "froala-editor/js/plugins/image.min.js";
 import "froala-editor/js/plugins/link.min.js";
 import "froala-editor/js/plugins/save.min.js";
 import parser from "html-react-parser";
-import { useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import Froalaeditor from "froala-editor";
 import { AlloweTags } from "../helper/toolbar";
 import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import Image from "next/image";
 import { randomStringGen } from "@/app/helper/randomStringGen/randomStringGen";
+import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
 function CreatePosts() {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
@@ -31,9 +32,9 @@ function CreatePosts() {
   const { errorMessage, successMessage } = useMessage();
   const [title, setTitle] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
+  const [blogImage, setBlogImage] = useState();
   const [data, setData] = useState({
     blogAuthor: "",
-    blogImage: "",
     blogImageAuthor: "",
   });
   const handleOnchange = (
@@ -61,7 +62,7 @@ function CreatePosts() {
       !desc ||
       !data.blogAuthor ||
       !data.blogImageAuthor ||
-      !data.blogImage
+      !blogImage
     ) {
       return errorMessage("Please Provide all fields");
     }
@@ -71,7 +72,7 @@ function CreatePosts() {
         blogTitle: title,
         blogSlug: `${slug}-${randomString}`,
         blogDescription: desc,
-        blogThumbnail: data.blogImage,
+        blogThumbnail: blogImage,
         blogThumbnailAuthor: data.blogImageAuthor,
         blogAuthor: data.blogAuthor,
       });
@@ -82,6 +83,16 @@ function CreatePosts() {
     } catch (error: any) {
       console.log(error);
       return errorMessage(error.response.data.message || error.message);
+    }
+  };
+  const imageUrlRef = useRef<any>(null);
+  const setUrlToImageBlog = (e: FormEvent) => {
+    e.preventDefault();
+    const url = imageUrlRef.current.value;
+    if (UseValidateImageUrl(url)) {
+      setBlogImage(imageUrlRef.current.value);
+    } else {
+      return errorMessage("Please provide a valid image url");
     }
   };
   return (
@@ -111,17 +122,23 @@ function CreatePosts() {
               placeholder="Slug will be written automaticaly You don't have to write it."
             />
           </div>
-          <div className="my-2">
+          <div className="my-2 relative">
             <label htmlFor="blogImage">BlogImage</label>
             <input
               id="blogImage"
               type="url"
               name="blogImage"
-              value={data.blogImage}
+              ref={imageUrlRef}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
-              onChange={handleOnchange}
               placeholder="Enter Blog Thumbnail/Image Url Here.::https://https://miro.medium.com/v2/resize:fit:720/format:webp/0*9ToWmeRH2_mgrDss"
             />
+            <Button
+              variant={"link"}
+              className="absolute top-3 right-3"
+              onClick={setUrlToImageBlog}
+            >
+              SetUrl
+            </Button>
           </div>
           <div className="my-2">
             <label htmlFor="BlogImageAuthor">BlogImageAuthor</label>
@@ -179,12 +196,14 @@ function CreatePosts() {
             {title}
           </h1>
           <div className="w-fit mx-auto my-4">
-            <Image
-              src={data.blogImage}
-              alt={data.blogImageAuthor}
-              width={920}
-              height={920}
-            />
+            {blogImage && (
+              <Image
+                src={blogImage}
+                alt={data.blogImageAuthor}
+                width={920}
+                height={920}
+              />
+            )}
           </div>
           <div className="text-left w-full text-lg">{parser(desc)}</div>
         </PageWrapper>
