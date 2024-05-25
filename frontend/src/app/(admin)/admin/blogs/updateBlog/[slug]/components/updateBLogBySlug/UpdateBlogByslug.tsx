@@ -31,9 +31,11 @@ import FroalaEditor from "react-froala-wysiwyg";
 function UpdateBlogBySlug({
   slugForUpdate,
   previousData,
+  token,
 }: {
   slugForUpdate: string;
   previousData: any;
+  token: string;
 }) {
   const getObjectOfFetchedData: BlogDataTypes = previousData.data;
   const oldData = getObjectOfFetchedData;
@@ -72,6 +74,11 @@ function UpdateBlogBySlug({
           blogThumbnail: updateBlogThumbnail,
           blogThumbnailAuthor: updateBlogThumbnailAuthor,
           isPublic: isPublic,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       if (responseFromUpdateBlog.status === 201) {

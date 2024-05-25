@@ -4,6 +4,7 @@ import { AxiosError } from "axios";
 import {} from "react";
 import UpdateBlogBySlug from "./components/updateBLogBySlug/UpdateBlogByslug";
 import { redirect } from "next/navigation";
+import useCookieGrabber from "@/hooks/useCookieGrabber";
 
 interface SlugTypes {
   slug: string;
@@ -22,11 +23,18 @@ const fetchSingleBlog = async (slug: string) => {
 };
 async function Slug({ params }: { params: SlugTypes }) {
   const { slug } = params;
+  const token = useCookieGrabber();
+
   const data: BlogDataTypes = await fetchSingleBlog(slug);
+
   if (!data) return redirect("/admin/blogs/privateBlogs");
   return (
     <section className="mx-5">
-      <UpdateBlogBySlug slugForUpdate={slug} previousData={data} />
+      <UpdateBlogBySlug
+        slugForUpdate={slug}
+        previousData={data}
+        token={token?.value || ""}
+      />
     </section>
   );
 }
