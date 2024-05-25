@@ -1,9 +1,14 @@
 import {} from "react";
-
-function DeleteBlog() {
+import Delete from "./components/deleteModal";
+import useCookieGrabber from "@/hooks/useCookieGrabber";
+interface ParamType {
+  blogId: string;
+}
+function DeleteBlog({ params }: { params: ParamType }) {
+  const token = useCookieGrabber();
   return (
     <>
-      <section>DeleteBlog</section>
+      <Delete id={params.blogId} token={token?.value || ""} />
     </>
   );
 }
