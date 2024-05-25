@@ -44,7 +44,7 @@ function UpdateBlogBySlug({
   //states
   const [updateTitle, setupdateTitle] = useState(oldData.blogTitle || "");
   const [updateSlug, setUpdateSlug] = useState(oldData.blogSlug || "");
-  const [isPublic, setIsPublic] = useState(false);
+  const [isPublic, setIsPublic] = useState(oldData.isPublic || false);
   const [updateBlogAuthor, setupdateBlogAuthor] = useState(
     oldData.blogAuthor || ""
   );

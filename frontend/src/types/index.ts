@@ -43,3 +43,21 @@ export interface BlogTypes {
   optMessage: string | null;
   data: BlogDataTypes[];
 }
+export interface PaginationTypes {
+  currentPage: number;
+  totalPages: number;
+  totalPublicBlogs: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+export interface PublicBlogDataTypes {
+  publicBlogsList: BlogDataTypes[];
+  pagination: PaginationTypes;
+}
+export interface PublicBLogTypes {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  optMessage: string | null;
+  data: PublicBlogDataTypes;
+}
