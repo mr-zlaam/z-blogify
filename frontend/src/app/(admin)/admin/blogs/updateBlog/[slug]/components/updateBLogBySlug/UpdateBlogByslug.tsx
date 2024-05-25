@@ -42,7 +42,7 @@ function UpdateBlogBySlug({
   const { errorMessage, successMessage } = useMessage();
   const router = useRouter();
   //states
-  const [updatTitle, setUpdatTitle] = useState(oldData.blogTitle || "");
+  const [updateTitle, setupdateTitle] = useState(oldData.blogTitle || "");
   const [updateSlug, setUpdateSlug] = useState(oldData.blogSlug || "");
   const [isPublic, setIsPublic] = useState(false);
   const [updateBlogAuthor, setupdateBlogAuthor] = useState(
@@ -62,13 +62,25 @@ function UpdateBlogBySlug({
   const randomString = randomStringGen(20);
   const handleUpdateBlog = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    if (
+      [
+        updateBlogAuthor,
+        updateSlug,
+        updateTitle,
+        updateBlogDesc,
+        updateBlogThumbnail,
+        updateBlogThumbnailAuthor,
+        isPublic,
+      ].some((field: any) => !field?.trim())
+    ) {
+      return errorMessage("Please provide all fields");
+    }
     try {
       const responseFromUpdateBlog = await axios.patch(
         `/blogs/updateBlog/${slugForUpdate}`,
         {
           blogAuthor: updateBlogAuthor,
-          blogTitle: updatTitle,
+          blogTitle: updateTitle,
           blogSlug: `${updateSlug}-${randomString}`,
           blogDescription: updateBlogDesc,
           blogThumbnail: updateBlogThumbnail,
@@ -99,14 +111,14 @@ function UpdateBlogBySlug({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const mynewtitle = event.target.value;
-    setUpdatTitle(mynewtitle);
+    setupdateTitle(mynewtitle);
     setUpdateSlug(UseSlugGenerator(mynewtitle));
   };
   const updateInputFields = [
     {
       label: "Update Title",
       type: "text",
-      value: updatTitle || "",
+      value: updateTitle || "",
       className:
         "border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
       onChange: handleChangeTitleAndSlug,
@@ -207,7 +219,7 @@ function UpdateBlogBySlug({
         </form>
         <PageWrapper className="my-5 p-4 md:max-w-[920px]">
           <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
-            {updatTitle}
+            {updateTitle}
           </h1>
           <div className="w-fit mx-auto my-4">
             <Image
