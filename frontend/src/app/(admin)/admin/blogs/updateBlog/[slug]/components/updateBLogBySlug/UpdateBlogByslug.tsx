@@ -6,6 +6,7 @@ import { API as axios } from "@/axios";
 import { Button } from "@/components/ui/button";
 import { useMessage } from "@/hooks/useMessage";
 import { useSlugGenerator as UseSlugGenerator } from "@/hooks/useSlugGenerator";
+import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
 import { BlogDataTypes } from "@/types";
 import { AxiosError } from "axios";
 import Froalaeditor from "froala-editor";
@@ -25,7 +26,7 @@ import "froala-editor/js/plugins/save.min.js";
 import parser from "html-react-parser";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 
 function UpdateBlogBySlug({
@@ -134,12 +135,12 @@ function UpdateBlogBySlug({
     {
       label: "Update BlogImage",
       type: "url",
-      value: updateBlogThumbnail || "",
+
       className:
-        "border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setUpdateBlogThumbnail(e.target.value),
+        "border  border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
       readOnly: false,
+      button: true,
+      ref: true,
     },
     {
       label: "Update BlogThumbnailAuthor",
@@ -171,14 +172,24 @@ function UpdateBlogBySlug({
       readOnly: false,
     },
   ];
-
+  const imageUrlRef = useRef<any>(null);
+  const setUrlToImageBlog = (e: React.FormEvent) => {
+    e.preventDefault();
+    const url = imageUrlRef.current.value;
+    console.log(url);
+    if (UseValidateImageUrl(url)) {
+      setUpdateBlogThumbnail(imageUrlRef.current.value);
+    } else {
+      return errorMessage("Please provide a valid image url");
+    }
+  };
   return (
     <>
       <section className="px-5 py-2">
         <form onSubmit={handleUpdateBlog} className="w-full">
           {updateInputFields.map((field) => (
             <Fragment key={field.label}>
-              <div className="my-2">
+              <div className="my-2 relative">
                 <label htmlFor={field.label}>{field.label}</label>
                 <input
                   type={field.type}
@@ -186,8 +197,18 @@ function UpdateBlogBySlug({
                   className={field.className}
                   onChange={field.onChange}
                   readOnly={field.readOnly}
-                  checked={isPublic || false}
+                  defaultChecked={isPublic}
+                  ref={field.ref ? imageUrlRef : null}
                 />
+                {field.button && (
+                  <Button
+                    variant={"link"}
+                    className="absolute top-3 right-3"
+                    onClick={setUrlToImageBlog}
+                  >
+                    SetUrl
+                  </Button>
+                )}
               </div>
             </Fragment>
           ))}
