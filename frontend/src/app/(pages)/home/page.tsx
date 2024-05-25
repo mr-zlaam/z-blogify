@@ -13,7 +13,6 @@ const fetchBlogs = async () => {
 };
 async function Home() {
   const data = await fetchBlogs();
-  console.log(data);
   return <section></section>;
 }
 
