@@ -23,21 +23,6 @@ export default asyncHandler(async function updateBlog(
   // Convert isPublic to boolean if it's not already
   const isPublicBool = isPublic === true || isPublic === "true";
 
-  console.log(
-    "Title",
-    blogTitle,
-    "ISPUBLIC:",
-    isPublicBool,
-    "BLogAuthor:",
-    blogAuthor,
-    "BlogSlug:",
-    blogSlug,
-    "blogthumbnail:",
-    blogThumbnail,
-    "blogthumbnailAuthor:",
-    blogThumbnailAuthor
-  );
-
   if (
     !blogTitle ||
     !blogDescription ||
