@@ -1,12 +1,13 @@
 "use client";
-import { BlogDataTypes } from "@/types";
-import { useState } from "react";
-
-("use client");
+import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
+import { AlloweTags } from "@/app/createBlog/helper/toolbar";
+import { randomStringGen } from "@/app/helper/randomStringGen/randomStringGen";
 import { API as axios } from "@/axios";
 import { Button } from "@/components/ui/button";
 import { useMessage } from "@/hooks/useMessage";
 import { useSlugGenerator as UseSlugGenerator } from "@/hooks/useSlugGenerator";
+import { BlogDataTypes } from "@/types";
+import Froalaeditor from "froala-editor";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/plugins/code_view.min.css";
@@ -21,19 +22,17 @@ import "froala-editor/js/plugins/image.min.js";
 import "froala-editor/js/plugins/link.min.js";
 import "froala-editor/js/plugins/save.min.js";
 import parser from "html-react-parser";
-import FroalaEditor from "react-froala-wysiwyg";
-import Froalaeditor from "froala-editor";
-import { AlloweTags } from "@/app/createBlog/helper/toolbar";
-import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import Image from "next/image";
-import { randomStringGen } from "@/app/helper/randomStringGen/randomStringGen";
-function UpdateBySlug({
-  updatedSlug,
-  getSingleBlog,
+import { useState } from "react";
+import FroalaEditor from "react-froala-wysiwyg";
+function UpdateBlogBySlug({
+  oldSlug: slugForUpdate,
+  oldData,
 }: {
-  updatedSlug: string;
-  getSingleBlog: BlogDataTypes;
+  oldSlug: string;
+  oldData: any;
 }) {
+  const getObjectOfFetchedData: BlogDataTypes = oldData.data;
   const {
     blogAuthor,
     blogDescription,
@@ -41,17 +40,20 @@ function UpdateBySlug({
     blogThumbnail,
     blogThumbnailAuthor,
     blogTitle,
-  } = getSingleBlog!;
+  } = getObjectOfFetchedData!;
   const [desc, setDesc] = useState(() => {
-    return localStorage.getItem("savedHtml") || "";
+    return blogDescription || localStorage.getItem("savedHtml") || "";
   });
+
   const { errorMessage, successMessage } = useMessage();
-  const [title, setTitle] = useState<string>("");
-  const [slug, setSlug] = useState<string>("");
+  const [title, setTitle] = useState<string>(blogTitle || "");
+  const [slug, setSlug] = useState<string>(blogSlug || "");
+  const [isPublic, setIsPublic] = useState<true | false>(false);
+  console.log(isPublic);
   const [data, setData] = useState({
-    blogAuthor: "",
-    blogImage: "",
-    blogImageAuthor: "",
+    blogAuthor: blogAuthor || "",
+    blogImage: blogThumbnail || "",
+    blogImageAuthor: blogThumbnailAuthor || "",
   });
   const handleOnchange = (
     event:
@@ -84,17 +86,18 @@ function UpdateBySlug({
     }
     const randomString = randomStringGen(20);
     try {
-      const response = await axios.post("/blogs/createBlog", {
+      const response = await axios.patch(`/blogs/updateBlog/${slugForUpdate}`, {
         blogTitle: title,
         blogSlug: `${slug}-${randomString}`,
         blogDescription: desc,
         blogThumbnail: data.blogImage,
         blogThumbnailAuthor: data.blogImageAuthor,
         blogAuthor: data.blogAuthor,
+        isPublic,
       });
       if (response.status === 201) {
         //TODO:remove local storage first before production
-        return successMessage("Blog created successfully");
+        return successMessage("Blog Updated successfully");
       }
     } catch (error: any) {
       console.log(error);
@@ -159,6 +162,21 @@ function UpdateBySlug({
               onChange={handleOnchange}
             />
           </div>
+          <div className="my-2">
+            <label htmlFor="ispublic" className="font-bold text-2xl">
+              ISPUBLIC
+            </label>
+            <input
+              id="ispublic"
+              type="checkbox"
+              name="blogAuthor"
+              checked={isPublic}
+              className="mx-4"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setIsPublic(event.target.checked);
+              }}
+            />
+          </div>
 
           <div />
           <label htmlFor="">Blog Description</label>
@@ -183,7 +201,7 @@ function UpdateBySlug({
             <div className=" bg-white absolute bottom-4 h-[20px] w-full max-w-4xl" />
           </div>
           <div className="flex justify-end w-full px-5">
-            <Button className="">Upload Blog</Button>
+            <Button className="">Update Blog</Button>
           </div>
         </form>
         <PageWrapper className="my-5 p-4 md:max-w-[920px]">
@@ -205,4 +223,4 @@ function UpdateBySlug({
   );
 }
 
-export default UpdateBySlug;
+export default UpdateBlogBySlug;
