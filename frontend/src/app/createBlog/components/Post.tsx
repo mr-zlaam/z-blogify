@@ -96,6 +96,7 @@ function CreatePosts() {
               value={title}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleChangeTitleAndSlug}
+              placeholder="Enter Title Here."
             />
           </div>
           <div className="my-2">
@@ -107,6 +108,7 @@ function CreatePosts() {
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleChangeTitleAndSlug}
               readOnly
+              placeholder="Slug will be written automaticaly You don't have to write it."
             />
           </div>
           <div className="my-2">
@@ -118,6 +120,7 @@ function CreatePosts() {
               value={data.blogImage}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleOnchange}
+              placeholder="Enter Blog Thumbnail/Image Url Here.::https://https://miro.medium.com/v2/resize:fit:720/format:webp/0*9ToWmeRH2_mgrDss"
             />
           </div>
           <div className="my-2">
@@ -129,6 +132,7 @@ function CreatePosts() {
               value={data.blogImageAuthor}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleOnchange}
+              placeholder="Enter Blog's Image Author Name Here."
             />
           </div>
           <div className="my-2">
@@ -140,6 +144,7 @@ function CreatePosts() {
               value={data.blogAuthor}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
               onChange={handleOnchange}
+              placeholder="Write name of owner here."
             />
           </div>
 
@@ -150,7 +155,7 @@ function CreatePosts() {
               model={desc}
               onModelChange={(e: string) => setDesc(e)}
               config={{
-                placeholderText: "Start from the here ",
+                placeholderText: "Start writing from here...",
                 saveInterval: 2000,
                 charCounterCount: true,
                 enter: Froalaeditor.ENTER_BR,
