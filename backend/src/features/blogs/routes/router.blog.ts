@@ -13,6 +13,8 @@ blogRouter.post("/createBlog", authTokenAuthenticator, createBlog);
 blogRouter.get("/draftBlogs", updateAndDeleteAuthMiddleware, draftBlogs);
 blogRouter.get("/publicBlogs", publicBlogs);
 blogRouter.get("/getSingleBlog/:blogSlug", getSingleBlog);
+blogRouter.get("/checkUserIsSubAdminOrAdmin", authTokenAuthenticator);
+blogRouter.get("/checkUserIsAdmin", updateAndDeleteAuthMiddleware);
 blogRouter.patch(
   "/updateBlog/:slug",
   updateAndDeleteAuthMiddleware,
