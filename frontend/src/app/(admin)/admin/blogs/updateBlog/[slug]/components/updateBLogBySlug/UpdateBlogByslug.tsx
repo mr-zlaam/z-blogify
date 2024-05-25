@@ -61,20 +61,18 @@ function UpdateBlogBySlug({
 
   const randomString = randomStringGen(20);
   const handleUpdateBlog = async (e: React.FormEvent) => {
-    e.preventDefault();
     if (
-      [
-        updateBlogAuthor,
-        updateSlug,
-        updateTitle,
-        updateBlogDesc,
-        updateBlogThumbnail,
-        updateBlogThumbnailAuthor,
-        isPublic,
-      ].some((field: any) => !field?.trim())
+      !updateBlogAuthor ||
+      !updateSlug ||
+      !updateTitle ||
+      !updateBlogDesc ||
+      !updateBlogThumbnail ||
+      !updateBlogThumbnailAuthor ||
+      !isPublic
     ) {
-      return errorMessage("Please provide all fields");
+      return errorMessage("Please Provide all fields");
     }
+    e.preventDefault();
     try {
       const responseFromUpdateBlog = await axios.patch(
         `/blogs/updateBlog/${slugForUpdate}`,

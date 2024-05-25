@@ -70,8 +70,6 @@ export default asyncHandler(async function updateAndDeleteAuthMiddleware(
           null
         )
       );
-  } else {
-    res.status(200).json(ApiResponse(200, "You are admin"));
-    return next();
   }
+  return next();
 });

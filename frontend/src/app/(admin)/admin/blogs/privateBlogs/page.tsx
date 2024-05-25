@@ -33,18 +33,26 @@ import { redirect } from "next/navigation";
 import { Fragment } from "react";
 import htmlParser from "html-react-parser";
 import Link from "next/link";
-const fetchPrivateBlogs = async () => {
+import useCookieGrabber from "@/hooks/useCookieGrabber";
+const fetchPrivateBlogs = async (token: string) => {
   try {
-    const response = await axios.get("/blogs/draftBlogs");
+    const response = await axios.get("/blogs/draftBlogs", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error: any) {
     console.log(error.message);
-    return error.response.data.statusCode || 403;
+    return error.response.data || 403;
   }
 };
 
 export default async function PrivateBlogs() {
-  const draftPrivateBlogs: BlogTypes = await fetchPrivateBlogs();
+  const token = useCookieGrabber();
+  const draftPrivateBlogs: BlogTypes = await fetchPrivateBlogs(
+    token?.value || ""
+  );
   const { data } = draftPrivateBlogs!;
   if (draftPrivateBlogs.statusCode !== 200) return redirect("/home");
   return (
