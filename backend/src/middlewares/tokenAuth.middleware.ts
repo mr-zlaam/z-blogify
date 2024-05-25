@@ -66,10 +66,6 @@ export default asyncHandler(async function authTokenAuthenticator(
           "You are forbidden to make changes as you are not admin or sub-admin"
         )
       );
-  } else {
-    res
-      .status(200)
-      .json(ApiResponse(200, "You are authenticated to make changes"));
-    return next();
   }
+  return next();
 });
