@@ -67,8 +67,7 @@ function UpdateBlogBySlug({
       !updateTitle ||
       !updateBlogDesc ||
       !updateBlogThumbnail ||
-      !updateBlogThumbnailAuthor ||
-      !isPublic
+      !updateBlogThumbnailAuthor
     ) {
       return errorMessage("Please Provide all fields");
     }

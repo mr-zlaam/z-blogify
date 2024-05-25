@@ -26,7 +26,6 @@ export default asyncHandler(async function updateBlog(
   if (
     !blogTitle ||
     !blogDescription ||
-    isPublicBool === undefined ||
     !blogSlug ||
     !blogThumbnail ||
     !blogThumbnailAuthor
@@ -57,7 +56,7 @@ export default asyncHandler(async function updateBlog(
         blogTitle,
         blogSlug,
         blogDescription,
-        isPublic: isPublicBool,
+        isPublic: isPublicBool || false,
       }
     );
   } catch (error: any) {
