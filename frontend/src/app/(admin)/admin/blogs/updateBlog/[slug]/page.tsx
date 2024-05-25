@@ -26,7 +26,7 @@ async function Slug({ params }: { params: SlugTypes }) {
   if (!data) return redirect("/admin/blogs/privateBlogs");
   return (
     <section className="mx-5">
-      <UpdateBlogBySlug oldSlug={slug} oldData={data} />
+      <UpdateBlogBySlug slugForUpdate={slug} previousData={data} />
     </section>
   );
 }

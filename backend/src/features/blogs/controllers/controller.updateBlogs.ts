@@ -19,27 +19,30 @@ export default asyncHandler(async function updateBlog(
     blogThumbnail,
     blogThumbnailAuthor,
   }: BlogTypes = req.body;
+
+  // Convert isPublic to boolean if it's not already
+  const isPublicBool = isPublic === true || isPublic === "true";
+
   console.log(
     "Title",
     blogTitle,
-    // blogDescription,
-    "ISPUBLIC:\n",
-    isPublic,
-    "BLogAuthor:\n",
+    "ISPUBLIC:",
+    isPublicBool,
+    "BLogAuthor:",
     blogAuthor,
-    "BlogSlug:\n",
+    "BlogSlug:",
     blogSlug,
-    "blogthumbnail:\n",
+    "blogthumbnail:",
     blogThumbnail,
-    "blogthumbnailAuthor:\n",
+    "blogthumbnailAuthor:",
     blogThumbnailAuthor
   );
+
   if (
     !blogTitle ||
     !blogDescription ||
-    !isPublic ||
+    isPublicBool === undefined ||
     !blogSlug ||
-    !blogAuthor ||
     !blogThumbnail ||
     !blogThumbnailAuthor
   ) {
@@ -50,17 +53,14 @@ export default asyncHandler(async function updateBlog(
   if (blogTitle.length <= 10) {
     return res
       .status(403)
-      .json(ApiResponse(403, "Blog Title must be atleast 10 characters."));
+      .json(ApiResponse(403, "Blog Title must be at least 10 characters."));
   }
   if (blogDescription.length <= 100) {
     return res
       .status(403)
-      .json(ApiResponse(403, "Blog  must container atleast 100 characters."));
+      .json(ApiResponse(403, "Blog must contain at least 100 characters."));
   }
-  if (isPublic !== "true" && isPublic !== "false")
-    return res
-      .status(400)
-      .json(ApiResponse(400, "ispublic must be true or false."));
+
   let updateThisBlog;
   try {
     updateThisBlog = await BlogModel.findOneAndUpdate(
@@ -72,7 +72,7 @@ export default asyncHandler(async function updateBlog(
         blogTitle,
         blogSlug,
         blogDescription,
-        isPublic,
+        isPublic: isPublicBool,
       }
     );
   } catch (error: any) {
@@ -82,7 +82,7 @@ export default asyncHandler(async function updateBlog(
         .json(
           ApiResponse(
             500,
-            error.message || "Something went wrong while updating blogpost"
+            error.message || "Something went wrong while updating blog post"
           )
         )
     );
