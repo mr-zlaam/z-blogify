@@ -187,7 +187,7 @@ function UpdateBlogBySlug({
                   className={field.className}
                   onChange={field.onChange}
                   readOnly={field.readOnly}
-                  checked={isPublic}
+                  checked={isPublic || false}
                 />
               </div>
             </Fragment>
