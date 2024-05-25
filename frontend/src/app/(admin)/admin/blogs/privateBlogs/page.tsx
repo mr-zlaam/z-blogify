@@ -44,10 +44,9 @@ const fetchPrivateBlogs = async () => {
 };
 
 export default async function PrivateBlogs() {
-  const draftPrivateBlogs: BlogTypes | 403 = await fetchPrivateBlogs();
-  if (draftPrivateBlogs === 403) return redirect("/home");
+  const draftPrivateBlogs: BlogTypes = await fetchPrivateBlogs();
   const { data } = draftPrivateBlogs!;
-
+  if (draftPrivateBlogs.statusCode !== 200) return redirect("/home");
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <Tabs defaultValue="all">

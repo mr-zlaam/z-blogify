@@ -10,7 +10,7 @@ import getSingleBlog from "../controllers/controller.getSingleBlog";
 export const blogRouter = Router();
 
 blogRouter.post("/createBlog", authTokenAuthenticator, createBlog);
-blogRouter.get("/draftBlogs", draftBlogs);
+blogRouter.get("/draftBlogs", updateAndDeleteAuthMiddleware, draftBlogs);
 blogRouter.get("/publicBlogs", publicBlogs);
 blogRouter.get("/getSingleBlog/:blogSlug", getSingleBlog);
 blogRouter.patch(
