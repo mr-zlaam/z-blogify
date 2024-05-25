@@ -15,6 +15,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { API as axios } from "@/axios";
 import {
   Table,
   TableBody,
@@ -24,7 +25,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-
+const fetchPublicBlogs = async () => {
+  try {
+    const response = await axios.get("/blogs/publicBlogs");
+    return response.data;
+  } catch (error: any) {
+    console.log(error.message);
+    return error.response.data.statusCode || 403;
+  }
+};
 export default function PublicBlogs() {
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
