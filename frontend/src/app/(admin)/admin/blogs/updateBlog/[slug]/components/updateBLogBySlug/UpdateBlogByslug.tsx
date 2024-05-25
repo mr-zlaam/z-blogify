@@ -89,7 +89,10 @@ function UpdateBlogBySlug({
     } catch (error: any) {
       const err = error as AxiosError;
       console.log(err.status, err.message);
-      return errorMessage(error.response.data.message || error.message);
+      errorMessage(error.response.data.message || error.message);
+      setTimeout(() => {
+        return router.push("/home");
+      }, 3000);
     }
   };
   const handleChangeTitleAndSlug = (
