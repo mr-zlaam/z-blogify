@@ -1,28 +1,40 @@
 "use client";
+import ImgLoader from "@/_subComponents/imgLoader";
 import { Card } from "@/components/ui/card";
 import { BlogDataTypes } from "@/types";
 import moment from "moment";
 import Image from "next/image";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
+  const handleImageLoad = () => {
+    setIsImageLoaded(true);
+  };
   return (
     <Fragment>
       <div className="grid grid-cols-3 gap-4">
         {posts.map((post) => {
           return (
             <Fragment key={post._id}>
-              <Card className="min-h-[60dvh] ronuded overflow-hidden relative my-2 ">
-                <div className=" p-4 min-h-[60%] overflow-hidden bg-black/40">
-                  <Image
-                    src={post.blogThumbnail || "/logo/logo.jpeg"}
-                    alt={post.blogThumbnailAuthor || "zlaam"}
-                    className="rounded"
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    style={{ width: "100%", height: "auto" }}
-                  />
+              <Card className="min-h-[50dvh] ronuded overflow-hidden relative my-2 ">
+                <div className=" min-h-[60%] overflow-hidden  ">
+                  {isImageLoaded ? (
+                    <Image
+                      src={post.blogThumbnail || "/logo/logo.jpeg"}
+                      alt={post.blogThumbnailAuthor || "zlaam"}
+                      className="rounded"
+                      width={0}
+                      height={0}
+                      objectFit="cover"
+                      sizes="100vw"
+                      style={{ width: "100%", height: "auto" }}
+                    />
+                  ) : (
+                    <div className="absolute -translate-x-1/2 -translate-y-1/2 top-[30%] left-[50%]">
+                      <ImgLoader />
+                    </div>
+                  )}
                 </div>
                 <h1 className="text-xl font-bold text-balance px-4  text-clip line-clamp-1">
                   <span>{post.blogTitle}</span>
@@ -34,6 +46,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                     height={50}
                     className="rounded-full"
                     alt="zlaam"
+                    onLoad={handleImageLoad}
                   />
                   <div>
                     {post.blogAuthor} &nbsp;&nbsp;- &nbsp;&nbsp;
