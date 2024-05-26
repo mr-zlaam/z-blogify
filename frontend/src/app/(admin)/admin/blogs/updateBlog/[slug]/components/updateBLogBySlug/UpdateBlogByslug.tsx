@@ -21,10 +21,15 @@ import "froala-editor/js/plugins/colors.min.js";
 import "froala-editor/js/plugins/font_family.min.js";
 import "froala-editor/js/plugins/font_size.min.js";
 import "froala-editor/js/plugins/image.min.js";
+import "froala-editor/js/plugins/inline_style.min.js";
 import "froala-editor/js/plugins/link.min.js";
+import "froala-editor/js/plugins/lists.min.js";
+import "froala-editor/js/plugins/markdown.min.js";
+import "froala-editor/js/plugins/quick_insert.min.js";
 import "froala-editor/js/plugins/save.min.js";
 import parser from "html-react-parser";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Fragment, useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
@@ -247,6 +252,12 @@ function UpdateBlogBySlug({
               width={920}
               height={920}
             />
+            <p className="text-center my-2">
+              Photo By &nbsp;&nbsp;
+              <span className="text-blue-500 underline cursor-pointer">
+                {parser(updateBlogThumbnailAuthor)}
+              </span>
+            </p>
           </div>
           <div className="text-left w-full text-lg">
             {parser(updateBlogDesc)}
