@@ -9,9 +9,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         <div className="fixed left-3 lg:top-9 top-[43px] md:top-5 z-[999]">
           <ThemeToggler />
         </div>
-        <header className="z-[998] sticky top-0 ">
-          <Header />
-        </header>
+        <header className="z-[998] sticky top-0 ">{/* <Header /> */}</header>
         <section className="flex-[1] flex-grow relative z-[997]">
           {children}
         </section>
