@@ -53,6 +53,7 @@ export default async function PrivateBlogs() {
   const draftPrivateBlogs: BlogTypes = await fetchPrivateBlogs(
     token?.value || ""
   );
+  if (!draftPrivateBlogs.success) return redirect("/home");
   const { data } = draftPrivateBlogs!;
   return (
     <>

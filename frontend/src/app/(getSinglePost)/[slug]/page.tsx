@@ -5,6 +5,7 @@ import { useMessage } from "@/hooks/useMessage";
 import { BlogDataTypes } from "@/types";
 import {} from "react";
 import SinglePost from "./components/SinglePost";
+import { redirect } from "next/navigation";
 const fetchSinglePost = async (slug: string) => {
   try {
     const response = await fetch(`${BACKEND_URI}/blogs/getSingleBlog/${slug}`);
@@ -25,13 +26,13 @@ const fetchSinglePost = async (slug: string) => {
 async function GetSinglePost({ params }: { params: SlugTypes }) {
   const { slug } = params;
   const { errorMessage } = useMessage();
+  if (!slug) return redirect("/home");
   const getDataFromSinglePost = await fetchSinglePost(slug);
   if (!getDataFromSinglePost.success) {
     return errorMessage("Some thing went wrong");
   }
   const { data } = getDataFromSinglePost;
   const singlePostData: BlogDataTypes = data!;
-  console.log();
   return (
     <>
       <PageWrapper className="md:max-w-[820px] px-2">
