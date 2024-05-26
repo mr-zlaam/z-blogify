@@ -24,7 +24,7 @@ const fetchSinglePost = async (slug: string) => {
 
 async function GetSinglePost({ params }: { params: SlugTypes }) {
   const { slug } = params;
-  const { errorMessage, successMessage } = useMessage();
+  const { errorMessage } = useMessage();
   const getDataFromSinglePost = await fetchSinglePost(slug);
   if (!getDataFromSinglePost.success) {
     return errorMessage("Some thing went wrong");
