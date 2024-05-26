@@ -54,8 +54,6 @@ export default async function PrivateBlogs() {
     token?.value || ""
   );
   const { data } = draftPrivateBlogs!;
-  if (draftPrivateBlogs.statusCode !== 200) return redirect("/home");
-  console.log(draftPrivateBlogs.success);
   return (
     <>
       {draftPrivateBlogs.success ? (
