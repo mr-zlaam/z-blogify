@@ -5,6 +5,7 @@ import { PublicBLogTypes } from "@/types";
 import { Metadata } from "next";
 import { Suspense, lazy } from "react";
 import Logo from "./components/logo";
+import ButtonLoader from "@/_subComponents/buttonLoader";
 const BlogRendererComponent = lazy(() => import("./components/BlogRenderer"));
 const fetchBlogs = async () => {
   try {
@@ -25,7 +26,11 @@ async function Home() {
   const data: PublicBLogTypes = await fetchBlogs();
   if (!data.success) return;
   const posts = data.data.publicBlogsList.reverse().slice(-6);
-  const renderLoader = () => <p>Loading</p>;
+  const renderLoader = () => (
+    <div className="h-[50dvh] justify-center flex items-center">
+      <ButtonLoader />
+    </div>
+  );
 
   return (
     <PageWrapper className="lg:max-w-screen-xl ">
