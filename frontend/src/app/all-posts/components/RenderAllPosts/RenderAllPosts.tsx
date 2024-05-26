@@ -7,12 +7,13 @@ import parser from "html-react-parser";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import moment from "moment";
 
 function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
   const router = useRouter();
   if (allPosts.length === 0)
     return (
-      <div className="h-[100dvh] w-full flex justify-center items-center font-bold text-3xl">
+      <div className="h-[100dvh] w-full flex justify-center items-center font-bold text-3xl flex-col md:flex-row">
         No Post Found!~
       </div>
     );
@@ -33,13 +34,30 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
                     className="object-cover"
                   />
                 </div>
-                <div className="flex-1 flex flex-col max-w-[400px]  items-center justify-center gap-4 px-4">
+                <div className="flex-1 flex flex-col max-w-[400px]   justify-center gap-4 px-4">
                   <h1 className="text-3xl font-bold my-2 mx-3 ">
                     {post.blogTitle}
                   </h1>
-                  <Button className="w-full mx-5">
+                  <Button className="max-w-[300px] mx-5">
                     <Link href={`/${post.blogSlug}`}>Go to Post</Link>
                   </Button>
+                  <div className="flex  items-center my-4 gap-3 px-4">
+                    <Image
+                      src={"/logo/Zlaam.jpg"}
+                      alt="Zlaam"
+                      width={50}
+                      height={50}
+                      className="rounded-full"
+                    />
+                    <div className="flex flex-col justify-start">
+                      <h1 className="text-lg font-semibold ">
+                        {post.blogAuthor}
+                      </h1>
+                      <p className="text-sm text-left">
+                        {moment(post.createdAt).format("MMMM-Do-YYYY")}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </Card>
             </Fragment>
