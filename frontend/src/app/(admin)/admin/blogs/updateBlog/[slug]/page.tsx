@@ -6,7 +6,7 @@ import UpdateBlogBySlug from "./components/updateBLogBySlug/UpdateBlogByslug";
 import { redirect } from "next/navigation";
 import useCookieGrabber from "@/hooks/useCookieGrabber";
 
-interface SlugTypes {
+export interface SlugTypes {
   slug: string;
 }
 const fetchSingleBlog = async (slug: string) => {
