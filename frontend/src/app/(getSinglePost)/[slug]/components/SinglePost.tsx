@@ -48,7 +48,7 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
               alt={SinglePostData.blogThumbnailAuthor || "Zlaam"}
               width={820}
               height={820}
-              className="rounded-md shadow-lg"
+              className="rounded-md "
             />
             <p className="text-center my-2">
               Photo By &nbsp;&nbsp;
