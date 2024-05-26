@@ -45,8 +45,8 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                 <div className="my-2 flex gap-3 items-center px-3 absolute bottom-2 w-full">
                   <Image
                     src={"/logo/Zlaam.jpg"}
-                    width={50}
-                    height={50}
+                    width={35}
+                    height={35}
                     className="rounded-full"
                     alt="zlaam"
                     onLoad={handleImageLoad}
