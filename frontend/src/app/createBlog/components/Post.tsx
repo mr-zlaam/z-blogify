@@ -155,7 +155,7 @@ function CreatePosts({ token }: { token: string }) {
               name="blogImage"
               ref={imageUrlRef}
               className="border border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent"
-              placeholder="Enter Blog Thumbnail/Image Url Here.::https://https://miro.medium.com/v2/resize:fit:720/format:webp/0*9ToWmeRH2_mgrDss"
+              placeholder="Image::https://live.staticflickr.com/65535/53281434521_eeef635514_z.jpg"
             />
             <Button
               variant={"link"}
