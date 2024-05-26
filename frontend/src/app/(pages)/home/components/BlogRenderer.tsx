@@ -17,8 +17,8 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
         {posts.map((post) => {
           return (
             <Fragment key={post._id}>
-              <Card className="md:min-h-[400px] min-h-[500px] ronuded overflow-hidden relative my-2 ">
-                <div className=" min-h-[60%] overflow-hidden  ">
+              <Card className="md:min-h-[400px] sm:min-h-[600px] min-h-[500px] ronuded overflow-hidden relative my-2 ">
+                <div className="  overflow-hidden  ">
                   {isImageLoaded ? (
                     <Image
                       src={post.blogThumbnail || "/logo/logo.jpeg"}
@@ -31,12 +31,12 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                       style={{ width: "100%", height: "auto" }}
                     />
                   ) : (
-                    <div className="absolute -translate-x-1/2 -translate-y-1/2 top-[30%] left-[50%]">
+                    <div className="absolute -translate-x-1/2 -translate-y-1/2 top-[40%] left-[50%]">
                       <ImgLoader />
                     </div>
                   )}
                 </div>
-                <h1 className="text-xl font-bold text-balance px-4  text-clip line-clamp-1 my-3">
+                <h1 className="text-xl font-bold text-balance px-4  text-clip line-clamp-1 my-3 absolute w-full bottom-20">
                   <span>{post.blogTitle}</span>
                 </h1>
                 <div className="my-2 flex gap-3 items-center px-3 absolute bottom-2 w-full">
