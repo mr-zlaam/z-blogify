@@ -16,7 +16,7 @@ const fetchBlogs = async () => {
   }
 };
 async function Home() {
-  const data: PublicBLogTypes = await fetchBlogs();
+  const data = await fetchBlogs();
 
   return (
     <PageWrapper className="md:max-w-screen-xl">
@@ -33,7 +33,7 @@ async function Home() {
           <span className="text-foreground text-xl font-bold">All Posts</span>
         </Link>
       </div>
-      <BlogRenderer />
+      <BlogRenderer data={data} />
     </PageWrapper>
   );
 }
