@@ -27,7 +27,7 @@ async function Home() {
   const renderLoader = () => <p>Loading</p>;
 
   return (
-    <PageWrapper className="lg:max-w-screen-xl bg-red-500">
+    <PageWrapper className="lg:max-w-screen-xl ">
       <Logo />
       <hr className="md:max-w-screen-xl mx-auto my-3 bg-foreground rounded h-1" />
       <div className="w-fit flex items-center gap-2 my-4">
