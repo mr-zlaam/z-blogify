@@ -4,6 +4,7 @@ import { PublicBLogTypes } from "@/types";
 import Link from "next/link";
 import { Suspense, lazy } from "react";
 import Logo from "./components/logo";
+import { Metadata } from "next";
 const BlogRendererComponent = lazy(() => import("./components/BlogRenderer"));
 const fetchBlogs = async () => {
   try {
@@ -49,3 +50,10 @@ async function Home() {
 }
 
 export default Home;
+
+export const metadata: Metadata = {
+  title: "Home - New Posts",
+  creator: "mr-zlaam",
+  publisher: "mr-zlaam",
+  description: "",
+};
