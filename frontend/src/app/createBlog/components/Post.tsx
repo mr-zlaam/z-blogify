@@ -223,7 +223,7 @@ function CreatePosts({ token }: { token: string }) {
               <DialogHeader>
                 <DialogTitle>Are you sure?</DialogTitle>
                 <DialogDescription>
-                  You can&apos;t edit this blog once you&apos; uploaded!
+                  You can&apos;t edit this blog once you&apos;ve uploaded!
                 </DialogDescription>
               </DialogHeader>
 
