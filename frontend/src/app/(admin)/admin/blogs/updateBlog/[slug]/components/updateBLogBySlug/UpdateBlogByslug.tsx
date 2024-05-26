@@ -66,7 +66,6 @@ function UpdateBlogBySlug({
   });
   //handleOnchageFunction
 
-  const randomString = randomStringGen(20);
   const handleUpdateBlog = async (e: React.FormEvent) => {
     if (
       !updateBlogAuthor ||
@@ -85,7 +84,7 @@ function UpdateBlogBySlug({
         {
           blogAuthor: updateBlogAuthor,
           blogTitle: updateTitle,
-          blogSlug: `${updateSlug}-${randomString}`,
+          blogSlug: `${updateSlug}`,
           blogDescription: updateBlogDesc,
           blogThumbnail: updateBlogThumbnail,
           blogThumbnailAuthor: updateBlogThumbnailAuthor,

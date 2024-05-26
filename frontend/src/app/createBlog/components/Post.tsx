@@ -83,13 +83,12 @@ function CreatePosts({ token }: { token: string }) {
     ) {
       return errorMessage("Please Provide all fields");
     }
-    const randomString = randomStringGen(20);
     try {
       const response = await axios.post(
         "/blogs/createBlog",
         {
           blogTitle: title,
-          blogSlug: `${slug}-${randomString}`,
+          blogSlug: `${slug}`,
           blogDescription: desc,
           blogThumbnail: blogImage,
           blogThumbnailAuthor: data.blogImageAuthor,
