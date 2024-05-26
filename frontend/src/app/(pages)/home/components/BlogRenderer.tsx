@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { BlogDataTypes } from "@/types";
 import moment from "moment";
 import Image from "next/image";
+import Link from "next/link";
 import { Fragment, useState } from "react";
 
 export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
@@ -20,14 +21,16 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
               <Card className="md:min-h-[420px] shadow-lg sm:min-h-[600px] mdx:min-h-[520px] smx:min-h-[400px] min-h-[300px] ronuded overflow-hidden relative my-2 ">
                 <div className="  overflow-hidden  ">
                   {isImageLoaded ? (
-                    <Image
-                      src={post.blogThumbnail || "/logo/logo.jpeg"}
-                      alt={post.blogThumbnailAuthor || "zlaam"}
-                      className="rounded object-cover"
-                      width={1000}
-                      height={1000}
-                      style={{ objectFit: "cover" }}
-                    />
+                    <Link href={`/${post.blogSlug}`}>
+                      <Image
+                        src={post.blogThumbnail || "/logo/logo.jpeg"}
+                        alt={post.blogThumbnailAuthor || "zlaam"}
+                        className="rounded object-cover"
+                        width={1000}
+                        height={1000}
+                        style={{ objectFit: "cover" }}
+                      />
+                    </Link>
                   ) : (
                     <div className="absolute -translate-x-1/2 -translate-y-1/2 top-[40%] left-[50%]">
                       <ImgLoader />
@@ -35,7 +38,9 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                   )}
                 </div>
                 <h1 className="text-xl font-bold text-balance px-4  text-clip line-clamp-1 my-3 absolute w-full bottom-20">
-                  <span>{post.blogTitle}</span>
+                  <Link href={`/${post.blogSlug || "/"}`}>
+                    {post.blogTitle}
+                  </Link>
                 </h1>
                 <div className="my-2 flex gap-3 items-center px-3 absolute bottom-2 w-full">
                   <Image
