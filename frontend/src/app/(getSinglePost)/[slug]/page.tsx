@@ -29,7 +29,8 @@ async function GetSinglePost({ params }: { params: SlugTypes }) {
   if (!slug) return redirect("/home");
   const getDataFromSinglePost = await fetchSinglePost(slug);
   if (!getDataFromSinglePost.success) {
-    return errorMessage("Some thing went wrong");
+    errorMessage("Some thing went wrong");
+    return redirect("/home");
   }
   const { data } = getDataFromSinglePost;
   const singlePostData: BlogDataTypes = data!;
