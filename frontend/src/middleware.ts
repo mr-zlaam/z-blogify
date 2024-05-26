@@ -6,10 +6,7 @@ export default function middleware(request: NextRequest) {
   const cookieStore = cookies();
   const token = cookieStore.get("accessToken");
   const tokenValue = token?.value as string;
-  if (
-    request.nextUrl.pathname === "/admin/users" ||
-    request.nextUrl.pathname === "/admin/blogs/privateBlogs"
-  ) {
+  if (request.nextUrl.pathname === "/admin/users") {
     if (!token?.value) {
       return NextResponse.redirect(new URL("/home", request.url));
     }
