@@ -2,10 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { BlogDataTypes } from "@/types";
 import { ChevronLeft } from "lucide-react";
+import moment from "moment";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {} from "react";
-
+import parser from "html-react-parser";
 function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
   const router = useRouter();
   return (
@@ -23,7 +25,41 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
           <h1 className="text-3xl font-bold text-center">
             {SinglePostData.blogTitle}
           </h1>
-          <div className="flex  items-center"></div>
+          <div className="flex  items-center my-4 gap-3 px-4">
+            <Image
+              src={"/logo/Zlaam.jpg"}
+              alt="Zlaam"
+              width={50}
+              height={50}
+              className="rounded-full"
+            />
+            <div className="flex flex-col justify-start">
+              <h1 className="text-lg font-semibold ">
+                {SinglePostData.blogAuthor}
+              </h1>
+              <p className="text-sm text-left">
+                {moment(SinglePostData.createdAt).format("MMMM-Do-YYYY")}
+              </p>
+            </div>
+          </div>
+          <aside>
+            <Image
+              src={SinglePostData.blogThumbnail || "/logo/Zlaam.jpg"}
+              alt={SinglePostData.blogThumbnailAuthor || "Zlaam"}
+              width={820}
+              height={820}
+              className="rounded-md shadow-lg"
+            />
+            <p className="text-center my-2">
+              Photo By &nbsp;&nbsp;
+              <span className="text-blue-500 underline cursor-pointer">
+                {parser(SinglePostData.blogThumbnailAuthor)}
+              </span>
+            </p>
+            <article className=" text-[18px] leading-[2]">
+              {parser(SinglePostData.blogDescription)}
+            </article>
+          </aside>
         </div>
       </article>
     </>

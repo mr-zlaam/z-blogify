@@ -34,7 +34,7 @@ async function GetSinglePost({ params }: { params: SlugTypes }) {
   console.log();
   return (
     <>
-      <PageWrapper className="md:max-w-[920px]">
+      <PageWrapper className="md:max-w-[820px] px-2">
         <SinglePost SinglePostData={singlePostData} />
       </PageWrapper>
     </>
