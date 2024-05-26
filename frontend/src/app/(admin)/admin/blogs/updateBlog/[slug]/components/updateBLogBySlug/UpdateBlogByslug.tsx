@@ -55,7 +55,8 @@ function UpdateBlogBySlug({
     oldData.blogAuthor || ""
   );
   const [updateBlogThumbnail, setUpdateBlogThumbnail] = useState(
-    oldData.blogThumbnail || ""
+    oldData.blogThumbnail ||
+      "https://code.visualstudio.com/assets/docs/languages/javascript/jsx.png"
   );
   const [updateBlogThumbnailAuthor, setUpdateBlogThumbnailAuthor] = useState(
     oldData.blogThumbnailAuthor
