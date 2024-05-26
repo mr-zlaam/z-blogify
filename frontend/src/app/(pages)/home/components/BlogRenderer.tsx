@@ -44,7 +44,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                 </h1>
                 <div className="my-2 flex gap-3 items-center px-3 absolute bottom-2 w-full">
                   <Image
-                    src={"/logo/logo.jpeg"}
+                    src={"/logo/Zlaam.jpg"}
                     width={50}
                     height={50}
                     className="rounded-full"
