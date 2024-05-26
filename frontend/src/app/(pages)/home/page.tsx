@@ -7,7 +7,7 @@ import { Suspense, lazy } from "react";
 import Logo from "./components/logo";
 import ButtonLoader from "@/_subComponents/buttonLoader";
 const BlogRendererComponent = lazy(() => import("./components/BlogRenderer"));
-const fetchBlogs = async () => {
+export const fetchBlogs = async () => {
   try {
     const response = await fetch(`${BACKEND_URI}/blogs/publicBlogs`, {
       cache: "no-store",
