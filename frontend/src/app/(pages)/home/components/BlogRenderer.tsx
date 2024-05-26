@@ -13,11 +13,11 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
   };
   return (
     <Fragment>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 justify-center px-3">
         {posts.map((post) => {
           return (
             <Fragment key={post._id}>
-              <Card className="min-h-[50dvh] ronuded overflow-hidden relative my-2 ">
+              <Card className="md:min-h-[400px] min-h-[500px] ronuded overflow-hidden relative my-2 ">
                 <div className=" min-h-[60%] overflow-hidden  ">
                   {isImageLoaded ? (
                     <Image
@@ -36,7 +36,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                     </div>
                   )}
                 </div>
-                <h1 className="text-xl font-bold text-balance px-4  text-clip line-clamp-1">
+                <h1 className="text-xl font-bold text-balance px-4  text-clip line-clamp-1 my-3">
                   <span>{post.blogTitle}</span>
                 </h1>
                 <div className="my-2 flex gap-3 items-center px-3 absolute bottom-2 w-full">

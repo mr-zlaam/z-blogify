@@ -23,7 +23,7 @@ const fetchBlogs = async () => {
 async function Home() {
   const data: PublicBLogTypes = await fetchBlogs();
   if (!data.success) return;
-  const posts = data.data.publicBlogsList.reverse();
+  const posts = data.data.publicBlogsList.reverse().slice(-6);
   const renderLoader = () => <p>Loading</p>;
 
   return (
