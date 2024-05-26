@@ -50,7 +50,7 @@ function UpdateBlogBySlug({
     oldData.blogAuthor || ""
   );
   const [updateBlogThumbnail, setUpdateBlogThumbnail] = useState(
-    oldData.blogThumbnail
+    oldData.blogThumbnail || ""
   );
   const [updateBlogThumbnailAuthor, setUpdateBlogThumbnailAuthor] = useState(
     oldData.blogThumbnailAuthor
