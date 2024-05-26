@@ -14,7 +14,7 @@ async function AllPosts() {
   const allPosts = publicBlogsList.reverse();
   return (
     <>
-      <PageWrapper className="md:max-w-screen-lg">
+      <PageWrapper className="md:max-w-[920px]">
         <GoBack />
         <NavBar />
         <hr className="md:max-w-screen-xl mx-auto my-3 bg-foreground rounded h-1" />
