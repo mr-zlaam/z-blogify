@@ -19,6 +19,15 @@ export default function middleware(request: NextRequest) {
       }
     }
   }
+  if (request.nextUrl.pathname === "/user-auth/sign-in") {
+    if (token?.value) {
+      return NextResponse.redirect(new URL("/home", request.url));
+    }
+  } else if (request.nextUrl.pathname === "/user-auth/sign-up") {
+    if (token?.value) {
+      return NextResponse.redirect(new URL("/home", request.url));
+    }
+  }
   if (request.nextUrl.pathname === "/")
     return NextResponse.redirect(new URL("/home", request.url));
 }
