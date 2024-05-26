@@ -24,13 +24,9 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                       src={post.blogThumbnail || "/logo/logo.jpeg"}
                       alt={post.blogThumbnailAuthor || "zlaam"}
                       className="rounded object-cover"
-                      width={0}
-                      height={0}
-                      sizes="100vw"
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                      }}
+                      width={1000}
+                      height={1000}
+                      style={{ objectFit: "cover" }}
                     />
                   ) : (
                     <div className="absolute -translate-x-1/2 -translate-y-1/2 top-[40%] left-[50%]">
