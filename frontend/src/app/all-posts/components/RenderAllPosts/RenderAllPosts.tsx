@@ -6,8 +6,10 @@ import { Fragment } from "react";
 import parser from "html-react-parser";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
+  const router = useRouter();
   if (allPosts.length === 0)
     return (
       <div className="h-[100dvh] w-full flex justify-center items-center font-bold text-3xl">
@@ -21,7 +23,7 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
         {allPosts.map((post) => {
           return (
             <Fragment key={post._id}>
-              <Card className="h-[400px] flex gap-4 rounded-md shadow-lg overflow-hidden">
+              <Card className="h-[400px] flex gap-4 rounded-md shadow-lg overflow-hidden ">
                 <div className="flex-1 flex max-w-[500px] overflow-hidden">
                   <Image
                     src={post.blogThumbnail || "/logo/Zlaam.jpg"}
