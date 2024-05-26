@@ -33,7 +33,7 @@ async function CreateBLog() {
           Go To Home Page
         </Link>
       </h1>
-      <CreatePosts />
+      <CreatePosts token={token?.value || ""} />
     </>
   );
 }

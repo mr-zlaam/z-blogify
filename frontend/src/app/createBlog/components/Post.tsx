@@ -25,7 +25,7 @@ import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import Image from "next/image";
 import { randomStringGen } from "@/app/helper/randomStringGen/randomStringGen";
 import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
-function CreatePosts() {
+function CreatePosts({ token }: { token: string }) {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
   });
@@ -68,17 +68,27 @@ function CreatePosts() {
     }
     const randomString = randomStringGen(20);
     try {
-      const response = await axios.post("/blogs/createBlog", {
-        blogTitle: title,
-        blogSlug: `${slug}-${randomString}`,
-        blogDescription: desc,
-        blogThumbnail: blogImage,
-        blogThumbnailAuthor: data.blogImageAuthor,
-        blogAuthor: data.blogAuthor,
-      });
+      const response = await axios.post(
+        "/blogs/createBlog",
+        {
+          blogTitle: title,
+          blogSlug: `${slug}-${randomString}`,
+          blogDescription: desc,
+          blogThumbnail: blogImage,
+          blogThumbnailAuthor: data.blogImageAuthor,
+          blogAuthor: data.blogAuthor,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.status === 201) {
         //TODO:remove local storage first before production
-        return successMessage("Blog created successfully");
+        return successMessage(
+          "Blog submitted to the admin for review successfully"
+        );
       }
     } catch (error: any) {
       console.log(error);
