@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Suspense, lazy } from "react";
 import Logo from "./components/logo";
 import { Metadata } from "next";
+import NavBar from "@/app/components/NavBar/NavBar";
 const BlogRendererComponent = lazy(() => import("./components/BlogRenderer"));
 const fetchBlogs = async () => {
   try {
@@ -31,17 +32,8 @@ async function Home() {
     <PageWrapper className="lg:max-w-screen-xl ">
       <Logo />
       <hr className="md:max-w-screen-xl mx-auto my-3 bg-foreground rounded h-1" />
-      <div className="w-fit flex items-center gap-2 my-4">
-        <Link href={"#"}>
-          <span className="text-foreground text-xl font-bold">
-            Latest Posts
-          </span>
-        </Link>
-        <div className="h-8 w-1 rounded bg-foreground inline-block" />
-        <Link href={"#"}>
-          <span className="text-foreground text-xl font-bold">All Posts</span>
-        </Link>
-      </div>
+
+      <NavBar />
       <Suspense fallback={renderLoader()}>
         <BlogRendererComponent posts={posts} />
       </Suspense>
