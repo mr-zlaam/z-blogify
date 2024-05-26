@@ -252,6 +252,7 @@ function UpdateBlogBySlug({
               width={920}
               height={920}
             />
+            <div>{oldData.blogThumbnail || ""}</div>
             <p className="text-center my-2">
               Photo By &nbsp;&nbsp;
               <span className="text-blue-500 underline cursor-pointer">
