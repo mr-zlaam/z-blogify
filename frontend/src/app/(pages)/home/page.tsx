@@ -16,7 +16,9 @@ const fetchBlogs = async () => {
   }
 };
 async function Home() {
-  const data = await fetchBlogs();
+  const data: PublicBLogTypes = await fetchBlogs();
+  if (!data.success) return;
+  const posts = data.data.publicBlogsList.reverse();
 
   return (
     <PageWrapper className="md:max-w-screen-xl">
@@ -33,7 +35,7 @@ async function Home() {
           <span className="text-foreground text-xl font-bold">All Posts</span>
         </Link>
       </div>
-      <BlogRenderer data={data} />
+      <BlogRenderer posts={posts} />
     </PageWrapper>
   );
 }
