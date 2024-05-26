@@ -24,18 +24,18 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
         {allPosts.map((post) => {
           return (
             <Fragment key={post._id}>
-              <Card className="h-[400px] flex gap-4 rounded-md shadow-lg overflow-hidden ">
-                <div className="flex-1 flex max-w-[500px] overflow-hidden">
+              <Card className="md:h-[400px] h-[500px] flex gap-4 rounded-md shadow-lg overflow-hidden flex-col md:flex-row ">
+                <div className="flex-1 flex w-full lg:max-w-[500px] overflow-hidden">
                   <Image
                     src={post.blogThumbnail || "/logo/Zlaam.jpg"}
                     alt={post.blogAuthor}
-                    width={500}
-                    height={500}
+                    width={800}
+                    height={800}
                     className="object-cover"
                   />
                 </div>
                 <div className="flex-1 flex flex-col max-w-[400px]   justify-center gap-4 px-4">
-                  <h1 className="text-3xl font-bold my-2 mx-3 ">
+                  <h1 className="md:text-3xl font-bold my-2 mx-3 text-xl">
                     {post.blogTitle}
                   </h1>
                   <Button className="max-w-[300px] mx-5">
