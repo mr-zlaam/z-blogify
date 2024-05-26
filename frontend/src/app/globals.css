@@ -48,3 +48,9 @@
     --ring: 240 4.9% 83.9%;
   }
 }
+@media screen and (max-width: 250px) {
+  * {
+    visibility: hidden;
+    background: #28282b;
+  }
+}
