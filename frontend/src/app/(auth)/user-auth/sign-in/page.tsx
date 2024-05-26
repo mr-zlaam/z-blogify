@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { BACKEND_URI } from "@/config";
+import { useRouter } from "next/navigation";
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { errorMessage, successMessage } = useMessage();
@@ -25,9 +26,9 @@ function LoginForm() {
     reset,
     formState: { errors },
   } = useForm<UserLoginTypes>({ resolver: zodResolver(loginSchema) });
+  const router = useRouter();
   const handleLoginSubmit = async (data: UserLoginTypes) => {
     const { email, password } = data;
-
     try {
       startLoading();
       console.log(BACKEND_URI);
@@ -47,6 +48,8 @@ function LoginForm() {
       );
       if (response.status === 200) {
         successMessage(response.data.message || "Login Successful");
+        reset();
+        return router.push("/home");
       }
       stopLoading();
     } catch (err) {
