@@ -3,7 +3,7 @@ import {} from "react";
 
 function Logo() {
   return (
-    <div className="h-[300px] w-[300px] bg-foreground/70 overflow-hidden rounded-full mx-auto my-5 shadow">
+    <div className="h-[300px] w-[300px] bg-foreground/70 flex justify-center items-center overflow-hidden rounded-full mx-auto my-5 shadow">
       <Image
         src={"/logo/logo.jpeg"}
         height={500}
