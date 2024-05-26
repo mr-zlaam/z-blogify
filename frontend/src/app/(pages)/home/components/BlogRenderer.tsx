@@ -37,7 +37,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                     </div>
                   )}
                 </div>
-                <h1 className="text-xl font-bold text-balance px-4  text-clip line-clamp-1 my-3 absolute w-full bottom-20">
+                <h1 className="text-xl font-bold text-balance px-4  text-clip line-clamp-2 my-3 absolute w-full bottom-20">
                   <Link href={`/${post.blogSlug || "/"}`}>
                     {post.blogTitle}
                   </Link>
