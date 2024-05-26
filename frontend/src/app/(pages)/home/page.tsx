@@ -25,7 +25,7 @@ export const fetchBlogs = async () => {
 async function Home() {
   const data: PublicBLogTypes = await fetchBlogs();
   if (!data.success) return;
-  const posts = data.data.publicBlogsList.reverse().slice(-6);
+  const posts = data.data.publicBlogsList.reverse().slice(0, 6);
   const renderLoader = () => (
     <div className="h-[50dvh] justify-center flex items-center">
       <ButtonLoader />
