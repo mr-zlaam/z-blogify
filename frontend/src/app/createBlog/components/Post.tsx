@@ -1,8 +1,23 @@
 "use client";
 import { API as axios } from "@/axios";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { useMessage } from "@/hooks/useMessage";
 import { useSlugGenerator as UseSlugGenerator } from "@/hooks/useSlugGenerator";
+
+import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
+import { randomStringGen } from "@/app/helper/randomStringGen/randomStringGen";
+import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
+import Froalaeditor from "froala-editor";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/plugins/code_view.min.css";
@@ -14,21 +29,18 @@ import "froala-editor/js/plugins/colors.min.js";
 import "froala-editor/js/plugins/font_family.min.js";
 import "froala-editor/js/plugins/font_size.min.js";
 import "froala-editor/js/plugins/image.min.js";
-import "froala-editor/js/plugins/link.min.js";
-import "froala-editor/js/plugins/save.min.js";
-import "froala-editor/js/plugins/lists.min.js";
 import "froala-editor/js/plugins/inline_style.min.js";
-import "froala-editor/js/plugins/quick_insert.min.js";
+import "froala-editor/js/plugins/link.min.js";
+import "froala-editor/js/plugins/lists.min.js";
 import "froala-editor/js/plugins/markdown.min.js";
+import "froala-editor/js/plugins/quick_insert.min.js";
+import "froala-editor/js/plugins/save.min.js";
 import parser from "html-react-parser";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { FormEvent, useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
-import Froalaeditor from "froala-editor";
 import { AlloweTags } from "../helper/toolbar";
-import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
-import Image from "next/image";
-import { randomStringGen } from "@/app/helper/randomStringGen/randomStringGen";
-import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
 function CreatePosts({ token }: { token: string }) {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
@@ -41,6 +53,7 @@ function CreatePosts({ token }: { token: string }) {
     blogAuthor: "",
     blogImageAuthor: "",
   });
+  const router = useRouter();
   const handleOnchange = (
     event:
       | React.ChangeEvent<HTMLInputElement>
@@ -89,10 +102,9 @@ function CreatePosts({ token }: { token: string }) {
         }
       );
       if (response.status === 201) {
-        //TODO:remove local storage first before production
-        return successMessage(
-          "Blog submitted to the admin for review successfully"
-        );
+        localStorage.removeItem("savedHtml");
+        successMessage("Blog submitted to the admin for review successfully");
+        return router.push("/home");
       }
     } catch (error: any) {
       console.log(error);
@@ -112,7 +124,7 @@ function CreatePosts({ token }: { token: string }) {
   return (
     <>
       <section className="px-5 py-2">
-        <form onSubmit={handleCreateBlog} className="w-full">
+        <div className="w-full">
           <div className="my-2">
             <label htmlFor="title">Title</label>
             <input
@@ -201,10 +213,31 @@ function CreatePosts({ token }: { token: string }) {
             />
             <div className=" bg-white absolute bottom-4 h-[20px] w-full max-w-4xl" />
           </div>
-          <div className="flex justify-end w-full px-5">
-            <Button className="">Upload Blog</Button>
-          </div>
-        </form>
+          <Dialog>
+            <div className=" w-full flex justify-end px-5 py-3">
+              <DialogTrigger asChild className="">
+                <Button className="">Upload Blog</Button>
+              </DialogTrigger>
+            </div>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogDescription>
+                  You can&apos;t edit this blog once you&apos; uploaded!
+                </DialogDescription>
+              </DialogHeader>
+
+              <DialogFooter className="justify-around flex w-full relative">
+                <DialogClose asChild className="mx-4">
+                  <Button type="button">Close</Button>
+                </DialogClose>
+                <DialogClose asChild onClick={handleCreateBlog}>
+                  <Button type="button">Yes, I am sure</Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
         <PageWrapper className="my-5 p-4 md:max-w-[920px]">
           <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
             {title}
