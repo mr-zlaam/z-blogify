@@ -1,16 +1,21 @@
-import { Fragment } from "react";
-import { API as axios } from "@/axios";
-import parse from "html-react-parser";
 import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
-import Logo from "./components/logo";
+import { BACKEND_URI } from "@/config";
 import { PublicBLogTypes } from "@/types";
 import Link from "next/link";
-import BlogRenderer from "./components/BlogRenderer";
+import { Suspense, lazy } from "react";
+import Logo from "./components/logo";
+const BlogRendererComponent = lazy(() => import("./components/BlogRenderer"));
 const fetchBlogs = async () => {
   try {
-    const response = await axios.get("/blogs/publicBlogs");
-
-    if (response.data.success) return response.data;
+    const response = await fetch(`${BACKEND_URI}/blogs/publicBlogs`, {
+      cache: "no-store",
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error("Some thing went wrong while fetching the data");
+    }
   } catch (error: any) {
     return error;
   }
@@ -19,6 +24,7 @@ async function Home() {
   const data: PublicBLogTypes = await fetchBlogs();
   if (!data.success) return;
   const posts = data.data.publicBlogsList.reverse();
+  const renderLoader = () => <p>Loading</p>;
 
   return (
     <PageWrapper className="md:max-w-screen-xl">
@@ -35,7 +41,9 @@ async function Home() {
           <span className="text-foreground text-xl font-bold">All Posts</span>
         </Link>
       </div>
-      <BlogRenderer posts={posts} />
+      <Suspense fallback={renderLoader()}>
+        <BlogRendererComponent posts={posts} />
+      </Suspense>
     </PageWrapper>
   );
 }
