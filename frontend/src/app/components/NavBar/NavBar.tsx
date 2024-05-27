@@ -14,7 +14,7 @@ function NavBar() {
       <div className="w-full flex items-center  my-4  overflow-x-auto overflow-y-hidden">
         {navLinks.map((data) => (
           <Fragment key={data.name}>
-            <Link href={data.path} className="mx-2">
+            <Link href={data.path} className="mx-2 my-4">
               <Button
                 variant={data.variant}
                 className={cn(
