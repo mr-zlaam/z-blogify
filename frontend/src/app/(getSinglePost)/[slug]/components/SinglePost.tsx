@@ -21,7 +21,7 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
         </div>
         <div>
           <h1 className="text-3xl font-bold text-center">
-            {SinglePostData.blogTitle}
+            {SinglePostData?.blogTitle || "No title for this Post"}
           </h1>
           <div className="flex  items-center my-4 gap-3 px-4">
             <Image
@@ -33,18 +33,18 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
             />
             <div className="flex flex-col justify-start">
               <h1 className="text-lg font-semibold ">
-                {SinglePostData.blogAuthor}
+                {SinglePostData?.blogAuthor || "Zlaam"}
               </h1>
               <p className="text-sm text-left">
                 published on:{" "}
-                {moment(SinglePostData.createdAt).format("MMMM Do, YYYY")}
+                {moment(SinglePostData?.createdAt).format("MMMM Do, YYYY")}
               </p>
             </div>
           </div>
           <aside>
             <Image
-              src={SinglePostData.blogThumbnail || "/logo/Zlaam.jpg"}
-              alt={SinglePostData.blogThumbnailAuthor || "Zlaam"}
+              src={SinglePostData?.blogThumbnail || "/logo/Zlaam.jpg"}
+              alt={SinglePostData?.blogThumbnailAuthor || "Zlaam"}
               width={820}
               height={820}
               className="rounded-md "
@@ -52,11 +52,11 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
             <p className="text-center my-2">
               Photo By &nbsp;&nbsp;
               <span className="text-blue-500 underline cursor-pointer">
-                {parser(SinglePostData.blogThumbnailAuthor)}
+                {parser(SinglePostData?.blogThumbnailAuthor)}
               </span>
             </p>
             <article className=" text-[18px] leading-[2]">
-              {parser(SinglePostData.blogDescription)}
+              {parser(SinglePostData?.blogDescription)}
             </article>
           </aside>
         </div>
