@@ -1,13 +1,12 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { BlogDataTypes } from "@/types";
+import moment from "moment";
 import Image from "next/image";
-import { Fragment } from "react";
-import parser from "html-react-parser";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import moment from "moment";
+import { Fragment } from "react";
 
 function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
   const router = useRouter();
@@ -38,9 +37,12 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
                   <h1 className="md:text-3xl font-bold my-2 mx-3 text-xl">
                     {post.blogTitle}
                   </h1>
-                  <Button className="max-w-[300px] mx-5">
-                    <Link href={`/${post.blogSlug}`}>Go to Post</Link>
-                  </Button>
+                  <Link
+                    href={`/${post.blogSlug}`}
+                    className="inline-block max-w-[300px] mx-5"
+                  >
+                    <Button className="w-full">Go to Post</Button>
+                  </Link>
                   <div className="flex  items-center my-4 gap-3 px-4">
                     <Image
                       src={"/logo/Zlaam.jpg"}
