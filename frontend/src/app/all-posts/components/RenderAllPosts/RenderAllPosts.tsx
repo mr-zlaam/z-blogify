@@ -27,6 +27,7 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
       <div className="h-14 w-full border border-foreground flex my-5 items-center px-4 gap-3 rounded-md">
         <Search size={30} />
         <input
+          value={searchItem}
           placeholder="Search in posts..."
           type="text"
           onChange={handleInputChange}
