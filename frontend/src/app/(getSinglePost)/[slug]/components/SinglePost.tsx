@@ -1,15 +1,12 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { BlogDataTypes } from "@/types";
+import parser from "html-react-parser";
 import { ChevronLeft } from "lucide-react";
 import moment from "moment";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import {} from "react";
-import parser from "html-react-parser";
 import Head from "next/head";
-import { renderContentWithCodeHighlighting } from "@/app/components/syntaxHiglighter/SyntaxHiglighter";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { } from "react";
 function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
   const router = useRouter();
   return (
@@ -69,9 +66,8 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
               </span>
             </p>
             <article className=" text-[18px] leading-[2]">
-              {renderContentWithCodeHighlighting(
-                SinglePostData.blogDescription
-              )}
+              {parser(SinglePostData.blogDescription)}
+           
             </article>
           </aside>
         </div>

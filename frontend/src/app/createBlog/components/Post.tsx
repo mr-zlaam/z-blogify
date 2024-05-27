@@ -16,6 +16,7 @@ import { useSlugGenerator as UseSlugGenerator } from "@/hooks/useSlugGenerator";
 
 import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
+import { cn } from "@/lib/utils";
 import Froalaeditor from "froala-editor";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
@@ -40,7 +41,6 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import { AlloweTags } from "../helper/toolbar";
-import { cn } from "@/lib/utils";
 function CreatePosts({ token }: { token: string }) {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
@@ -277,6 +277,7 @@ function CreatePosts({ token }: { token: string }) {
               )}
             </div>
             <div className="text-left w-full text-lg">{parser(desc)}</div>
+            <div className="text-left w-full text-lg"></div>
           </PageWrapper>
         </div>
       )}
