@@ -10,7 +10,7 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
   const router = useRouter();
   return (
     <>
-      <article className="overflow-x-hidden">
+      <article className="">
         <div
           className=" my-10 bg-transparent text-foreground cursor-pointer h-[40px] w-[40px] flex justify-center items-center duration-300 transition-all rounded-full hover:bg-foreground hover:text-background "
           onClick={() => {
@@ -55,7 +55,7 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
                 {parser(SinglePostData?.blogThumbnailAuthor)}
               </span>
             </p>
-            <article className=" text-[18px] leading-[2]">
+            <article className=" text-[18px] leading-[2] overflow-x-hidden">
               {parser(SinglePostData?.blogDescription)}
             </article>
           </aside>
