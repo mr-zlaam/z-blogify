@@ -11,10 +11,10 @@ function NavBar() {
 
   return (
     <>
-      <div className="w-full flex items-center gap-4 my-4  overflow-x-auto overflow-y-hidden">
+      <div className="w-full flex items-center  my-4  overflow-x-auto overflow-y-hidden">
         {navLinks.map((data) => (
           <Fragment key={data.name}>
-            <Link href={data.path}>
+            <Link href={data.path} className="mx-2">
               <Button
                 variant={data.variant}
                 className={cn(

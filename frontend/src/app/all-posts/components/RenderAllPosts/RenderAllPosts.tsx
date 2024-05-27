@@ -43,7 +43,7 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
         {filteredPosts?.map((post) => {
           return (
             <Fragment key={post._id}>
-              <Card className="md:h-[400px] h-[500px] flex gap-4 rounded-md shadow-lg overflow-hidden flex-col md:flex-row ">
+              <Card className="my-2 md:h-[400px] h-[500px] flex gap-4 rounded-md shadow-lg overflow-hidden flex-col md:flex-row ">
                 <div className="flex-1 flex w-full lg:max-w-[500px] overflow-hidden">
                   <Image
                     src={post.blogThumbnail || "/logo/Zlaam.jpg"}
