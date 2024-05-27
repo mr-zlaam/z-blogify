@@ -201,7 +201,7 @@ function CreatePosts({ token }: { token: string }) {
           </div>
 
           <div />
-          {`<pre style="background:#000000; padding:20px; border-radius:15px; border:2px solid white; color:white;" id="isPasted"></pre>
+          {`<pre style="display: block;border: 2px solid #fff;color: #ffffff;background:#000000;padding: 20px 15px;border-radius: 10px;overflow-x: auto;height: fit-content;" id="code" class="code"></pre>
       `}
           <label htmlFor="">
             <br />
