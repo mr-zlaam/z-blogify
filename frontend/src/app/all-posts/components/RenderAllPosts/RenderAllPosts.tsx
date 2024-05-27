@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { BlogDataTypes } from "@/types";
+import { Search } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +20,10 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
   return (
     <>
       {/* TODO:Search Field add for blog posts */}
+      <div className="h-14 w-full border border-foreground flex items-center px-4 gap-3 rounded">
+        <Search size={30} />
+        <input className="border-none outline-none bg-transparent h-full w-full px-5 font-semibold text-lg" />
+      </div>
       <section className="flex flex-col gap-4  w-full py-5">
         {allPosts.map((post) => {
           return (

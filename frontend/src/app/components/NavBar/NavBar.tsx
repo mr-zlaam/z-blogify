@@ -14,16 +14,18 @@ function NavBar() {
       <div className="w-full flex items-center gap-4 my-4  overflow-x-auto overflow-y-hidden">
         {navLinks.map((data) => (
           <Fragment key={data.name}>
-            <Button
-              variant={data.variant}
-              className={cn(
-                isActivePath(data.path) &&
-                  "bg-foreground text-background duration-300 ",
-                data.className
-              )}
-            >
-              <Link href={data.path}>{data.name}</Link>
-            </Button>
+            <Link href={data.path}>
+              <Button
+                variant={data.variant}
+                className={cn(
+                  isActivePath(data.path) &&
+                    "bg-foreground text-background duration-300 ",
+                  data.className
+                )}
+              >
+                {data.name}
+              </Button>
+            </Link>
           </Fragment>
         ))}
       </div>
