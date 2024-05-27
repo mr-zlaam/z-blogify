@@ -36,7 +36,7 @@ async function GetSinglePost({ params }: { params: SlugTypes }) {
   const singlePostData: BlogDataTypes = data!;
   return (
     <>
-      <PageWrapper className="md:max-w-[820px] px-2">
+      <PageWrapper className="md:max-w-[820px] px-4">
         <SinglePost SinglePostData={singlePostData} />
       </PageWrapper>
     </>
