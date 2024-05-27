@@ -53,7 +53,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                   />
                   <div>
                     {post.blogAuthor} &nbsp;&nbsp;- &nbsp;&nbsp;
-                    {moment(post.createdAt).format("MMMM Do YYYY")}
+                    {moment(post.createdAt).format("MMMM Do, YYYY")}
                   </div>
                 </div>
               </Card>
