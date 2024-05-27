@@ -1,6 +1,5 @@
 import { MoreHorizontal } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,14 +25,13 @@ import {
 } from "@/components/ui/table";
 import moment from "moment";
 
-import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { API as axios } from "@/axios";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import useCookieGrabber from "@/hooks/useCookieGrabber";
 import { BlogTypes } from "@/types";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Fragment } from "react";
-import htmlParser from "html-react-parser";
-import Link from "next/link";
-import useCookieGrabber from "@/hooks/useCookieGrabber";
 const fetchPrivateBlogs = async (token: string) => {
   try {
     const response = await axios.get("/blogs/draftBlogs", {
@@ -54,7 +52,7 @@ export default async function PrivateBlogs() {
     token?.value || ""
   );
   if (!draftPrivateBlogs.success) return redirect("/home");
-  const { data } = draftPrivateBlogs!;
+  const data = draftPrivateBlogs!.data.reverse();
   return (
     <>
       {draftPrivateBlogs.success ? (

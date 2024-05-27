@@ -40,6 +40,7 @@ const fetchPublicBlogs = async () => {
 };
 export default async function AllPublicBlogs() {
   const publicBlogs: PublicBLogTypes = await fetchPublicBlogs();
+  const publicBlogsList = publicBlogs.data.publicBlogsList.reverse();
   return (
     <>
       {publicBlogs.success ? (
@@ -75,64 +76,58 @@ export default async function AllPublicBlogs() {
                       </TableRow>
                     </TableHeader>
                     <TableBody className="b">
-                      {publicBlogs.data.publicBlogsList.map(
-                        (publicBlog, index: number) => {
-                          return (
-                            <Fragment key={publicBlog._id}>
-                              <TableRow className="">
-                                <TableCell className="hidden sm:table-cell">
-                                  <span className="font-medium">
-                                    {index + 1}
-                                  </span>
-                                </TableCell>
-                                <TableCell className="font-medium">
-                                  {publicBlog.blogTitle}
-                                </TableCell>
+                      {publicBlogsList.map((publicBlog, index: number) => {
+                        return (
+                          <Fragment key={publicBlog._id}>
+                            <TableRow className="">
+                              <TableCell className="hidden sm:table-cell">
+                                <span className="font-medium">{index + 1}</span>
+                              </TableCell>
+                              <TableCell className="font-medium">
+                                {publicBlog.blogTitle}
+                              </TableCell>
 
-                                <TableCell>{publicBlog.blogAuthor}</TableCell>
-                                <TableCell className="hidden md:table-cell">
-                                  {moment(publicBlog.createdAt).format(
-                                    "MMMM Do YYYY, h:mm:ss a"
-                                  )}
-                                </TableCell>
-                                <TableCell className="hidden md:table-cell">
-                                  {moment(publicBlog.updatedAt).format(
-                                    "MMMM Do YYYY, h:mm:ss a"
-                                  )}
-                                </TableCell>
-                                <TableCell>
-                                  <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                      <Button
-                                        aria-haspopup="true"
-                                        size="icon"
-                                        variant="ghost"
-                                      >
-                                        <MoreHorizontal className="h-4 w-4" />
-                                        <span className="sr-only">
-                                          Toggle menu
-                                        </span>
-                                      </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                      <DropdownMenuLabel>
-                                        Actions
-                                      </DropdownMenuLabel>
-                                      <Link
-                                        href={`updateBlog/${publicBlog.blogSlug}`}
-                                      >
-                                        <DropdownMenuItem>
-                                          edit
-                                        </DropdownMenuItem>
-                                      </Link>
-                                    </DropdownMenuContent>
-                                  </DropdownMenu>
-                                </TableCell>
-                              </TableRow>
-                            </Fragment>
-                          );
-                        }
-                      )}
+                              <TableCell>{publicBlog.blogAuthor}</TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {moment(publicBlog.createdAt).format(
+                                  "MMMM Do YYYY, h:mm:ss a"
+                                )}
+                              </TableCell>
+                              <TableCell className="hidden md:table-cell">
+                                {moment(publicBlog.updatedAt).format(
+                                  "MMMM Do YYYY, h:mm:ss a"
+                                )}
+                              </TableCell>
+                              <TableCell>
+                                <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                    <Button
+                                      aria-haspopup="true"
+                                      size="icon"
+                                      variant="ghost"
+                                    >
+                                      <MoreHorizontal className="h-4 w-4" />
+                                      <span className="sr-only">
+                                        Toggle menu
+                                      </span>
+                                    </Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent align="end">
+                                    <DropdownMenuLabel>
+                                      Actions
+                                    </DropdownMenuLabel>
+                                    <Link
+                                      href={`updateBlog/${publicBlog.blogSlug}`}
+                                    >
+                                      <DropdownMenuItem>edit</DropdownMenuItem>
+                                    </Link>
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
+                              </TableCell>
+                            </TableRow>
+                          </Fragment>
+                        );
+                      })}
                     </TableBody>
                   </Table>
                 </CardContent>
