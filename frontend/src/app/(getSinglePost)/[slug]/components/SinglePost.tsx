@@ -8,10 +8,21 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {} from "react";
 import parser from "html-react-parser";
+import Head from "next/head";
+import { renderContentWithCodeHighlighting } from "@/app/components/syntaxHiglighter/SyntaxHiglighter";
 function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
   const router = useRouter();
   return (
     <>
+      <Head>
+        <meta property="og:title" content={`${SinglePostData.blogTitle}`} />
+        <meta
+          property="og:description"
+          content={`${parser(SinglePostData.blogDescription)}`}
+        />
+        <meta property="og:image" content={`${SinglePostData.blogThumbnail}`} />
+        <title>{SinglePostData.blogTitle}</title>
+      </Head>
       <article>
         <div
           className=" my-10 bg-transparent text-foreground cursor-pointer h-[40px] w-[40px] flex justify-center items-center duration-300 transition-all rounded-full hover:bg-foreground hover:text-background "
@@ -38,7 +49,8 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
                 {SinglePostData.blogAuthor}
               </h1>
               <p className="text-sm text-left">
-                {moment(SinglePostData.createdAt).format("MMMM-Do-YYYY")}
+                published on:{" "}
+                {moment(SinglePostData.createdAt).format("MMMM Do, YYYY")}
               </p>
             </div>
           </div>
@@ -57,7 +69,9 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
               </span>
             </p>
             <article className=" text-[18px] leading-[2]">
-              {parser(SinglePostData.blogDescription)}
+              {renderContentWithCodeHighlighting(
+                SinglePostData.blogDescription
+              )}
             </article>
           </aside>
         </div>

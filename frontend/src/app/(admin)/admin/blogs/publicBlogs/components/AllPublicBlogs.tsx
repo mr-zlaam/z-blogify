@@ -88,11 +88,7 @@ export default async function AllPublicBlogs() {
                                 <TableCell className="font-medium">
                                   {publicBlog.blogTitle}
                                 </TableCell>
-                                <TableCell className=" max-w-[300px] text-clip line-clamp-2">
-                                  <div className="block h-[50px] w-[300px] text-clip line-clamp-2 overflow-hidden">
-                                    {htmlParser(publicBlog.blogDescription)}
-                                  </div>
-                                </TableCell>
+
                                 <TableCell>{publicBlog.blogAuthor}</TableCell>
                                 <TableCell className="hidden md:table-cell">
                                   {moment(publicBlog.createdAt).format(

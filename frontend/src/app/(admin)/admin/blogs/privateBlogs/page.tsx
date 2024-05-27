@@ -76,7 +76,7 @@ export default async function PrivateBlogs() {
                           <span className="font-medium">Post No.</span>
                         </TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead>Blogs Description</TableHead>
+
                         <TableHead>Author</TableHead>
                         <TableHead className="hidden md:table-cell">
                           Created At
@@ -105,11 +105,7 @@ export default async function PrivateBlogs() {
                                 <TableCell className="font-medium">
                                   {privateBlog.blogTitle}
                                 </TableCell>
-                                <TableCell className=" max-w-[300px] text-clip line-clamp-2">
-                                  <div className="block h-[50px] w-[300px] text-clip line-clamp-2 overflow-hidden">
-                                    {htmlParser(privateBlog.blogDescription)}
-                                  </div>
-                                </TableCell>
+
                                 <TableCell>{privateBlog.blogAuthor}</TableCell>
                                 <TableCell className="hidden md:table-cell">
                                   {moment(privateBlog.createdAt).format(
