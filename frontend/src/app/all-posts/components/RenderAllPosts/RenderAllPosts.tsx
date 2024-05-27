@@ -7,25 +7,40 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
   const router = useRouter();
-  if (allPosts.length === 0)
-    return (
-      <div className="h-[100dvh] w-full flex justify-center items-center font-bold text-3xl flex-col md:flex-row">
-        No Post Found!~
-      </div>
+  const [searchItem, setSearchItem] = useState<string>("");
+  const [filteredPosts, setFilteredPosts] = useState(allPosts);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = e.target.value;
+    setSearchItem(searchTerm);
+    const filteredItems = allPosts.filter((post) =>
+      post?.blogTitle.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    setFilteredPosts(filteredItems);
+  };
+
   return (
     <>
-      {/* TODO:Search Field add for blog posts */}
-      <div className="h-14 w-full border border-foreground flex items-center px-4 gap-3 rounded">
+      <div className="h-14 w-full border border-foreground flex my-5 items-center px-4 gap-3 rounded-md">
         <Search size={30} />
-        <input className="border-none outline-none bg-transparent h-full w-full px-5 font-semibold text-lg" />
+        <input
+          placeholder="Search in posts..."
+          type="text"
+          onChange={handleInputChange}
+          className="border-none outline-none bg-transparent h-full w-full px-5 font-semibold text-lg"
+        />
       </div>
+      {filteredPosts.length === 0 && (
+        <div className="h-[400px] w-full flex justify-center items-center font-bold text-3xl flex-col md:flex-row">
+          No Post Found!~
+        </div>
+      )}
       <section className="flex flex-col gap-4  w-full py-5">
-        {allPosts.map((post) => {
+        {filteredPosts?.map((post) => {
           return (
             <Fragment key={post._id}>
               <Card className="md:h-[400px] h-[500px] flex gap-4 rounded-md shadow-lg overflow-hidden flex-col md:flex-row ">
