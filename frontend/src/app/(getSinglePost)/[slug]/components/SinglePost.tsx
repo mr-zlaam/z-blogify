@@ -3,23 +3,13 @@ import { BlogDataTypes } from "@/types";
 import parser from "html-react-parser";
 import { ChevronLeft } from "lucide-react";
 import moment from "moment";
-import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { } from "react";
+import {} from "react";
 function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
   const router = useRouter();
   return (
     <>
-      <Head>
-        <meta property="og:title" content={`${SinglePostData.blogTitle}`} />
-        <meta
-          property="og:description"
-          content={`${parser(SinglePostData.blogDescription)}`}
-        />
-        <meta property="og:image" content={`${SinglePostData.blogThumbnail}`} />
-        <title>{SinglePostData.blogTitle}</title>
-      </Head>
       <article>
         <div
           className=" my-10 bg-transparent text-foreground cursor-pointer h-[40px] w-[40px] flex justify-center items-center duration-300 transition-all rounded-full hover:bg-foreground hover:text-background "
@@ -67,7 +57,6 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
             </p>
             <article className=" text-[18px] leading-[2]">
               {parser(SinglePostData.blogDescription)}
-           
             </article>
           </aside>
         </div>
