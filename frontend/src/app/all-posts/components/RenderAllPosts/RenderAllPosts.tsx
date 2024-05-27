@@ -8,18 +8,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
-
+import parser from "html-react-parser";
 function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
-  const router = useRouter();
   const [searchItem, setSearchItem] = useState<string>("");
   const [filteredPosts, setFilteredPosts] = useState(allPosts);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value;
     setSearchItem(searchTerm);
-    const filteredItems = allPosts.filter((post) =>
-      post?.blogTitle.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+
+    const filteredItems = allPosts.filter((post) => {
+      return post?.blogTitle.toLowerCase().includes(searchTerm.toLowerCase());
+    });
     setFilteredPosts(filteredItems);
   };
 
@@ -76,7 +75,8 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
                         {post.blogAuthor}
                       </h1>
                       <p className="text-sm text-left">
-                        {moment(post.createdAt).format("MMMM-Do-YYYY")}
+                        Published on:{" "}
+                        {moment(post.createdAt).format("MMMM Do, YYYY")}
                       </p>
                     </div>
                   </div>
