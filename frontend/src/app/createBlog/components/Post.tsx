@@ -41,6 +41,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import { AlloweTags } from "../helper/toolbar";
+import moment from "moment";
 function CreatePosts({ token }: { token: string }) {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
@@ -266,6 +267,21 @@ function CreatePosts({ token }: { token: string }) {
             <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
               {title}
             </h1>
+            <div className="flex  items-center my-4 gap-3 px-4">
+              <Image
+                src={"/logo/Zlaam.jpg"}
+                alt="Zlaam"
+                width={50}
+                height={50}
+                className="rounded-full"
+              />
+              <div className="flex flex-col justify-start">
+                <h1 className="text-lg font-semibold ">{data.blogAuthor}</h1>
+                <p className="text-sm text-left">
+                  published on: {moment("May 22,2024").format("MMMM Do, YYYY")}
+                </p>
+              </div>
+            </div>
             <div className="w-fit mx-auto my-4">
               {blogImage && (
                 <Image
@@ -276,8 +292,8 @@ function CreatePosts({ token }: { token: string }) {
                 />
               )}
             </div>
+
             <div className="text-left w-full text-lg">{parser(desc)}</div>
-            <div className="text-left w-full text-lg"></div>
           </PageWrapper>
         </div>
       )}
