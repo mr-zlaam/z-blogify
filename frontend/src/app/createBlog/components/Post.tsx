@@ -15,7 +15,6 @@ import { useMessage } from "@/hooks/useMessage";
 import { useSlugGenerator as UseSlugGenerator } from "@/hooks/useSlugGenerator";
 
 import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
-import { randomStringGen } from "@/app/helper/randomStringGen/randomStringGen";
 import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
 import Froalaeditor from "froala-editor";
 import "froala-editor/css/froala_editor.pkgd.min.css";
@@ -41,10 +40,12 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useRef, useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import { AlloweTags } from "../helper/toolbar";
+import { cn } from "@/lib/utils";
 function CreatePosts({ token }: { token: string }) {
   const [desc, setDesc] = useState(() => {
     return localStorage.getItem("savedHtml") || "";
   });
+  const [showPreview, setShowPreview] = useState(false);
   const { errorMessage, successMessage } = useMessage();
   const [title, setTitle] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
@@ -122,6 +123,14 @@ function CreatePosts({ token }: { token: string }) {
   };
   return (
     <>
+      <Button
+        className="fixed top-0 right-2 m-4 z-[101]"
+        onClick={() => {
+          setShowPreview((prev) => !prev);
+        }}
+      >
+        {showPreview ? "Hide Preview" : "Show Preview"}
+      </Button>
       <section className="px-5 py-2">
         <div className="w-full">
           <div className="my-2">
@@ -191,18 +200,26 @@ function CreatePosts({ token }: { token: string }) {
           </div>
 
           <div />
-          <label htmlFor="">Blog Description</label>
+          {`<pre style="background:#000000; padding:20px; border-radius:15px; border:2px solid white; color:white;" id="isPasted"></pre>
+      `}
+          <label htmlFor="">
+            <br />
+            Blog Description
+          </label>
           <div className="relative h-fit overflow-hidden my-4">
             <FroalaEditor
               model={desc}
               onModelChange={(e: string) => setDesc(e)}
               config={{
+                toolbarSticky: true,
                 placeholderText: "Start writing from here...",
                 saveInterval: 2000,
                 charCounterCount: true,
                 enter: Froalaeditor.ENTER_BR,
                 htmlAllowedTags: AlloweTags,
                 htmlUntouched: true,
+                height: 450,
+                width: "100%",
                 events: {
                   "save.before": function (html: string) {
                     localStorage.setItem("savedHtml", html);
@@ -237,23 +254,32 @@ function CreatePosts({ token }: { token: string }) {
             </DialogContent>
           </Dialog>
         </div>
-        <PageWrapper className="my-5 p-4 md:max-w-[920px]">
-          <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
-            {title}
-          </h1>
-          <div className="w-fit mx-auto my-4">
-            {blogImage && (
-              <Image
-                src={blogImage}
-                alt={data.blogImageAuthor}
-                width={920}
-                height={920}
-              />
-            )}
-          </div>
-          <div className="text-left w-full text-lg">{parser(desc)}</div>
-        </PageWrapper>
       </section>
+
+      {showPreview && (
+        <div
+          className={cn(
+            "py-5 p-4  fixed overflow-auto bg-background z-[100] w-full top-0 left-0 h-screen"
+          )}
+        >
+          <PageWrapper className="md:max-w-[920px]">
+            <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
+              {title}
+            </h1>
+            <div className="w-fit mx-auto my-4">
+              {blogImage && (
+                <Image
+                  src={blogImage}
+                  alt={data.blogImageAuthor}
+                  width={920}
+                  height={920}
+                />
+              )}
+            </div>
+            <div className="text-left w-full text-lg">{parser(desc)}</div>
+          </PageWrapper>
+        </div>
+      )}
     </>
   );
 }
