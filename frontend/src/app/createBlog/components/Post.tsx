@@ -267,7 +267,7 @@ function CreatePosts({ token }: { token: string }) {
             <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
               {title}
             </h1>
-            <div className="flex  items-center my-4 gap-3 px-4">
+            <div className="flex  items-center my-4  px-4">
               <Image
                 src={"/logo/Zlaam.jpg"}
                 alt="Zlaam"
