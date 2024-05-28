@@ -6,6 +6,9 @@ import { Metadata } from "next";
 import { Suspense, lazy } from "react";
 import Logo from "./components/logo";
 import ButtonLoader from "@/_subComponents/buttonLoader";
+import CheckIfAdmin from "@/app/helper/checkIfAdmin/CheckIfAdmin";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 const BlogRendererComponent = lazy(() => import("./components/BlogRenderer"));
 export const fetchBlogs = async () => {
   try {
@@ -24,6 +27,7 @@ export const fetchBlogs = async () => {
 };
 async function Home() {
   const data: PublicBLogTypes = await fetchBlogs();
+  const isAdmin = await CheckIfAdmin();
   if (!data.success) return;
   const posts = data.data.publicBlogsList.reverse().slice(0, 6);
   const renderLoader = () => (
@@ -35,6 +39,14 @@ async function Home() {
   return (
     <PageWrapper className="lg:max-w-screen-xl ">
       <Logo />
+      {isAdmin
+        ? isAdmin.statusCode === 200 && (
+            <Link href={"/admin/users"} className="block w-fit mx-auto my-4">
+              <Button>Go To Admin Pannel</Button>
+            </Link>
+          )
+        : ""}
+
       <hr className="md:max-w-screen-xl mx-auto my-3 bg-foreground rounded h-1" />
       <NavBar />
       <Suspense fallback={renderLoader()}>
