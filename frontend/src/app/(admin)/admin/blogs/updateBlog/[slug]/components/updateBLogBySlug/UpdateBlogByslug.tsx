@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useMessage } from "@/hooks/useMessage";
 import { useSlugGenerator as UseSlugGenerator } from "@/hooks/useSlugGenerator";
 import { useValidateImageUrl as UseValidateImageUrl } from "@/hooks/useValidateUrl";
+import { cn } from "@/lib/utils";
 import { BlogDataTypes } from "@/types";
 import { AxiosError } from "axios";
 import Froalaeditor from "froala-editor";
@@ -28,6 +29,7 @@ import "froala-editor/js/plugins/markdown.min.js";
 import "froala-editor/js/plugins/quick_insert.min.js";
 import "froala-editor/js/plugins/save.min.js";
 import parser from "html-react-parser";
+import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -46,6 +48,7 @@ function UpdateBlogBySlug({
   const getObjectOfFetchedData: BlogDataTypes = previousData.data;
   const oldData = getObjectOfFetchedData;
   const { errorMessage, successMessage } = useMessage();
+  const [showPreview, setShowPreview] = useState<boolean>(false);
   const router = useRouter();
   //states
   const [updateTitle, setupdateTitle] = useState(oldData.blogTitle || "");
@@ -116,6 +119,10 @@ function UpdateBlogBySlug({
     const mynewtitle = event.target.value;
     setupdateTitle(mynewtitle);
     setUpdateSlug(UseSlugGenerator(mynewtitle));
+  };
+  //Handle show preview
+  const handleShowPreview = () => {
+    setShowPreview((prev) => !prev);
   };
   const updateInputFields = [
     {
@@ -190,6 +197,13 @@ function UpdateBlogBySlug({
   };
   return (
     <>
+      <Button
+        onClick={handleShowPreview}
+        className="fixed right-2 z-[101] top-14 border border-foreground shadow-md shadow-black"
+        size="default"
+      >
+        {showPreview ? "Hide Preview" : "Show Preview"}
+      </Button>
       <section className="px-5 py-2">
         <form onSubmit={handleUpdateBlog} className="w-full">
           {updateInputFields.map((field) => (
@@ -217,17 +231,22 @@ function UpdateBlogBySlug({
               </div>
             </Fragment>
           ))}
+          {`<pre style="display: block;border: 2px solid #fff;color: #ffffff;background:#000000;padding: 20px 15px;border-radius: 10px;overflow-x: auto;height: fit-content;" id="code" class="code"></pre>
+      `}
           <div className="relative h-fit overflow-hidden my-4">
             <FroalaEditor
               model={updateBlogDesc}
               onModelChange={(e: string) => setUpdateBlogDesc(e)}
               config={{
-                placeholderText: "Start from the here ",
+                toolbarSticky: true,
+                placeholderText: "Start writing from here...",
                 saveInterval: 2000,
                 charCounterCount: true,
                 enter: Froalaeditor.ENTER_BR,
                 htmlAllowedTags: AlloweTags,
                 htmlUntouched: true,
+                height: 450,
+                width: "100%",
                 events: {
                   "save.before": function (html: string) {
                     localStorage.setItem("savedHtml", html);
@@ -241,29 +260,49 @@ function UpdateBlogBySlug({
             <Button className="">Update Blog</Button>
           </div>
         </form>
-        <PageWrapper className="my-5 p-4 md:max-w-[920px]">
-          <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
-            {updateTitle}
-          </h1>
-          <div className="w-fit mx-auto my-4">
-            <Image
-              src={updateBlogThumbnail}
-              alt={updateBlogAuthor + "'Image"}
-              width={920}
-              height={920}
-            />
-            <div>{oldData.blogThumbnail || ""}</div>
-            <p className="text-center my-2">
-              Photo By &nbsp;&nbsp;
-              <span className="text-blue-500 underline cursor-pointer">
-                {parser(updateBlogThumbnailAuthor)}
-              </span>
-            </p>
+        {showPreview && (
+          <div
+            className={cn(
+              "py-5 p-4  fixed overflow-auto bg-background z-[100] w-full top-0 left-0 h-screen"
+            )}
+          >
+            <PageWrapper className="md:max-w-[920px]">
+              <h1 className="text-center font-bold text-2xl md:text-4xl my-4 text-balance">
+                {updateTitle}
+              </h1>
+              <div className="flex  items-center my-4  px-4">
+                <Image
+                  src={"/logo/Zlaam.jpg"}
+                  alt="Zlaam"
+                  width={50}
+                  height={50}
+                  className="rounded-full"
+                />
+                <div className="flex flex-col justify-start">
+                  <h1 className="text-lg font-semibold ">{updateBlogAuthor}</h1>
+                  <p className="text-sm text-left">
+                    published on:{" "}
+                    {moment("May 22,2024").format("MMMM Do, YYYY")}
+                  </p>
+                </div>
+              </div>
+              <div className="w-fit mx-auto my-4">
+                {updateBlogThumbnail && (
+                  <Image
+                    src={updateBlogThumbnail}
+                    alt={updateBlogAuthor}
+                    width={920}
+                    height={920}
+                  />
+                )}
+              </div>
+
+              <div className="text-left w-full text-lg">
+                {parser(updateBlogDesc)}
+              </div>
+            </PageWrapper>
           </div>
-          <div className="text-left w-full text-lg">
-            {parser(updateBlogDesc)}
-          </div>
-        </PageWrapper>
+        )}
       </section>
     </>
   );
