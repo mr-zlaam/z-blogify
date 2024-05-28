@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import {} from "react";
 function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
   const router = useRouter();
+  console.log(SinglePostData.blogThumbnail);
   return (
     <>
       <article className="">
@@ -43,7 +44,7 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
           </div>
           <aside>
             <Image
-              src={SinglePostData?.blogThumbnail || "/logo/Zlaam.jpg"}
+              src={SinglePostData.blogThumbnail || "/logo/Zlaam.jpg"}
               alt={SinglePostData?.blogThumbnailAuthor || "Zlaam"}
               width={820}
               height={820}

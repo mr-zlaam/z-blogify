@@ -8,7 +8,9 @@ import SinglePost from "./components/SinglePost";
 import { redirect } from "next/navigation";
 const fetchSinglePost = async (slug: string) => {
   try {
-    const response = await fetch(`${BACKEND_URI}/blogs/getSingleBlog/${slug}`);
+    const response = await fetch(`${BACKEND_URI}/blogs/getSingleBlog/${slug}`, {
+      cache: "no-store",
+    });
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -27,7 +29,7 @@ async function GetSinglePost({ params }: { params: SlugTypes }) {
   const { slug } = params;
   const { errorMessage } = useMessage();
   if (!slug) return redirect("/home");
-  const getDataFromSinglePost = await fetchSinglePost(slug.toString());
+  const getDataFromSinglePost = await fetchSinglePost(slug);
   if (!getDataFromSinglePost.success) {
     errorMessage("Some thing went wrong");
     return redirect("/home");
