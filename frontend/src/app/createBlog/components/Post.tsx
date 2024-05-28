@@ -275,7 +275,7 @@ function CreatePosts({ token }: { token: string }) {
                 height={50}
                 className="rounded-full"
               />
-              <div className="flex flex-col justify-start">
+              <div className="flex flex-col justify-start px-4">
                 <h1 className="text-lg font-semibold ">{data.blogAuthor}</h1>
                 <p className="text-sm text-left">
                   published on: {moment("May 22,2024").format("MMMM Do, YYYY")}
@@ -289,6 +289,7 @@ function CreatePosts({ token }: { token: string }) {
                   alt={data.blogImageAuthor}
                   width={920}
                   height={920}
+                  className="rounded-md shadow-lg"
                 />
               )}
             </div>
