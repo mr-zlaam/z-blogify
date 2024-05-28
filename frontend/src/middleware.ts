@@ -19,6 +19,9 @@ export default function middleware(request: NextRequest) {
       }
     }
   }
+  if (request.nextUrl.pathname === "/admin") {
+    return NextResponse.redirect(new URL("/home", request.url));
+  }
   if (request.nextUrl.pathname === "/user-auth/sign-in") {
     if (token?.value) {
       return NextResponse.redirect(new URL("/home", request.url));
