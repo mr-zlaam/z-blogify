@@ -27,4 +27,18 @@ async function CheckIfSubAdmin() {
     error;
   }
 }
-export { CheckIfSubAdmin, CheckIfAdmin };
+async function CheckIfUserLoggedIn() {
+  const token = useCookieGrabber();
+  try {
+    const response = await axios.get("/blogs/checkIfUserLogin", {
+      headers: {
+        Authorization: `Bearer ${token?.value || ""}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    error;
+  }
+}
+
+export { CheckIfSubAdmin, CheckIfAdmin, CheckIfUserLoggedIn };

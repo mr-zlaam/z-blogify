@@ -4,6 +4,7 @@ import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import {
   CheckIfAdmin,
   CheckIfSubAdmin,
+  CheckIfUserLoggedIn,
 } from "@/app/helper/CheckIfAuthenticated/CheckIfAdminOrSubAdmin";
 import { Button } from "@/components/ui/button";
 import { BACKEND_URI } from "@/config";
@@ -33,6 +34,7 @@ async function Home() {
   const data: PublicBLogTypes = await fetchBlogs();
   const isAdmin = await CheckIfAdmin();
   const isSubAdmin = await CheckIfSubAdmin();
+  const isUserLogined = await CheckIfUserLoggedIn();
   if (!data.success) return;
   const posts = data.data.publicBlogsList.reverse().slice(0, 6);
   const renderLoader = () => (
@@ -40,7 +42,7 @@ async function Home() {
       <ButtonLoader />
     </div>
   );
-
+  const hanldeLogout = () => {};
   return (
     <>
       {isSubAdmin
@@ -62,9 +64,14 @@ async function Home() {
               </Link>
             )
           : ""}
-        <Link href={"/user-auth/sign-in"} className="block w-fit mx-auto my-4">
-          <Button>Login</Button>
-        </Link>
+        {!isUserLogined && (
+          <Link
+            href={"/user-auth/sign-in"}
+            className="block w-fit mx-auto my-4"
+          >
+            <Button>Login</Button>
+          </Link>
+        )}
 
         <hr className="md:max-w-screen-xl mx-auto my-3 bg-foreground rounded h-1" />
         <NavBar />
