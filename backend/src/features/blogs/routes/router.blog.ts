@@ -32,7 +32,6 @@ blogRouter.get(
       .json(ApiResponse(200, "As you are admin you can do anything."));
   }
 );
-blogRouter.get("/checkUserIsAdmin", updateAndDeleteAuthMiddleware);
 blogRouter.patch(
   "/updateBlog/:slug",
   updateAndDeleteAuthMiddleware,
