@@ -52,11 +52,13 @@ function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
             <p className="text-center my-2">
               Photo By &nbsp;&nbsp;
               <span className="text-blue-500 underline cursor-pointer">
-                {parser(SinglePostData?.blogThumbnailAuthor)}
+                {parser(SinglePostData?.blogThumbnailAuthor || "")}
               </span>
             </p>
             <article className=" text-[18px] leading-[2] overflow-x-hidden">
-              {parser(SinglePostData?.blogDescription)}
+              {parser(
+                SinglePostData?.blogDescription || "<h1>Hello World Error</h1>"
+              )}
             </article>
           </aside>
         </div>

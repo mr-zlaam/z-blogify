@@ -27,7 +27,7 @@ async function GetSinglePost({ params }: { params: SlugTypes }) {
   const { slug } = params;
   const { errorMessage } = useMessage();
   if (!slug) return redirect("/home");
-  const getDataFromSinglePost = await fetchSinglePost(slug);
+  const getDataFromSinglePost = await fetchSinglePost(slug.toString());
   if (!getDataFromSinglePost.success) {
     errorMessage("Some thing went wrong");
     return redirect("/home");

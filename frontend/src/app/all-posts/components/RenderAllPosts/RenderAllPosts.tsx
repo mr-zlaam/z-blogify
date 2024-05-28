@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
 import parser from "html-react-parser";
+import { VERSION } from "@/constants";
 function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
   const [searchItem, setSearchItem] = useState<string>("");
   const [filteredPosts, setFilteredPosts] = useState(allPosts);
@@ -58,7 +59,7 @@ function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
                     {post.blogTitle}
                   </h1>
                   <Link
-                    href={`/${post.blogSlug}`}
+                    href={`/${VERSION}/${post.blogSlug || "/home"}`}
                     className="inline-block max-w-[300px] mx-5"
                   >
                     <Button className="w-full">Go to Post</Button>

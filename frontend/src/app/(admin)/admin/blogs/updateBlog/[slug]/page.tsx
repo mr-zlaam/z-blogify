@@ -31,7 +31,7 @@ async function Slug({ params }: { params: SlugTypes }) {
   return (
     <section className="mx-5">
       <UpdateBlogBySlug
-        slugForUpdate={slug}
+        slugForUpdate={slug.toString()}
         previousData={data}
         token={token?.value || ""}
       />

@@ -1,6 +1,7 @@
 "use client";
 import ImgLoader from "@/_subComponents/imgLoader";
 import { Card } from "@/components/ui/card";
+import { VERSION } from "@/constants";
 import { BlogDataTypes } from "@/types";
 import moment from "moment";
 import Image from "next/image";
@@ -21,7 +22,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
               <Card className="md:min-h-[420px] shadow-lg sm:min-h-[600px] mdx:min-h-[520px] smx:min-h-[400px] min-h-[300px] ronuded overflow-hidden relative my-2 ">
                 <div className="  overflow-hidden  ">
                   {isImageLoaded ? (
-                    <Link href={`/${post.blogSlug}`}>
+                    <Link href={`/${VERSION}/${post.blogSlug || "/home"}`}>
                       <Image
                         src={post.blogThumbnail || "/logo/logo.jpeg"}
                         alt={post.blogThumbnailAuthor || "zlaam"}
@@ -38,7 +39,7 @@ export default function BlogRenderer({ posts }: { posts: BlogDataTypes[] }) {
                   )}
                 </div>
                 <h1 className="text-xl font-bold text-balance px-4  text-clip line-clamp-2 my-3 absolute w-full bottom-20">
-                  <Link href={`/${post.blogSlug || "/"}`}>
+                  <Link href={`/${VERSION}/${post.blogSlug || "/home"}`}>
                     {post.blogTitle}
                   </Link>
                 </h1>
