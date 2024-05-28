@@ -250,7 +250,7 @@ function CreatePosts({ token }: { token: string }) {
                 </DialogDescription>
               </DialogHeader>
 
-              <DialogFooter className="justify-around flex w-full relative flex-col md:flex-row ">
+              <DialogFooter className="justify-around flex items-center w-full relative flex-col md:flex-row ">
                 <DialogClose asChild className="mx-4 my-3">
                   <Button type="button">Close</Button>
                 </DialogClose>
