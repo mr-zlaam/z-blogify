@@ -195,6 +195,12 @@ function UpdateBlogBySlug({
       return errorMessage("Please provide a valid image url");
     }
   };
+  const today = new Date();
+  const monthName = today.toLocaleString("en-US", { month: "short" });
+  const date = new Date().getDate();
+  const month = monthName;
+  const year = new Date().getFullYear();
+  const full_date = `${date}- ${month}- ${year}`;
   return (
     <>
       <Button
@@ -279,11 +285,13 @@ function UpdateBlogBySlug({
                   className="rounded-full"
                 />
 
-                <div className="flex flex-col justify-start">
+                <div className="flex flex-col px-4 justify-start">
                   <h1 className="text-lg font-semibold ">{updateBlogAuthor}</h1>
                   <p className="text-sm text-left">
                     published on:{" "}
-                    {moment("May 22,2024").format("MMMM Do, YYYY")}
+                    {moment(oldData.createdAt || full_date).format(
+                      "MMMM Do, YYYY"
+                    )}
                   </p>
                 </div>
               </div>

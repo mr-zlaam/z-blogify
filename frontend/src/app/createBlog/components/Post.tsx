@@ -122,6 +122,12 @@ function CreatePosts({ token }: { token: string }) {
       return errorMessage("Please provide a valid image url");
     }
   };
+  const today = new Date();
+  const monthName = today.toLocaleString("en-US", { month: "short" });
+  const date = new Date().getDate();
+  const month = monthName;
+  const year = new Date().getFullYear();
+  const fullDate = `${date}- ${month}- ${year}`;
   return (
     <>
       <Button
@@ -278,7 +284,7 @@ function CreatePosts({ token }: { token: string }) {
               <div className="flex flex-col justify-start px-4">
                 <h1 className="text-lg font-semibold ">{data.blogAuthor}</h1>
                 <p className="text-sm text-left">
-                  published on: {moment("May 22,2024").format("MMMM Do, YYYY")}
+                  published on: {moment(fullDate).format("MMMM Do, YYYY")}
                 </p>
               </div>
             </div>
