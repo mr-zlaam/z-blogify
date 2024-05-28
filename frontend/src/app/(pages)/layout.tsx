@@ -1,7 +1,7 @@
 import {} from "react";
 
-import Header from "../components/header/Header";
 import { ThemeToggler } from "@/theme/ThemeToggler";
+import Footer from "../components/footer/Footer";
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -13,9 +13,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         <section className="flex-[1] flex-grow relative z-[997]">
           {children}
         </section>
-        {/* <footer className="relative w-full mx-10 my-10 md:fixed bottom-2 right-5 text-xs z-[996]">
-          &copy; 2024 &nbsp;&nbsp;&nbsp;&nbsp;&trade;Zlaam
-        </footer> */}
+        <Footer />
       </main>
     </>
   );
