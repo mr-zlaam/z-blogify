@@ -9,6 +9,7 @@ function Logo() {
         height={300}
         width={300}
         alt="Logo"
+        priority
         className="rounded-full"
       />
     </div>
