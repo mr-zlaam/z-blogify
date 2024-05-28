@@ -278,6 +278,7 @@ function UpdateBlogBySlug({
                   height={50}
                   className="rounded-full"
                 />
+
                 <div className="flex flex-col justify-start">
                   <h1 className="text-lg font-semibold ">{updateBlogAuthor}</h1>
                   <p className="text-sm text-left">
@@ -295,6 +296,12 @@ function UpdateBlogBySlug({
                     height={920}
                   />
                 )}
+                <p className="text-center my-2">
+                  Photo By &nbsp;&nbsp;
+                  <span className="text-blue-500 underline cursor-pointer">
+                    {parser(updateBlogThumbnailAuthor || "")}
+                  </span>
+                </p>
               </div>
 
               <div className="text-left w-full text-lg">
