@@ -44,7 +44,7 @@ async function Home() {
   );
   const hanldeLogout = () => {};
   return (
-    <>
+    <main className="py-5">
       {isSubAdmin
         ? isAdmin.statusCode === 200 && (
             <Link
@@ -79,7 +79,7 @@ async function Home() {
           <BlogRendererComponent posts={posts} />
         </Suspense>
       </PageWrapper>
-    </>
+    </main>
   );
 }
 
