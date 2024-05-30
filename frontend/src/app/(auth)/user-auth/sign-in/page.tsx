@@ -93,12 +93,11 @@ function LoginForm() {
                     id="password"
                     placeholder="••••••••"
                   />
-                  <span className="absolute right-8 top-8">
-                    {showPassword ? (
-                      <EyeOpenIcon onClick={() => setShowPassword(false)} />
-                    ) : (
-                      <EyeClosedIcon onClick={() => setShowPassword(true)} />
-                    )}
+                  <span
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-4 top-6  cursor-pointer h-7 w-7 rounded-full bg-transparent duration-300 transition-all hover:bg-foreground/10 flex justify-center items-center"
+                  >
+                    {showPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
                   </span>
                   {errors.password && (
                     <p className="text-xs select-none text-red-500  text-balance ml-2">

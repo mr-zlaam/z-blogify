@@ -234,7 +234,7 @@ function CreatePosts({ token }: { token: string }) {
                 },
               }}
             />
-            <div className=" bg-white absolute bottom-4 h-[20px] w-full max-w-4xl" />
+            <div className=" bg-white absolute bottom-2 left-1 h-[23px] w-full max-w-4xl" />
           </div>
           <Dialog>
             <div className=" w-full flex justify-end px-5 py-3">

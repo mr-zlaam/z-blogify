@@ -145,12 +145,11 @@ function RegisterForm() {
                     placeholder="••••••••"
                     id="password"
                   />
-                  <span className="absolute right-8 top-7">
-                    {showPassword ? (
-                      <EyeOpenIcon onClick={() => setShowPassword(false)} />
-                    ) : (
-                      <EyeClosedIcon onClick={() => setShowPassword(true)} />
-                    )}
+                  <span
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-4 top-6  cursor-pointer h-7 w-7 rounded-full bg-transparent duration-300 transition-all hover:bg-foreground/10 flex justify-center items-center"
+                  >
+                    {showPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
                   </span>
                   <p className="h-[15px]">
                     {errors.password && (
@@ -171,16 +170,11 @@ function RegisterForm() {
                     placeholder="••••••••"
                     id="confirm"
                   />
-                  <span className="absolute right-8 top-7">
-                    {showConfirmPassword ? (
-                      <EyeOpenIcon
-                        onClick={() => setConfirmShowPassword(false)}
-                      />
-                    ) : (
-                      <EyeClosedIcon
-                        onClick={() => setConfirmShowPassword(true)}
-                      />
-                    )}
+                  <span
+                    onClick={() => setConfirmShowPassword((prev) => !prev)}
+                    className="absolute right-4 top-6  cursor-pointer h-7 w-7 rounded-full bg-transparent duration-300 transition-all hover:bg-foreground/10 flex justify-center items-center"
+                  >
+                    {showConfirmPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
                   </span>
                   <p className="h-[15px]">
                     {errors.confirmPassword && (
