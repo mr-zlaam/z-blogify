@@ -48,6 +48,9 @@ function LoginForm() {
       );
       if (response.status === 200) {
         successMessage(response.data.message || "Login Successful");
+        // if (!isWindow) {
+        location.reload();
+        // }
         reset();
         return router.push("/home");
       }

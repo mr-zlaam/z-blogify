@@ -42,7 +42,7 @@ async function Home() {
       <ButtonLoader />
     </div>
   );
-  const hanldeLogout = () => {};
+  // const hanldeLogout = () => {};
   return (
     <main className="py-5">
       {isSubAdmin
