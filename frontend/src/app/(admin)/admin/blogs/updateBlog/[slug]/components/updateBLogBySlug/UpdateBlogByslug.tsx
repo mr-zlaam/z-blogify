@@ -147,7 +147,7 @@ function UpdateBlogBySlug({
     {
       label: "Update BlogImage",
       type: "url",
-
+      value: oldData.blogThumbnail || updateBlogThumbnail || "",
       className:
         "border  border-t-0 border-l-0 border-r-0 outline-none w-full py-2 px-4 border-b-2 border-foreground bg-transparent",
       readOnly: false,
@@ -184,7 +184,7 @@ function UpdateBlogBySlug({
       readOnly: false,
     },
   ];
-  const imageUrlRef = useRef<any>(null);
+  const imageUrlRef = useRef<any>(oldData.blogThumbnail || null);
   const setUrlToImageBlog = (e: React.FormEvent) => {
     e.preventDefault();
     const url: string = imageUrlRef.current.value;
