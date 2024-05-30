@@ -25,7 +25,7 @@ function Footer() {
             className="hover:underline text-sm"
           >
             <Button variant={"link"} className={cn("text-background text-sm")}>
-              Contact
+              @E-Mail
             </Button>
           </Link>
         </div>
