@@ -6,11 +6,13 @@ import moment from "moment";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {} from "react";
+import ScrollToTop from "./ScrollToTop";
 function SinglePost({ SinglePostData }: { SinglePostData: BlogDataTypes }) {
   const router = useRouter();
-  console.log(SinglePostData.blogThumbnail);
+
   return (
     <>
+      <ScrollToTop />
       <article className="">
         <div
           className=" my-10 bg-transparent text-foreground cursor-pointer h-[40px] w-[40px] flex justify-center items-center duration-300 transition-all rounded-full hover:bg-foreground hover:text-background "
