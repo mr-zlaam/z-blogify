@@ -91,3 +91,7 @@
     width: 0.5px; /* Adjust the width as needed */
   }
 }
+* > img,
+a {
+  user-select: none;
+}
