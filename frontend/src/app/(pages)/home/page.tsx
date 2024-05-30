@@ -46,7 +46,7 @@ async function Home() {
   return (
     <main className="py-5">
       {isSubAdmin
-        ? isAdmin.statusCode === 200 && (
+        ? isSubAdmin.statusCode === 200 && (
             <Link
               href={"/createBlog"}
               className=" absolute top-10 right-10 flex items-center "
