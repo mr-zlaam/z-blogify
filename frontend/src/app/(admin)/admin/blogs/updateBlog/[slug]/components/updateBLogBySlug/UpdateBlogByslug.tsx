@@ -187,9 +187,11 @@ function UpdateBlogBySlug({
   const imageUrlRef = useRef<any>(null);
   const setUrlToImageBlog = (e: React.FormEvent) => {
     e.preventDefault();
-    const url = imageUrlRef.current.value;
+    const url: string = imageUrlRef.current.value;
     console.log(url);
     if (UseValidateImageUrl(url)) {
+      if (url.includes("_next/image"))
+        return errorMessage("This url can't be set!");
       setUpdateBlogThumbnail(imageUrlRef.current.value);
     } else {
       return errorMessage("Please provide a valid image url");
