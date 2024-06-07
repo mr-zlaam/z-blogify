@@ -61,11 +61,10 @@ export async function generateMetadata({
 
 async function GetSinglePost({ params }: { params: SlugTypes }) {
   const { slug } = params;
-  const { errorMessage } = useMessage();
+
   if (!slug) return redirect("/home");
   const getDataFromSinglePost = await fetchSinglePost(slug);
   if (!getDataFromSinglePost.success) {
-    errorMessage("Something went wrong while loading post!!.");
     return redirect("/home");
   }
   const { data } = getDataFromSinglePost;
