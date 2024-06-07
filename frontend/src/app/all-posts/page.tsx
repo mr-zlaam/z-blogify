@@ -9,11 +9,11 @@ import { PublicBLogTypes } from "@/types";
 import { useMessage } from "@/hooks/useMessage";
 import ScrollToTop from "../(getSinglePost)/1/[slug]/components/ScrollToTop";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 async function AllPosts() {
-  const { errorMessage } = useMessage();
   const getAllPosts: PublicBLogTypes = await FetchAllPost();
 
-  if (!getAllPosts.success) return errorMessage("Some thing went wrong!~");
+  if (!getAllPosts.success) return redirect("/home");
   const { publicBlogsList } = getAllPosts.data;
   const allPosts = publicBlogsList.reverse();
   const renderLoader = () => (
