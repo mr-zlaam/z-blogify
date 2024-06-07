@@ -15,8 +15,6 @@ const fetchSinglePost = async (slug: string) => {
     if (response.ok) {
       const data = await response.json();
       return data;
-    } else {
-      throw new Error("Something went wrong");
     }
   } catch (error: any) {
     console.log(error);
@@ -61,7 +59,6 @@ async function GetSinglePost({ params }: { params: SlugTypes }) {
   }
   const { data } = getDataFromSinglePost;
   const singlePostData: BlogDataTypes = data!;
-  // if (!singlePostData) return redirect(`/-1/${slug}`);
   if (!singlePostData) return notFound();
   return (
     <>
