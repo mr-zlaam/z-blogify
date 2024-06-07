@@ -23,4 +23,5 @@ function NotFound() {
 export default NotFound;
 export const metadata: Metadata = {
   title: "Not Found ~ ",
+  description: "Page not found",
 };
