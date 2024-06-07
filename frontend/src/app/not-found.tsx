@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import {} from "react";
 
@@ -20,3 +21,6 @@ function NotFound() {
 }
 
 export default NotFound;
+export const metadata: Metadata = {
+  title: "Not Found ~ ",
+};

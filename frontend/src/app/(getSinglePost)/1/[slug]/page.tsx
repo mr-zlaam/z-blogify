@@ -4,7 +4,7 @@ import { BACKEND_URI } from "@/config";
 import { BlogDataTypes } from "@/types";
 import parser from "html-react-parser";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import SinglePost from "./components/SinglePost";
 
 const fetchSinglePost = async (slug: string) => {
@@ -37,6 +37,7 @@ export async function generateMetadata({
   const post = await response.json();
   const { data: getDataFromSinglePost } = post;
   const data: BlogDataTypes = getDataFromSinglePost;
+  if (!data) return notFound();
   return {
     title: data.blogTitle,
     description: (parser(data.blogDescription) as string) || "", // Ensure description is a string
@@ -60,7 +61,8 @@ async function GetSinglePost({ params }: { params: SlugTypes }) {
   }
   const { data } = getDataFromSinglePost;
   const singlePostData: BlogDataTypes = data!;
-  if (!singlePostData) return redirect("/home");
+  // if (!singlePostData) return redirect(`/-1/${slug}`);
+  if (!singlePostData) return notFound();
   return (
     <>
       <PageWrapper className="md:max-w-[820px] px-4">
