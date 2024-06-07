@@ -84,3 +84,6 @@ async function Home() {
 }
 
 export default Home;
+export const metadata: Metadata = {
+  title: "Home - ",
+};
