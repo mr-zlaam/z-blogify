@@ -84,10 +84,3 @@ async function Home() {
 }
 
 export default Home;
-
-export const metadata: Metadata = {
-  title: "Home - New Posts",
-  creator: "mr-zlaam",
-  publisher: "mr-zlaam",
-  description: "",
-};

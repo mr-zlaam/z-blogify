@@ -10,7 +10,7 @@ const arimo = Arimo({
   subsets: ["latin"],
 });
 export const metadata: Metadata = {
-  title: "Zlaam.dev",
+  title: "Zlaam.dev-Home",
   description: "A simple blog app created by zlaam",
 };
 
