@@ -11,7 +11,6 @@ export default asyncHandler(async function loginUser(
   next: NextFunction
 ) {
   const { email, password } = req.body;
-  console.log(email, password);
   if (!email || !password) {
     return res.status(409).json(ApiResponse(409, "All fields are requireds."));
   }
