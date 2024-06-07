@@ -34,7 +34,7 @@ function UpdateForm({
       username: updateUsername,
       fullName: updateFullName,
       email: updateEmail,
-      role: updateRole,
+      role: updateRole.toLowerCase(),
     };
 
     // Validate the form data
@@ -134,7 +134,7 @@ function UpdateForm({
               Role
             </Label>
             <Input
-              value={updateRole}
+              value={updateRole.toLowerCase()}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 setUpdateRole(e.target.value);
               }}
