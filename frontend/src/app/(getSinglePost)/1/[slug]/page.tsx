@@ -3,9 +3,12 @@ import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import { BACKEND_URI } from "@/config";
 import { useMessage } from "@/hooks/useMessage";
 import { BlogDataTypes } from "@/types";
-import {} from "react";
+import React from "react";
 import SinglePost from "./components/SinglePost";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+import parser from "html-react-parser";
+
 const fetchSinglePost = async (slug: string) => {
   try {
     const response = await fetch(`${BACKEND_URI}/blogs/getSingleBlog/${slug}`, {
@@ -15,7 +18,7 @@ const fetchSinglePost = async (slug: string) => {
       const data = await response.json();
       return data;
     } else {
-      throw new Error("Some thing went wrong");
+      throw new Error("Something went wrong");
     }
   } catch (error: any) {
     console.log(error);
@@ -25,13 +28,37 @@ const fetchSinglePost = async (slug: string) => {
   }
 };
 
+export async function generateMetadata({
+  params,
+}: {
+  params: SlugTypes;
+}): Promise<Metadata> {
+  const response = await fetch(
+    `${BACKEND_URI}/blogs/getSingleBlog/${params?.slug as string}`
+  );
+  const post = await response.json();
+  const { data: getDataFromSinglePost } = post;
+  const data: BlogDataTypes = getDataFromSinglePost;
+  return {
+    title: data.blogTitle,
+    description: (parser(data.blogDescription) as string) || "", // Ensure description is a string
+    openGraph: {
+      images: [
+        {
+          url: data.blogThumbnail,
+        },
+      ],
+    },
+  };
+}
+
 async function GetSinglePost({ params }: { params: SlugTypes }) {
   const { slug } = params;
   const { errorMessage } = useMessage();
   if (!slug) return redirect("/home");
   const getDataFromSinglePost = await fetchSinglePost(slug);
   if (!getDataFromSinglePost.success) {
-    errorMessage("Some thing went wrong while loading post!!.");
+    errorMessage("Something went wrong while loading post!!.");
     return redirect("/home");
   }
   const { data } = getDataFromSinglePost;

@@ -8,6 +8,7 @@ import ImgLoader from "@/_subComponents/imgLoader";
 import { PublicBLogTypes } from "@/types";
 import { useMessage } from "@/hooks/useMessage";
 import ScrollToTop from "../(getSinglePost)/1/[slug]/components/ScrollToTop";
+import { Metadata } from "next";
 async function AllPosts() {
   const { errorMessage } = useMessage();
   const getAllPosts: PublicBLogTypes = await FetchAllPost();
@@ -36,3 +37,6 @@ async function AllPosts() {
 }
 
 export default AllPosts;
+export const metadata: Metadata = {
+  title: "All Posts - ",
+};
