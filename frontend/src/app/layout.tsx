@@ -10,8 +10,11 @@ const arimo = Arimo({
   subsets: ["latin"],
 });
 export const metadata: Metadata = {
-  title: "Zlaam.dev-Home",
-  description: "A simple blog app created by zlaam",
+  title: {
+    default: "Zlaam.dev",
+    template: "%s | Zlaam.dev",
+  },
+  description: "The habit of reading is awesome.",
 };
 
 export default function RootLayout({
