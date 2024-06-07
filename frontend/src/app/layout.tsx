@@ -11,8 +11,8 @@ const arimo = Arimo({
 });
 export const metadata: Metadata = {
   title: {
-    default: "Zlaam.dev",
-    template: "%s | Zlaam.dev",
+    default: "zlaam.dev",
+    template: "%s  zlaam.dev",
   },
   description: "The habit of reading is awesome.",
 };
