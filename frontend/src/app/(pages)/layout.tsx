@@ -2,6 +2,7 @@ import {} from "react";
 
 import { ThemeToggler } from "@/theme/ThemeToggler";
 import Footer from "../components/footer/Footer";
+import { Metadata } from "next";
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
