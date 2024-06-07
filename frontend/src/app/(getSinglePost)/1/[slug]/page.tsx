@@ -1,20 +1,11 @@
 import { SlugTypes } from "@/app/(admin)/admin/blogs/updateBlog/[slug]/page";
 import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import { BACKEND_URI } from "@/config";
-import { useMessage } from "@/hooks/useMessage";
-import { BlogDataTypes, PublicBLogTypes } from "@/types";
-import React from "react";
-import SinglePost from "./components/SinglePost";
-import { redirect } from "next/navigation";
-import { Metadata } from "next";
+import { BlogDataTypes } from "@/types";
 import parser from "html-react-parser";
-import { fetchBlogs } from "@/app/helper/fetchAllBlogs/FetchAllBlogs";
-//generate Static params
-export async function generateStaticParams() {
-  const res: PublicBLogTypes = await fetchBlogs();
-  const posts = res.data.publicBlogsList;
-  return posts.map(({ blogSlug }) => blogSlug);
-}
+import { Metadata } from "next";
+import { redirect } from "next/navigation";
+import SinglePost from "./components/SinglePost";
 
 const fetchSinglePost = async (slug: string) => {
   try {
@@ -69,6 +60,7 @@ async function GetSinglePost({ params }: { params: SlugTypes }) {
   }
   const { data } = getDataFromSinglePost;
   const singlePostData: BlogDataTypes = data!;
+  if (!singlePostData) return redirect("/home");
   return (
     <>
       <PageWrapper className="md:max-w-[820px] px-4">
