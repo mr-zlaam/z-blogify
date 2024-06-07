@@ -37,11 +37,11 @@ export interface BlogDataTypes {
   updatedAt: string;
 }
 export interface BlogTypes {
-  success: boolean;
-  statusCode: number;
-  message: string;
-  optMessage: string | null;
-  data: BlogDataTypes[];
+  success?: boolean;
+  statusCode?: number;
+  message?: string;
+  optMessage?: string | null;
+  data?: BlogDataTypes[];
 }
 export interface PaginationTypes {
   currentPage: number;

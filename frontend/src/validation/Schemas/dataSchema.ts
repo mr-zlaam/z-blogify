@@ -85,8 +85,8 @@ export const updateSchema: ZodType<UserUpdateTypes> = object({
   }),
 });
 
-export const blogSchema: ZodType<BlogTypes> = object({
-  title: string().min(4, {
+export const blogSchema: ZodType = object({
+  title: string().min(2, {
     message: "title must contain atleast 4 characters",
   }),
   slug: string(),

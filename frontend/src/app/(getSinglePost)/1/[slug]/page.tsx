@@ -2,12 +2,19 @@ import { SlugTypes } from "@/app/(admin)/admin/blogs/updateBlog/[slug]/page";
 import PageWrapper from "@/app/components/PageWrapper/PageWrapper";
 import { BACKEND_URI } from "@/config";
 import { useMessage } from "@/hooks/useMessage";
-import { BlogDataTypes } from "@/types";
+import { BlogDataTypes, PublicBLogTypes } from "@/types";
 import React from "react";
 import SinglePost from "./components/SinglePost";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import parser from "html-react-parser";
+import { fetchBlogs } from "@/app/helper/fetchAllBlogs/FetchAllBlogs";
+//generate Static params
+export async function generateStaticParams() {
+  const res: PublicBLogTypes = await fetchBlogs();
+  const posts = res.data.publicBlogsList;
+  return posts.map(({ blogSlug }) => blogSlug);
+}
 
 const fetchSinglePost = async (slug: string) => {
   try {

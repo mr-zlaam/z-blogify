@@ -14,22 +14,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense, lazy } from "react";
 import Logo from "./components/logo";
+import { fetchBlogs } from "@/app/helper/fetchAllBlogs/FetchAllBlogs";
 const BlogRendererComponent = lazy(() => import("./components/BlogRenderer"));
-export const fetchBlogs = async () => {
-  try {
-    const response = await fetch(`${BACKEND_URI}/blogs/publicBlogs`, {
-      cache: "no-store",
-    });
-    const data = await response.json();
-    if (response.ok) {
-      return data;
-    } else {
-      throw new Error("Some thing went wrong while fetching the data");
-    }
-  } catch (error: any) {
-    return error;
-  }
-};
+
 async function Home() {
   const data: PublicBLogTypes = await fetchBlogs();
   const isAdmin = await CheckIfAdmin();

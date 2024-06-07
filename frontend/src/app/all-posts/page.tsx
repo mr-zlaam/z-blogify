@@ -3,7 +3,7 @@ import PageWrapper from "../components/PageWrapper/PageWrapper";
 import NavBar from "../components/NavBar/NavBar";
 import GoBack from "./components/GoBack/GoBack";
 import RenderAllPosts from "./components/RenderAllPosts/RenderAllPosts";
-import { fetchBlogs as FetchAllPost } from "../(pages)/home/page";
+import { fetchBlogs as FetchAllPost } from "@/app/helper/fetchAllBlogs/FetchAllBlogs";
 import ImgLoader from "@/_subComponents/imgLoader";
 import { PublicBLogTypes } from "@/types";
 import { useMessage } from "@/hooks/useMessage";
