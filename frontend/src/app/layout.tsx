@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={cn(arimo.className, "font-medium bg-background")}>
         <main>
           <Toaster />
-          <NextTopLoader showSpinner={false} color="#8d8dff" />
+          <NextTopLoader showSpinner={false} color="#8d8dff" height={4} crawl />
           <ThemeProvider
             disableTransitionOnChange
             attribute="class"
