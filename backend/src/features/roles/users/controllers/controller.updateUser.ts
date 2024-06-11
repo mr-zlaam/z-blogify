@@ -23,11 +23,14 @@ export default asyncHandler(async function updateUser(
     await UserModel.findOneAndUpdate(
       { _id: userId },
       {
-        username,
-        fullName,
-        email,
-        role,
-      }
+        $set: {
+          username,
+          fullName,
+          email,
+          role,
+        },
+      },
+      { new: true }
     ).select("-password");
   } catch (error: any) {
     console.log(error.message);
