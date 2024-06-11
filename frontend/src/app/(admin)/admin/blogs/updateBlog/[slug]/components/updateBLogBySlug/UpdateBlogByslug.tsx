@@ -101,7 +101,7 @@ function UpdateBlogBySlug({
       );
       if (responseFromUpdateBlog.status === 201) {
         successMessage("Blog Updated Successfully");
-        return router.push("/admin/blogs/privateBlogs");
+        return router.back();
       }
       return;
     } catch (error: any) {

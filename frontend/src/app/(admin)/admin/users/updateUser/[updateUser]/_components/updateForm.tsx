@@ -64,10 +64,8 @@ function UpdateForm({
       );
       if (response.status === 201) {
         successMessage(response.data.message || "user update successfully");
-        setTimeout(() => {
-          return router.push("/admin/users");
-        }, 3000);
-      }
+                return router.back();
+           }
     } catch (error: any) {
       console.log(error);
       console.log(error.response.data.message);
