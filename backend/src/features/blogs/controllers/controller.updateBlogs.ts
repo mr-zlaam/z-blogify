@@ -50,14 +50,17 @@ export default asyncHandler(async function updateBlog(
     updateThisBlog = await BlogModel.findOneAndUpdate(
       { blogSlug: slug },
       {
-        blogAuthor,
-        blogThumbnail,
-        blogThumbnailAuthor,
-        blogTitle,
-        blogSlug,
-        blogDescription,
-        isPublic: isPublicBool || false,
-      }
+        $set: {
+          blogAuthor,
+          blogThumbnail,
+          blogThumbnailAuthor,
+          blogTitle,
+          blogSlug,
+          blogDescription,
+          isPublic: isPublicBool || false,
+        },
+      },
+      { new: true }
     );
   } catch (error: any) {
     return next(
