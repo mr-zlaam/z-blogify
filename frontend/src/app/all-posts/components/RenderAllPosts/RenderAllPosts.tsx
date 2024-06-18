@@ -1,15 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { VERSION } from "@/constants";
 import { BlogDataTypes } from "@/types";
 import { Search } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
-import parser from "html-react-parser";
-import { VERSION } from "@/constants";
 function RenderAllPosts({ allPosts }: { allPosts: BlogDataTypes[] }) {
   const [searchItem, setSearchItem] = useState<string>("");
   const [filteredPosts, setFilteredPosts] = useState(allPosts);
