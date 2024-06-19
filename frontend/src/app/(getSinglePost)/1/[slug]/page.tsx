@@ -29,10 +29,15 @@ export async function generateMetadata({
 }: {
   params: SlugTypes;
 }): Promise<Metadata> {
-  const response = await fetch(
-    `${BACKEND_URI}/blogs/getSingleBlog/${params?.slug as string}`
-  );
-  const post = await response.json();
+  let post;
+  try {
+    const response = await fetch(
+      `${BACKEND_URI}/blogs/getSingleBlog/${params?.slug as string}`
+    );
+    post = await response.json();
+  } catch (error: any) {
+    console.log(error.message);
+  }
   const { data: getDataFromSinglePost } = post;
   const data: BlogDataTypes = getDataFromSinglePost;
   if (!data) return notFound();

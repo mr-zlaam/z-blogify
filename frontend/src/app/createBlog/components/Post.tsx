@@ -128,6 +128,18 @@ function CreatePosts({ token }: { token: string }) {
   const month = monthName;
   const year = new Date().getFullYear();
   const fullDate = `${date}- ${month}- ${year}`;
+  const handleCheck = () => {
+    if (
+      !title ||
+      !slug ||
+      !desc ||
+      !data.blogAuthor ||
+      !data.blogImageAuthor ||
+      !blogImage
+    ) {
+      return errorMessage("Please Provide all fields");
+    }
+  };
   return (
     <>
       <Button
@@ -239,7 +251,9 @@ function CreatePosts({ token }: { token: string }) {
           <Dialog>
             <div className=" w-full flex justify-end px-5 py-3">
               <DialogTrigger asChild className="">
-                <Button className="">Upload Blog</Button>
+                <Button className="" onClick={handleCheck}>
+                  Upload Blog
+                </Button>
               </DialogTrigger>
             </div>
             <DialogContent className="sm:max-w-md">
